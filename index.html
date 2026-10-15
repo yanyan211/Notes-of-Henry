@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Henry's Scented Nook</title>
+<title>Notes of Henry</title>
+<meta name="description" content="装下Henry的万千宇宙 · Scents, Sounds, Stories">
+<meta property="og:title" content="Notes of Henry">
+<meta property="og:description" content="装下Henry的万千宇宙 · Scents, Sounds, Stories">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
@@ -14,6 +17,8 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .top{position:fixed;left:28px;top:calc(22px + env(safe-area-inset-top,0px));pointer-events:none}
 .top h1{margin:0;font-size:15px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
 .top p{margin:6px 0 0;font-size:12px;color:var(--mute);letter-spacing:.08em}
+.top p.en{margin-top:5px;font-size:10px;letter-spacing:.24em;text-transform:uppercase}
+.top p.en+p{margin-top:3px}
 .hint{position:fixed;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));text-align:center;font-size:11px;letter-spacing:.08em;color:var(--mute);pointer-events:none;padding:0 16px}
 #tip{position:fixed;pointer-events:none;padding:6px 12px;font-size:12px;letter-spacing:.06em;background:rgba(255,255,255,.92);border-radius:999px;box-shadow:0 4px 18px rgba(60,50,40,.12);opacity:0;transition:opacity .15s;transform:translate(14px,14px)}
 #panel{position:fixed;right:28px;top:50%;width:min(340px,86vw);padding:28px;border-radius:20px;background:rgba(255,255,255,.94);box-shadow:0 20px 60px rgba(60,50,40,.16);transform:translate(24px,-50%);opacity:0;pointer-events:none;transition:.35s}
@@ -105,17 +110,38 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .typeBox.on{opacity:1}
 .typeBox .cur{display:inline-block;width:2px;height:1.1em;margin-left:3px;vertical-align:-.18em;background:var(--ink);animation:lpblink 1s steps(1) infinite}
 @keyframes lpblink{50%{opacity:0}}
+#certw{position:fixed;inset:0;z-index:21;visibility:hidden;opacity:0;touch-action:none;overflow:hidden;user-select:none;-webkit-user-select:none}
+#certw .cbg{position:absolute;inset:0;--a:0;--b:0px;background:rgba(243,241,238,var(--a));backdrop-filter:blur(var(--b));-webkit-backdrop-filter:blur(var(--b))}
+#certw .cwheel{position:absolute;left:50%;top:55%;width:0;height:0}
+#certw .ccard{position:absolute;left:0;top:0;width:var(--CW);height:calc(var(--CW)/1.42);border-radius:calc(var(--CW)*.012);overflow:hidden;background:#eee;box-shadow:0 26px 30px -16px rgba(30,30,40,.42),0 8px 16px -6px rgba(30,30,40,.14);will-change:transform;cursor:pointer}
+#certw .ccard img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+#certw .ctitle{position:absolute;right:4vw;top:calc(7vh + env(safe-area-inset-top,0px));margin:0;font-family:"Rozha One","Abril Fatface",Georgia,serif;font-weight:400;font-size:12vw;line-height:1;letter-spacing:.015em;color:#0d0d0d;white-space:nowrap}
+#certw .chint{position:absolute;left:50%;bottom:calc(5vh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(92vw,760px);text-align:center;font-family:"ZCOOL KuaiLe","PingFang SC",sans-serif;font-size:clamp(13px,1.3vw,16px);letter-spacing:.06em;color:#59544e;pointer-events:none;z-index:300}
+#czoom{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;background:rgba(243,241,238,.96);cursor:zoom-out;padding:3vmin;box-sizing:border-box}
+#czoom.on{display:flex}
+#czoom img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 30px 70px rgba(30,30,40,.35)}
+#tcard{position:fixed;right:34vw;top:50%; /* 照片的右边缘离奖杯只隔一小段（奖杯在画面右边约 3/4 的位置） */transform:translateY(-46%) scale(.9);padding:10px;border-radius:18px;background:#fff;box-shadow:0 26px 60px rgba(60,50,40,.22),0 6px 16px rgba(60,50,40,.1);opacity:0;pointer-events:none;transition:opacity .45s,transform .55s cubic-bezier(.2,1.3,.4,1);z-index:13}
+#tcard.on{opacity:1;transform:translateY(-50%) scale(1)}
+#tcard.sm img{max-width:min(24vw,310px);max-height:54vh} /* 第二张照片分辨率低，弹窗小一点 */
+#tcard img{display:block;max-width:min(44vw,640px);max-height:74vh;border-radius:10px}
+@media(max-width:640px){#tcard{right:auto;left:50%;top:auto;bottom:calc(4vh + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px) scale(.92);padding:8px;border-radius:14px}#tcard.on{transform:translate(-50%,0) scale(1)}#tcard img{max-width:86vw;max-height:38vh}#tcard.sm img{max-width:46vw;max-height:30vh}}
+#frp{position:fixed;left:0;top:0;width:min(320px,84vw);padding-left:6px;visibility:hidden;opacity:0;z-index:15}
+#frp .mbtn{flex:none;width:32px;height:32px;border:0;border-radius:50%;background:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+#frp .mbtn svg{width:14px;height:14px;fill:#fff}
+#frp .ferr{display:none;font-size:12px;color:var(--mute);white-space:nowrap}
+#frp.err .abar{display:none}#frp.err .ferr{display:block}
 </style>
 <script>/* 载入出错时把原因显示出来，不再是一片空白 */addEventListener('error',function(e){var b=document.getElementById('boot');if(b){b.textContent='载入出错了：'+(e.message||'资源没加载成功')+' · 刷新试试';b.style.opacity=1}},true);</script>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div class="top"><h1>Henry's Scented Nook</h1><p>私人创作空间 · 香气收藏室</p></div>
+<div class="top"><h1>Notes of Henry</h1><p class="en">Scents · Sounds · Stories</p><p>装下Henry的万千宇宙</p></div>
 <div class="mkm" id="mkm"><div class="mkc" id="mkCrop"><h3>选一块正方形</h3><p>拖动照片调整位置，滑动条或双指缩放</p><div class="cropbox" id="cropBox"><img id="cropImg" alt=""></div><div class="mkz">缩放<input type="range" id="cropZ" min="1" max="4" step="0.01" value="1"></div><div class="mkb"><button id="cropNo">取消</button><button class="go" id="cropOk">做成拍立得</button></div></div><div class="mkc" id="mkText"><h3>写一张便利贴</h3><p>写点想说的，会贴到毛毡板上</p><textarea id="noteTa" maxlength="60" placeholder="写点什么吧～"></textarea><div class="mkn" id="noteN">0 / 60</div><div class="mkcol" id="noteCol"></div><div class="mkb"><button id="txtNo">取消</button><button class="go" id="txtOk" disabled>贴上去</button></div></div></div><input type="file" id="mkFile" accept="image/*" hidden>
 <div id="boot" aria-live="polite">正在布置房间…</div>
 <div class="hint">拖动旋转 · 滚轮/双指缩放 · Ctrl+左键拖动/双指拖动平移 · 点击物件</div>
 <div id="tip"></div>
 <div id="songs"></div>
+<div id="certw"></div><div id="czoom"><img alt=""></div>
 <button id="ipbtn" aria-label="play"></button>
 <aside id="pcard" aria-live="polite"><button class="px" id="pcX" aria-label="关闭">×</button><div class="pimg"><img id="pcImg" alt=""></div><small id="pcBrand"></small><h2 id="pcName"></h2><div class="pnotes" id="pcNotes"></div><p id="pcNote"></p><div class="pnav"><button id="pcPrev">上一瓶</button><button id="pcNext">下一瓶</button></div></aside>
 <aside id="panel"><small id="pTag"></small><h2 id="pTitle"></h2><p id="pText"></p><div class="ph">二级页面占位：完整内容稍后补充</div><button id="pBack">返回房间</button></aside>
@@ -513,14 +539,63 @@ function resetPol(){gsap.killTweensOf(FL);FL.t=0;if(FL.s){const g=FL.s.g,u=g.use
 const ad=(par,geo,m,x=0,y=0,z=0,rx=0,ry=0,rz=0)=>{const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.castShadow=o.receiveShadow=true;par.add(o);return o};
 const gB=(w,h,d)=>new THREE.BoxGeometry(w,h,d),gC=(r,h,s=24,open=false)=>new THREE.CylinderGeometry(r,r,h,s,1,open);
 
-/* ========= 相机：放在海豹右边（复古便携式小相机，黑皮 + 银色顶盖 + 镜头） ========= */
-{const g=new THREE.Group(),sil=M(0xd9d4cb,.35,.5),blk=M(0x2b2a29,.8),dk=M(0x1b1b1d,.4,.2);
- ad(g,gB(.13,.042,.05),blk,0,.021,0);ad(g,gB(.13,.036,.05),sil,0,.06,0);
- ad(g,gC(.026,.035,32),dk,0,.045,.04,Math.PI/2);ad(g,gC(.03,.012,32),sil,0,.045,.052,Math.PI/2);
- ad(g,new THREE.SphereGeometry(.02,24,16),new THREE.MeshStandardMaterial({color:0x1e2a3a,roughness:.1,metalness:.6}),0,.045,.056).scale.z=.35;
- ad(g,gB(.022,.014,.01),dk,-.045,.082,.02);ad(g,gB(.016,.012,.012),dk,.035,.082,.02);
- ad(g,gC(.009,.008,16),M(0xb9372f,.5),.048,.082,-.005);ad(g,gC(.01,.006,16),sil,-.05,.082,-.012);
- g.position.set(.8,1.5825,.2);g.rotation.y=-.3;g.scale.setScalar(1.45);scene.add(g)}
+/* ========= 相机：放在海豹右边——照你那台相机做的复古微单（原创造型，不带品牌字样和型号）：
+   银色金属顶盖 + 中间凸起的取景器 + 左右两组带滚花的拨盘 + 黑色皮纹机身 + 墨绿色皮质半套（白色缝线）
+   + 黑色定焦镜头和圆形遮光罩（盖着普通的黑色镜头盖）+ 热靴上插着亮黄色的 TAXI 小装饰 ========= */
+{const g=new THREE.Group(),W=.118,D=.041,LY=.038,STICKER_IMG="images/cap-sticker.png"; /* 镜头盖贴纸：从你的照片里抠出来的圆形贴纸 */
+ const RR=(w,h,r)=>{const s=new THREE.Shape(),x=-w/2,y=-h/2;r=Math.min(r,w/2,h/2);s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s};
+ const rb=(w,h,d,b)=>{const q=new THREE.ExtrudeGeometry(RR(w-2*b,h-2*b,b*.6),{depth:Math.max(.0005,d-2*b),bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:3,curveSegments:6});q.translate(0,0,-Math.max(.0005,d-2*b)/2);return q};
+ /* 中性的「摄影棚」反射图：银色金属才会有亮面和暗面 */
+ const env=(()=>{const mk=f=>{const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+   if(f===2){x.fillStyle='#f6f6f4';x.fillRect(0,0,128,128)}else if(f===3){x.fillStyle='#3a3a3d';x.fillRect(0,0,128,128)}
+   else{const gr=x.createLinearGradient(0,0,0,128);gr.addColorStop(0,'#f4f4f2');gr.addColorStop(.5,'#a9a9ad');gr.addColorStop(1,'#46464b');x.fillStyle=gr;x.fillRect(0,0,128,128);
+    if(f<2||f===4){x.fillStyle='rgba(255,255,255,.95)';x.fillRect(f===4?38:24,12,26,74);x.fillStyle='rgba(235,240,255,.7)';x.fillRect(f===4?86:80,24,10,50)}}return c};
+  const t=new THREE.CubeTexture([mk(0),mk(1),mk(2),mk(3),mk(4),mk(5)]);t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;return t})();
+ const silver=new THREE.MeshStandardMaterial({color:0xd6d6d9,metalness:.72,roughness:.3,envMap:env,envMapIntensity:1});
+ const knurl=new THREE.MeshStandardMaterial({color:0xcfcfd3,metalness:.75,roughness:.35,envMap:env,flatShading:true});
+ const chrome=new THREE.MeshStandardMaterial({color:0xe9e9ec,metalness:.85,roughness:.18,envMap:env});
+ const grain=tex(256,256,(c,w,h)=>{c.fillStyle='#808080';c.fillRect(0,0,w,h);for(let i=0;i<4200;i++){c.fillStyle=Math.random()<.5?'rgba(255,255,255,.16)':'rgba(0,0,0,.16)';c.beginPath();c.arc(Math.random()*w,Math.random()*h,.6+Math.random()*1.6,0,6.3);c.fill()}});grain.encoding=THREE.LinearEncoding;grain.wrapS=grain.wrapT=THREE.RepeatWrapping;
+ const leather=new THREE.MeshStandardMaterial({color:0x1e1e20,roughness:.72,bumpMap:grain,bumpScale:.0009});
+ const caseM=new THREE.MeshStandardMaterial({color:0x3b4734,roughness:.7,bumpMap:grain,bumpScale:.0008}); /* 墨绿色皮质半套 */
+ const blackM=new THREE.MeshStandardMaterial({color:0x151517,roughness:.55,metalness:.15,envMap:env,envMapIntensity:.35});
+ const rubber=new THREE.MeshStandardMaterial({color:0x121214,roughness:.85,flatShading:true});
+ /* 机身：下半黑色皮纹 + 上半银色顶盖 + 中间梯形的取景器凸起 */
+ ad(g,rb(W,.05,D,.004),leather,0,.025,0);ad(g,rb(W,.026,D,.004),silver,0,.063,0);
+ {const s=new THREE.Shape();s.moveTo(-.027,0);s.lineTo(.027,0);s.lineTo(.017,.022);s.lineTo(-.017,.022);s.closePath();
+  const q=new THREE.ExtrudeGeometry(s,{depth:D-.006,bevelEnabled:true,bevelThickness:.002,bevelSize:.0015,bevelSegments:2});q.translate(0,0,-(D-.006)/2);ad(g,q,silver,0,.075,0)}
+ /* 热靴 + 黄色 TAXI 小装饰 */
+ ad(g,gB(.022,.002,.02),chrome,0,.0985,0);
+ ad(g,rb(.026,.013,.019,.003),new THREE.MeshStandardMaterial({color:0xffd000,roughness:.38,emissive:0x5a4200,emissiveIntensity:.35}),0,.1065,0); /* 更饱和的亮黄色 */
+ {const tt=tex(256,128,(c,w,h)=>{c.clearRect(0,0,w,h);c.fillStyle='#141414';c.font='bold 92px "Arial Black","Helvetica Neue",Arial,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('TAXI',w/2,h/2+4)});
+  [1,-1].forEach(k=>{const p=new THREE.Mesh(new THREE.PlaneGeometry(.021,.0105),new THREE.MeshStandardMaterial({map:tt,transparent:true,roughness:.5}));p.position.set(0,.1065,k*.0098);p.rotation.y=k>0?0:Math.PI;g.add(p)})}
+ /* 顶部拨盘：左边上下叠两层，右边一个快门速度盘 + 一个曝光补偿盘 + 快门键 */
+ const dial=(x,z,r,h,y)=>{ad(g,new THREE.CylinderGeometry(r,r,h,40),knurl,x,y+h/2,z);ad(g,gC(r*.82,.0008,32),chrome,x,y+h+.0004,z)};
+ dial(-.038,0,.0122,.006,.076);dial(-.038,0,.0102,.006,.082);dial(.031,0,.0128,.008,.076);dial(.051,-.004,.0092,.007,.076);
+ ad(g,gC(.0042,.003,24),chrome,.043,.0775,.014);ad(g,new THREE.TorusGeometry(.006,.0012,8,24),chrome,.043,.077,.014,Math.PI/2);
+ /* 正面：左上的横向拨轮、小指示灯、两侧背带扣 */
+ ad(g,new THREE.CylinderGeometry(.0042,.0042,.015,28),knurl,-.036,.064,D/2+.001,0,0,Math.PI/2);ad(g,gC(.0022,.001,16),M(0x2a2420,.3),-.016,.064,D/2+.0006,Math.PI/2);
+ [-1,1].forEach(k=>ad(g,new THREE.TorusGeometry(.0034,.0011,8,16),chrome,k*(W/2+.0015),.067,0,0,Math.PI/2,0));
+ /* 背面：取景器眼罩 + 屏幕 */
+ ad(g,rb(.024,.017,.008,.003),rubber,0,.086,-D/2-.003);
+ {const sc=new THREE.Mesh(new THREE.PlaneGeometry(.074,.05),new THREE.MeshStandardMaterial({color:0x0c0d10,roughness:.15,metalness:.3,envMap:env,envMapIntensity:.5}));sc.position.set(-.01,.036,-D/2-.0006);sc.rotation.y=Math.PI;g.add(sc)}
+ /* 墨绿色皮质半套：包住机身下半截，正面上沿一排白色缝线 */
+ ad(g,rb(W+.005,.025,D+.005,.005),caseM,0,.0125,0); /* 底面贴着柜子，不往下穿 */
+ for(let i=0;i<20;i++){const x=-W/2+.008+i*(W-.016)/19;if(Math.abs(x)<.034)continue;ad(g,gB(.0032,.0006,.0006),M(0xece6d6,.8),x,.0225,D/2+.0028)}
+ /* 镜头：卡口银圈 + 黑色镜身 + 有横纹的对焦环 + 圆形遮光罩 + 镜头盖 */
+ const zf=D/2;ad(g,new THREE.TorusGeometry(.0275,.002,10,40),chrome,0,LY,zf+.001);
+ ad(g,new THREE.CylinderGeometry(.0305,.0305,.046,48),blackM,0,LY,zf+.023,Math.PI/2);
+ ad(g,new THREE.CylinderGeometry(.0315,.0315,.02,72),rubber,0,LY,zf+.03,Math.PI/2);
+ ad(g,new THREE.SphereGeometry(.0012,8,6),M(0xf2f2f2,.4),0,LY+.0306,zf+.012);
+ {const hd=new THREE.LatheGeometry([[.0312,0],[.0326,.004],[.0352,.03],[.0346,.0315]].map(p=>new THREE.Vector2(p[0],p[1])),48);hd.rotateX(Math.PI/2);
+  const m=new THREE.MeshStandardMaterial({color:0x101012,roughness:.8,side:THREE.DoubleSide});const o=new THREE.Mesh(hd,m);o.position.set(0,LY,zf+.046);o.castShadow=true;g.add(o)}
+ /* 黑色镜头盖：盖在遮光罩口上，外圈一道细边，两侧有按压的小卡扣，中间一圈略微凸起的磨砂面，正中贴着你照片里的那张圆形贴纸 */
+ const zc=zf+.046+.0315;ad(g,gC(.0356,.005,48),blackM,0,LY,zc+.0025,Math.PI/2);ad(g,new THREE.TorusGeometry(.0356,.0014,8,48),blackM,0,LY,zc+.0045);
+ [-1,1].forEach(k=>ad(g,gB(.006,.004,.003),blackM,k*.0352,LY,zc+.004));
+ ad(g,gC(.026,.0012,48),new THREE.MeshStandardMaterial({color:0x18181a,roughness:.85}),0,LY,zc+.0056,Math.PI/2);
+ ad(g,new THREE.RingGeometry(.0262,.0268,64),new THREE.MeshStandardMaterial({color:0x2a2a2d,roughness:.5}),0,LY,zc+.0051);
+ {const t=new THREE.TextureLoader().load(STICKER_IMG);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;const sp=new THREE.Mesh(new THREE.CircleGeometry(.0225,48),new THREE.MeshStandardMaterial({map:t,transparent:true,roughness:.35}));sp.position.set(0,LY,zc+.0064);g.add(sp)} /* 贴在镜头盖正中 */
+ g.traverse(o=>{if(o.isMesh)o.castShadow=true});
+ g.position.set(.8,1.5825,.2);g.rotation.y=-.3;g.scale.setScalar(1.3);scene.add(g)}
 
 /* ========= 转角坐榻：夹在杂物柜和化妆柜之间的墙角，L 形——一条贴主墙（z=0），一条贴侧墙（x=2.35）；原木底座 + 米色坐垫（没有靠背，也没有靠垫） ========= */
 {const g=new THREE.Group(),fab=M(0xe3d8c5,1),bk=M(0xd9cdb8,1);scene.add(g);
@@ -609,7 +684,7 @@ function bottle(kind,col,cap,s){const g=new THREE.Group(),glass=col===0xdfe6ea;
  g.scale.setScalar(s);return g}
 
 /* ========= 杂物柜：日常家用小物（编织篮、布艺收纳盒、毛巾、书、抽纸、马克杯、绿植、闹钟、台灯、相框、储物罐、玻璃罐、干花瓶）——细节完善版 ========= */
-{const Y=[.03,.5475,1.065];
+{const Y=[.03,.5475,1.065];const FRAME_IMG="images/frame-photo.jpg"; /* 相框里的照片 */
  const put=(g,x,y,z,ry=0)=>{g.position.set(x,y,z);g.rotation.y=ry;scene.add(g);return g};
  const LA=(pts,seg=32)=>new THREE.LatheGeometry(pts.map(p=>new THREE.Vector2(p[0],p[1])),seg);
  const sh=(c,d)=>new THREE.Color(c).offsetHSL(0,0,d);
@@ -695,14 +770,14 @@ function bottle(kind,col,cap,s){const g=new THREE.Group(),glass=col===0xdfe6ea;
   [.216,.286].forEach((y,i)=>ad(g,new THREE.TorusGeometry(i?.041:.0705,.0018,6,40),M(0xd9c8a6,.9),0,y,0,Math.PI/2));
   ad(g,new THREE.SphereGeometry(.018,16,12),new THREE.MeshStandardMaterial({color:0xfff6e0,emissive:0xffe6b0,emissiveIntensity:.9,roughness:.3}),0,.24,0).scale.y=1.2;
   ad(g,new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(0,.01,-.05),new THREE.Vector3(.02,.003,-.1),new THREE.Vector3(.07,.003,-.13),new THREE.Vector3(.12,.003,-.16)]),20,.0022,6),M(0xf3efe7,.6));return g};
- /* 相框：两层木框线 + 白色卡纸 + 照片 + 一层薄玻璃 + 背后的支架 */
- const frame=()=>{const g=new THREE.Group(),f=new THREE.Group();f.position.y=.095;f.rotation.x=-.12;g.add(f);const wd=M(0xd9b48a,.6),wd2=M(0xc89f72,.6);
-  [[.15,.018,0,.086],[.15,.018,0,-.086],[.018,.19,.066,0],[.018,.19,-.066,0]].forEach(q=>{ad(f,gB(q[0],q[1],.014),wd,q[2],q[3],0);ad(f,gB(q[0]===.15?.13:.006,q[0]===.15?.006:.17,.006),wd2,q[2]*.85,q[3]*.84,.007)});
-  ad(f,gB(.12,.16,.004),M(0xfaf8f3,.9),0,0,.002);
-  const t=tex(128,160,(x,w,h)=>{const gd=x.createLinearGradient(0,0,w,h);gd.addColorStop(0,'#e8c9a8');gd.addColorStop(1,'#a9b9c9');x.fillStyle=gd;x.fillRect(0,0,w,h);x.fillStyle='rgba(255,255,255,.4)';x.beginPath();x.arc(88,50,16,0,6.28);x.fill();x.beginPath();x.moveTo(0,120);x.lineTo(50,80);x.lineTo(90,112);x.lineTo(128,84);x.lineTo(128,160);x.lineTo(0,160);x.fill()});
-  ad(f,new THREE.PlaneGeometry(.09,.122),new THREE.MeshStandardMaterial({map:t,roughness:.6}),0,.004,.0042);
-  const gp=ad(f,new THREE.PlaneGeometry(.12,.16),new THREE.MeshStandardMaterial({color:0xffffff,transparent:true,opacity:.1,roughness:.05,metalness:.2,depthWrite:false}),0,0,.0065);gp.castShadow=false;
-  ad(f,gB(.13,.17,.003),M(0xb9a07a,.9),0,0,-.007);ad(g,gB(.022,.16,.004),M(0xb9a07a,.9),0,.08,-.05,.38);return g};
+ /* 相框：方形的原木相框（18×18cm）：两层木框线 + 白色卡纸 + 你的照片 + 一层薄玻璃 + 背后的支架；点击后推近，相框飘到画面正中，下面出现播放键和进度条 */
+ const frame=()=>{const g=new THREE.Group(),f=new THREE.Group(),S=.18,bw=.018;f.position.y=.095;f.rotation.x=-.12;g.add(f);const wd=M(0xd9b48a,.6),wd2=M(0xc89f72,.6);
+  [[S,bw,0,S/2-bw/2],[S,bw,0,-(S/2-bw/2)],[bw,S,S/2-bw/2,0],[bw,S,-(S/2-bw/2),0]].forEach(q=>{ad(f,gB(q[0],q[1],.014),wd,q[2],q[3],0);ad(f,gB(q[0]===S?S-2*bw:.006,q[0]===S?.006:S-2*bw,.006),wd2,q[2]*.8,q[3]*.8,.007)});
+  ad(f,gB(S-2*bw,S-2*bw,.004),M(0xfaf8f3,.9),0,0,.002);
+  const ph=new THREE.TextureLoader().load(FRAME_IMG);ph.encoding=THREE.sRGBEncoding;ph.anisotropy=8;
+  ad(f,new THREE.PlaneGeometry(.118,.118),new THREE.MeshStandardMaterial({map:ph,roughness:.6}),0,0,.0042).castShadow=false;
+  const gp=ad(f,new THREE.PlaneGeometry(S-2*bw,S-2*bw),new THREE.MeshStandardMaterial({color:0xffffff,transparent:true,opacity:.1,roughness:.05,metalness:.2,depthWrite:false}),0,0,.0065);gp.castShadow=false;
+  ad(f,gB(S-2*bw+.004,S-2*bw+.004,.003),M(0xb9a07a,.9),0,0,-.007);ad(g,gB(.022,.16,.004),M(0xb9a07a,.9),0,.08,-.05,.38);return g};
  /* 储物罐：陶瓷罐身（转角圆润）+ 木盖 + 小把手 + 一圈麻绳和小吊牌 */
  const canisters=()=>{const g=new THREE.Group(),wl=M(0xb9a07a,.6),rope=M(0xcbb38a,1);
   [[.05,.16,0xe9e1d3],[.045,.12,0xcdd8c8],[.04,.09,0xe0c9b8]].forEach((q,i)=>{const r=q[0],h=q[1],x=i*.11,cm=new THREE.MeshStandardMaterial({color:q[2],roughness:.45,bumpMap:noiseT(),bumpScale:.0006});
@@ -728,13 +803,67 @@ function bottle(kind,col,cap,s){const g=new THREE.Group(),glass=col===0xdfe6ea;
   [-.05,.03,.06].forEach((x,i)=>{const tp=[x,.33+i*.012,-.006];rod(g,[0,.16,0],tp,.0012,M(0xc8b48a,1),4);for(let k=0;k<6;k++){const t=k/6,p=ad(g,new THREE.SphereGeometry(.004,8,6),M(0xd8c79e,1),tp[0]*(.8+t*.2),tp[1]-.04+t*.04,tp[2]);p.scale.set(.6,1.6,.6)}});
   [[-.03,.24,.6],[.035,.25,-.7]].forEach(q=>{const l=ad(g,new THREE.SphereGeometry(.012,10,6),M(0x9aa983,.9),q[0],q[1],0);l.scale.set(.35,1.3,.12);l.rotation.z=q[2]});return g};
 
+
+ /* 一叠红色荣誉证书：5 本红色硬皮证书摞在一起（每本约 21×30cm 的竖版、厚 1.7cm），皮革颗粒 + 最上面一本烫金「荣誉证书」；点击后镜头推近，证书展开成圆轮 */
+ const certStack=(x,y,z)=>{const g=new THREE.Group(),N=5,TH=.017,reds=[0x9a1f2c,0xa52330,0x8f1b28,0xa02130,0x951d2a];
+  const ln=tex(256,256,(c,w,h)=>{c.fillStyle='#808080';c.fillRect(0,0,w,h);for(let i=0;i<5200;i++){c.fillStyle=Math.random()<.5?'rgba(255,255,255,.14)':'rgba(0,0,0,.14)';c.fillRect(Math.random()*w,Math.random()*h,1.6,1.6)}});ln.wrapS=ln.wrapT=THREE.RepeatWrapping;ln.repeat.set(3,2);ln.encoding=THREE.LinearEncoding; /* 皮革的细小颗粒 */
+  const gold=tex(512,768,(c,w,h)=>{const gr=c.createLinearGradient(0,0,w,h);gr.addColorStop(0,'#f7e29a');gr.addColorStop(.45,'#d2a03e');gr.addColorStop(.7,'#f3d982');gr.addColorStop(1,'#b98428');
+   c.strokeStyle=gr;c.lineWidth=5;c.strokeRect(30,30,w-60,h-60);c.lineWidth=2;c.strokeRect(46,46,w-92,h-92);
+   c.fillStyle=gr;c.font='bold 90px "Songti SC","STSong","Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC","SimSun",serif';c.textAlign='center';c.textBaseline='middle';
+   [...'荣誉证书'].forEach((ch,i)=>c.fillText(ch,w/2+(i-1.5)*112,h*.27)); /* 一排四个字，和真的红皮证书一样 */
+   c.beginPath();c.arc(w/2,h*.56,74,0,6.3);c.lineWidth=4;c.strokeStyle=gr;c.stroke();c.beginPath(); /* 中间一个简单的金色五角星徽记（原创图形） */
+   for(let k=0;k<10;k++){const ang=-Math.PI/2+k*Math.PI/5,r=k%2?30:62;c.lineTo(w/2+Math.cos(ang)*r,h*.56+Math.sin(ang)*r)}c.closePath();c.fill();
+   c.font='24px "Times New Roman",Georgia,serif';c.fillText('CERTIFICATE OF HONOR',w/2,h-96)});
+  for(let i=0;i<N;i++){const fg=new THREE.Group(),geo=rbox(.21,.3,TH,.0035);geo.rotateX(-Math.PI/2); /* 竖版证书：宽 21cm、长 30cm，长边朝向柜子里面 */
+   const o=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:reds[i],roughness:.55,bumpMap:ln,bumpScale:.0016}));o.castShadow=o.receiveShadow=true;fg.add(o);
+   if(i===N-1){const p=new THREE.Mesh(new THREE.PlaneGeometry(.176,.264),new THREE.MeshStandardMaterial({map:gold,transparent:true,roughness:.3,metalness:.35}));p.rotation.x=-Math.PI/2;p.position.y=TH/2+.0005;p.castShadow=false;fg.add(p)}
+   fg.position.set(Math.sin(i*5)*.003,TH/2+i*(TH+.0003),(i%3-1)*.003);fg.rotation.y=Math.sin(i*3.1)*.025;g.add(fg)}
+  g.position.set(x,y,z);g.rotation.y=.03;INFO.certs=['荣誉证书','Certificates'];reg(g,'certs',.8,1.25);return g};
+ /* ——— 两个奖杯（按你给的照片做的）：① 金色圆环奖杯（粗圆环 + 外圈一道道横纹，整体都是金色，细颈、圆形底座）② 金色复古话筒奖杯（偏长方形的横纹话筒头 + 细杆 + 喇叭形杆座 + 黑色底座和金色铭牌）。
+   金色用一张自己画的「摄影棚」环境图做反射，这样才会有金属的光泽 ——— */
+ const goldEnv=(()=>{const mk=f=>{const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+   if(f===2){x.fillStyle='#fff7e8';x.fillRect(0,0,128,128)}else if(f===3){x.fillStyle='#5a4020';x.fillRect(0,0,128,128)}
+   else{const g=x.createLinearGradient(0,0,0,128);g.addColorStop(0,'#fff3d6');g.addColorStop(.45,'#d9b57a');g.addColorStop(.75,'#8a6a3a');g.addColorStop(1,'#4a3419');x.fillStyle=g;x.fillRect(0,0,128,128);
+    if(f<2||f===4){x.fillStyle='rgba(255,255,255,.9)';x.fillRect(f===4?40:26,14,24,70);x.fillStyle='rgba(255,236,190,.7)';x.fillRect(f===4?84:78,24,10,52)}} /* 几块软光箱 */
+   return c};
+  const t=new THREE.CubeTexture([mk(0),mk(1),mk(2),mk(3),mk(4),mk(5)]);t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;return t})();
+ const goldM=()=>new THREE.MeshStandardMaterial({color:0xf2c35c,metalness:.9,roughness:.24,envMap:goldEnv,envMapIntensity:1.2});
+ const blackM=()=>new THREE.MeshStandardMaterial({color:0x121215,metalness:.35,roughness:.22,envMap:goldEnv,envMapIntensity:.55});
+ const trophyRing=()=>{const g=new THREE.Group(),gm=goldM();
+  /* 底座：两层圆台 + 一圈压边 */
+  ad(g,LA([[0,0],[.043,0],[.0455,.004],[.0455,.011],[.04,.016],[.036,.019],[.036,.025],[.031,.03],[0,.03]],48),gm);
+  /* 细颈（中间一个小环） */
+  ad(g,LA([[.0165,.03],[.0135,.05],[.012,.09],[.0125,.125],[.015,.15],[.0128,.164]],28),gm);ad(g,new THREE.TorusGeometry(.0165,.0042,10,28),gm,0,.093,0,Math.PI/2);
+  /* 圆环：外圈一道道横纹（7 条），整体都是金色 */
+  const rp=[[.037,-.0135],[.0405,-.016]];for(let k=0;k<=14;k++){const t=k/14;rp.push([.0625-(k%2?.0018:0),-.0125+t*.025])}rp.push([.0585,.016],[.0405,.016],[.037,.0135],[.037,-.0135]);
+  const ring=new THREE.Group();ad(ring,LA(rp,72),gm);
+  {const mi=goldM();mi.side=THREE.DoubleSide;ad(ring,LA([[.0362,-.0112],[.0362,.0112]],72),mi)} /* 圆环里面的内壁也是金色（双面） */
+  ring.rotation.x=Math.PI/2;ring.position.set(0,.2125,0);ring.rotation.z=0;g.add(ring);
+  g.traverse(o=>{if(o.isMesh)o.castShadow=true});return g};
+ const trophyMic=()=>{const g=new THREE.Group(),gm=goldM(),bm=blackM();
+  /* 黑色底座 + 正面金色铭牌（只画几行刻线，不写字） */
+  ad(g,gB(.07,.026,.05),bm,0,.013,0);
+  const plT=tex(256,64,(c,w,h)=>{const gr=c.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#e9c46a');gr.addColorStop(.5,'#fff0b0');gr.addColorStop(1,'#d2a33f');c.fillStyle=gr;c.fillRect(0,0,w,h);c.fillStyle='rgba(60,40,10,.55)';[[18,18,150],[18,32,200],[18,46,110]].forEach(q=>c.fillRect(q[0],q[1],q[2],4))});
+  const pl=new THREE.Mesh(new THREE.PlaneGeometry(.05,.0125),new THREE.MeshStandardMaterial({map:plT,roughness:.35,metalness:.4}));pl.position.set(0,.012,.0252);g.add(pl);
+  /* 喇叭形杆座 + 细杆 + 小环 */
+  ad(g,LA([[.026,.026],[.0245,.03],[.0195,.038],[.0145,.05],[.0105,.07],[.0085,.1],[.0085,.14],[.0108,.153],[.0095,.167]],36),gm); /* 杆比原来粗了约 45% */
+  ad(g,new THREE.TorusGeometry(.0115,.003,8,20),gm,0,.156,0,Math.PI/2);
+  /* 话筒头：偏长方形的圆角柱体（上下两头圆角、侧面笔直），表面一圈圈横向的凸纹（和照片里一样） */
+  const hp=[[.0012,.16],[.011,.1605],[.0205,.1635],[.0245,.169]];
+  for(let k=0;k<=42;k++){const t=k/42;hp.push([.0252+.0013*Math.cos(t*Math.PI*2*14),.172+t*.064])} /* 笔直的侧面 + 14 道横纹 */
+  hp.push([.0245,.2395],[.0205,.2445],[.011,.2475],[.0012,.2485]);
+  ad(g,LA(hp,40),gm);
+  g.traverse(o=>{if(o.isMesh)o.castShadow=true});return g};
  /* 第 1 层（最下）：篮子、带盖收纳盒（叠两个）、毛巾、小篮子 */
  put(basket(.1,.17,'#cdb48a'),.27,Y[0],.19);put(lidBox(.24,.16,.24,'#e0d6c4','#efe8da'),.56,Y[0],.19,.1);put(lidBox(.2,.12,.2,'#c8d4cc','#d9e3dc'),.56,Y[0]+.185,.19,-.12);
  put(towels(),.83,Y[0],.18,.05);put(basket(.075,.12,'#c9a77a'),.985,Y[0],.2);
  /* 第 2 层：一排书、抽纸、两只杯子、绿植 */
- put(books(),.15,Y[1],.19);put(tissue(),.52,Y[1],.2,.08);put(mug(0xc8d4cc),.71,Y[1],.15);put(mug(0xe0c9b8,1),.8,Y[1],.25,.6);put(plant(),1.0,Y[1],.2);
+ /* 第 2 层（柜子里面 x 从 0.13 到 1.07）：左边一叠红色荣誉证书，中间一排书和抽纸，右边（x≥.87，约 20cm 宽）放两个奖杯；原来的马克杯和绿植挪到了上面一层 */
+ certStack(.262,Y[1],.2);put(books(),.395,Y[1],.19);{const t=tissue();t.scale.setScalar(.8);put(t,.755,Y[1],.2,.08)}
+ {const A=put(trophyRing(),.925,Y[1],.2,.12),B=put(trophyMic(),1.02,Y[1],.26,-.15);INFO.trophy1=['奖杯','Trophy'];INFO.trophy2=['奖杯','Trophy'];reg(A,'trophy1',.8,1.3);reg(B,'trophy2',.8,1.3)} /* 可以点击：见下面的奖杯照片 */ /* 右边：两个奖杯（金色圆环、金色复古话筒） */
+ put(mug(0xc8d4cc),.95,1.5825,.13);put(mug(0xe0c9b8,1),1.01,1.5825,.28,.6);put(plant(),.58,1.5825,.2);
  /* 第 3 层：台灯、相框、三个储物罐、玻璃罐、花瓶 */
- put(lamp(),.22,Y[2],.19);put(frame(),.43,Y[2],.22);put(canisters(),.58,Y[2],.19);put(jar(0x8a5a34,.1),.93,Y[2],.19);put(vase(),1.02,Y[2],.2)}
+ put(lamp(),.22,Y[2],.19);{const F=put(frame(),.425,Y[2],.22);INFO.frame=['相框','Frame'];reg(F,'frame',.7,1.3)}put(canisters(),.58,Y[2],.19);put(jar(0x8a5a34,.1),.93,Y[2],.19);put(vase(),1.02,Y[2],.2)}
 
 /* ========= 化妆柜：靠在侧墙（x=2.35）上，宽 93cm、深 50cm（和大衣柜同厚）；从上到下：香水展示柜（12 瓶，点击后镜头推近、两扇玻璃门打开）→ 镜子 → 桌面（化妆品）→ 抽屉（拉出一截）；凳子收在桌下；原木色 ========= */
 const DP={open:false,l:null,r:null,light:null},PC={g:[],sel:null,hov:null};
@@ -900,11 +1029,43 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
  /* 上下两排挂衣杆（上排挂上衣，下排挂裤子）+ 下面一层层板 */
  [1.95,1.16].forEach(y=>[-.25,.25].forEach(x=>{const r=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.46,14),metal);r.rotation.z=Math.PI/2;r.position.set(x,y,.255);wd.add(r)}));
  [-.245,.245].forEach(x=>L(.47,.015,D-.06,sw,x,.2,D/2));
- /* 层板上叠放的折好的衣服（素色占位） */
- const gm=c=>new THREE.MeshStandardMaterial({color:c,roughness:1});
- const stack=(x,y,z,cols,w,d,h)=>cols.forEach((c,i)=>{const s=ad(wd,gB(w,h,d),gm(c),x+(i%2?.004:-.004),y+h/2+i*h,z,0,(i-1)*.04,0);s.receiveShadow=true});
- stack(-.37,.2075,.28,[0x4c6485,0x4c6485,0x4c6485],.2,.2,.07);stack(-.15,.2075,.28,[0x222224,0x222224,0x222224],.2,.2,.07);
- stack(.15,.2075,.28,[0x9fb4c9,0xeeeae2,0x6b3a3f],.2,.17,.04);ad(wd,gB(.2,.14,.24),gm(0xe0d6c4),.37,.2075+.07,.28);ad(wd,gB(.21,.02,.25),gm(0xefe8da),.37,.2075+.15,.28);
+ /* ——— 面料：每种面料一小块凹凸贴图（针织线圈 / 牛仔和帆布的斜纹 / 抓绒的绒毛 / 平纹棉布），铺满表面，让衣服有「布」的细腻起伏 ——— */
+ const FABB={},FAB={knit:{bs:.0036,rep:.024,fold:1},denim:{bs:.003,rep:.02,fold:.75},twill:{bs:.0026,rep:.02,fold:.85},fleece:{bs:.0046,rep:.03,fold:1.15},cotton:{bs:.0026,rep:.018,fold:1.3}};
+ /* 布料的「绒感」：在材质着色器里加一圈柔和的侧光（越接近侧面越亮，像棉布、抓绒在灯下的那层毛茸茸的光晕），面料不同强度不同 */
+ const SHEEN={knit:.34,fleece:.42,cotton:.26,denim:.18,twill:.2};
+ const clothify=(m,k)=>{m.onBeforeCompile=sh=>{sh.uniforms.uSheen={value:k};
+   const inj='{float fr=1.0-clamp(dot(normalize(normal),normalize(vViewPosition)),0.0,1.0);outgoingLight+=(diffuseColor.rgb*0.55+0.2)*pow(fr,2.2)*uSheen;}';
+   let f='uniform float uSheen;\n'+sh.fragmentShader;
+   if(f.includes('#include <output_fragment>'))f=f.replace('#include <output_fragment>',inj+'\n#include <output_fragment>');
+   else f=f.replace('gl_FragColor = vec4( outgoingLight, diffuseColor.a );',inj+'\ngl_FragColor = vec4( outgoingLight, diffuseColor.a );');
+   sh.fragmentShader=f};m.customProgramCacheKey=()=>'cloth'+k;return m};
+ const fabBump=kind=>{if(!FABB[kind]){const t=tex(128,128,(c,w,h)=>{c.fillStyle='#808080';c.fillRect(0,0,w,h);const hs=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v)};
+   if(kind==='knit'){c.lineCap='round';for(let r=0;r<16;r++)for(let q=-1;q<17;q++){const x=q*8+(r%2?4:0),y=r*8;c.strokeStyle='rgba(255,255,255,.5)';c.lineWidth=2.4;c.beginPath();c.moveTo(x,y+1);c.lineTo(x+4,y+7);c.lineTo(x+8,y+1);c.stroke();c.strokeStyle='rgba(0,0,0,.3)';c.lineWidth=1.3;c.beginPath();c.moveTo(x+4,y+7.5);c.lineTo(x+4,y+9.5);c.stroke()}}
+   else if(kind==='denim'||kind==='twill'){const st=kind==='denim'?8:16;c.lineCap='butt';for(let k=-128;k<256;k+=st){c.strokeStyle='rgba(255,255,255,.34)';c.lineWidth=st*.34;c.beginPath();c.moveTo(k,-2);c.lineTo(k+132,130);c.stroke();c.strokeStyle='rgba(0,0,0,.2)';c.lineWidth=st*.2;c.beginPath();c.moveTo(k+st*.55,-2);c.lineTo(k+st*.55+132,130);c.stroke()}for(let i=0;i<900;i++){c.fillStyle=hs(i)<.5?'rgba(255,255,255,.07)':'rgba(0,0,0,.07)';c.fillRect(hs(i*2+1)*w,hs(i*3+2)*h,1.5,1.5)}}
+   else if(kind==='fleece'){for(let i=0;i<2600;i++){c.fillStyle=hs(i)<.5?'rgba(255,255,255,.14)':'rgba(0,0,0,.12)';c.beginPath();c.arc(hs(i*2+1)*w,hs(i*3+2)*h,.9+hs(i*5+7)*1.7,0,6.3);c.fill()}}
+   else{for(let y=0;y<32;y++)for(let x=0;x<32;x++){const o=(x+y)%2;c.fillStyle=o?'rgba(255,255,255,.2)':'rgba(0,0,0,.17)';c.fillRect(x*4+(o?0:.5),y*4,o?4:3,o?3:4)}for(let i=0;i<700;i++){c.fillStyle=hs(i)<.5?'rgba(255,255,255,.08)':'rgba(0,0,0,.08)';c.fillRect(hs(i*2+1)*w,hs(i*3+2)*h,1.2,1.2)}}});
+   t.encoding=THREE.LinearEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;FABB[kind]=t}
+  const b=FABB[kind].clone();b.needsUpdate=true;return b}; /* 每次用都克隆一份，这样每件衣服可以有自己的平铺密度 */
+ /* 圆角软块：折好叠起来的衣服。顶面鼓起、四边圆润、每层之间一道压痕 */
+ const softFold=(w,h,d,col,kind,seed)=>{const g=new THREE.BoxGeometry(w,h,d,26,8,26),P=g.attributes.position,r=Math.min(h*.42,.03);
+  for(let i=0;i<P.count;i++){let x=P.getX(i),y=P.getY(i),z=P.getZ(i);
+   const ix=Math.max(-w/2+r,Math.min(w/2-r,x)),iy=Math.max(-h/2+r,Math.min(h/2-r,y)),iz=Math.max(-d/2+r,Math.min(d/2-r,z));
+   const dx=x-ix,dy=y-iy,dz=z-iz,l=Math.hypot(dx,dy,dz);if(l>1e-7){x=ix+dx/l*r;y=iy+dy/l*r;z=iz+dz/l*r}
+   const u=x/(w/2),v=z/(d/2),yr=y/(h/2);
+   y+=(yr>0?yr:0)*h*.16*(1-u*u)*(1-v*v); /* 顶面鼓起 */
+   const side=1+.05*(1-yr*yr),pin=Math.exp(-Math.pow((y+h*.25)/(h*.045),2))+Math.exp(-Math.pow((y-h*.25)/(h*.045),2));
+   x*=side*(1-.035*pin);z*=side*(1-.035*pin);
+   x+=Math.sin(z*38+seed)*.0014*(1-yr*yr);z+=Math.sin(x*41+seed*1.7)*.0014*(1-yr*yr); /* 边缘一点点不规则 */
+   P.setXYZ(i,x,y,z)}
+  g.computeVertexNormals();{const N=g.attributes.normal,m=new Map(),k=i=>Math.round(P.getX(i)*1e4)+','+Math.round(P.getY(i)*1e4)+','+Math.round(P.getZ(i)*1e4); /* 把重合顶点的法线取平均，棱角处就不会有明显的接缝 */
+   for(let i=0;i<P.count;i++){const q=k(i),a=m.get(q)||[0,0,0];a[0]+=N.getX(i);a[1]+=N.getY(i);a[2]+=N.getZ(i);m.set(q,a)}
+   for(let i=0;i<P.count;i++){const a=m.get(k(i)),l=Math.hypot(a[0],a[1],a[2])||1;N.setXYZ(i,a[0]/l,a[1]/l,a[2]/l)}}
+  const f=FAB[kind],b=fabBump(kind);b.repeat.set(w/f.rep*.5,h/f.rep*.5);
+  const mesh=new THREE.Mesh(g,clothify(new THREE.MeshStandardMaterial({color:col,roughness:1,bumpMap:b,bumpScale:f.bs*1.6}),SHEEN[kind]||.25));mesh.castShadow=mesh.receiveShadow=true;return mesh};
+ const stack=(x,y,z,cols,w,d,h,kind)=>cols.forEach((c,i)=>{const s=softFold(w,h,d,c,kind,i*3.3+x*9);s.position.set(x+(i%2?.004:-.004),y+h/2+i*h,z);s.rotation.y=(i-1)*.04;wd.add(s)});
+ stack(-.37,.2075,.28,[0x4c6485,0x4c6485,0x4c6485],.2,.2,.07,'denim');stack(-.15,.2075,.28,[0x222224,0x222224,0x222224],.2,.2,.07,'fleece');
+ stack(.15,.2075,.28,[0x9fb4c9,0xeeeae2,0x6b3a3f],.2,.17,.04,'cotton');
+ {const a=softFold(.2,.14,.24,0xe0d6c4,'knit',9);a.position.set(.37,.2075+.07,.28);wd.add(a);const b=softFold(.21,.025,.25,0xefe8da,'knit',4);b.position.set(.37,.2075+.15,.28);wd.add(b)} /* 一大团针织衫 + 上面叠着的围巾 */
  /* 柜门：左右各一扇，绕外侧的合页转开 */
  const mkDoor=k=>{const piv=new THREE.Group();piv.position.set(k*W/2,0,D);wd.add(piv);
   L(.5,Hh-.1,.02,white,-k*.25,Hh/2,0,piv);L(.012,.2,.014,alu,-k*.47,1.05,.016,piv);return piv};
@@ -923,16 +1084,49 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
   else{const so=p.sh+.025,cy=-.075-p.Ls,ci=Math.max(so-p.sw,p.bw),ay=Math.min(-.25,cy+.015),hy=-.05-p.Lb;
    const r=[[.09,-.012],[p.sh,-.05],[p.sh+.015,-.075],[so,cy],[ci,cy],[p.bw,ay],[p.bw,hy]];pts=[[0,-.05]].concat(r).concat(r.slice().reverse().map(q=>[-q[0],q[1]]));p.hy=hy;p.so=so;p.cy=cy;p.ci=ci}
   return pts};
- const garment=p=>{const pts=outline(p),g=new THREE.Group(),sh=new THREE.Shape();
-  pts.forEach((q,i)=>i?sh.lineTo(q[0],q[1]):sh.moveTo(q[0],q[1]));sh.closePath();
-  const bx=Math.max(...pts.map(q=>Math.abs(q[0]))),by=-Math.min(...pts.map(q=>q[1]));
-  const geo=new THREE.ExtrudeGeometry(sh,{depth:p.dep,bevelEnabled:true,bevelThickness:.0015,bevelSize:.0015,bevelSegments:1});geo.translate(0,0,-p.dep/2);
-  const pos=geo.attributes.position,uv=geo.attributes.uv;for(let i=0;i<pos.count;i++)uv.setXY(i,(pos.getX(i)+bx)/(2*bx),1+pos.getY(i)/by); /* 花纹贴到正面和背面 */
-  const cw=512,ch=Math.round(512*by/(2*bx)),S=cw/(2*bx);
-  const t=tex(cw,ch,(c,w,h)=>{const X=x=>(x+bx)/(2*bx)*w,Y=y=>-y/by*h;c.fillStyle=p.base;c.fillRect(0,0,w,h);p.draw(c,{X,Y,S,w,h,p,bx,by})});
-  const m=new THREE.MeshStandardMaterial({map:t,emissiveMap:t,emissive:0xffffff,emissiveIntensity:.3,color:0xd0d0d0,roughness:1}),side=new THREE.MeshStandardMaterial({color:p.base,roughness:1});
-  const mesh=new THREE.Mesh(geo,[m,side]);mesh.castShadow=true;g.add(mesh);
-  if(p.hood){const hd=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),new THREE.MeshStandardMaterial({color:p.hood,roughness:1}));hd.scale.set(.1,.08,.02);hd.position.set(0,-.04,-p.dep/2-.008);g.add(hd)} /* 连帽 */
+ /* 衣服：前后两层软布（密网格 + 轮廓透明裁切），中间鼓起来、边缘收拢，再叠上垂坠的褶皱；表面有织纹凹凸、轮廓内侧的缝线和一圈淡淡的阴影 */
+ let gIdx=0;
+ const polyPath=(c,pp,X,Y)=>{c.beginPath();pp.forEach((q,i)=>i?c.lineTo(X(q[0]),Y(q[1])):c.moveTo(X(q[0]),Y(q[1])));c.closePath()};
+ const insetPoly=(pts,s)=>{const n=pts.length;let A=0;pts.forEach((a,i)=>{const b=pts[(i+1)%n];A+=a[0]*b[1]-b[0]*a[1]});const sg=A>0?1:-1;
+  return pts.map((a,i)=>{const pv=pts[(i+n-1)%n],nx=pts[(i+1)%n],t1=[a[0]-pv[0],a[1]-pv[1]],t2=[nx[0]-a[0],nx[1]-a[1]],n1=[-t1[1],t1[0]],n2=[-t2[1],t2[0]],l1=Math.hypot(n1[0],n1[1])||1,l2=Math.hypot(n2[0],n2[1])||1;
+   let vx=n1[0]/l1+n2[0]/l2,vy=n1[1]/l1+n2[1]/l2;const L=Math.hypot(vx,vy)||1;vx/=L;vy/=L;return[a[0]+sg*vx*s,a[1]+sg*vy*s]})};
+ const hexLum=h=>{const v=parseInt(h.slice(1),16);return(.3*(v>>16&255)+.59*(v>>8&255)+.11*(v&255))/255};
+ /* 软布网格：前后两片，沿轮廓切成细格，z 方向按「离边缘的距离」鼓起、再加垂坠的褶皱 */
+ const softPanels=(p,pts,bx,by)=>{
+  const xs=pts.map(q=>q[0]),ys=pts.map(q=>q[1]),mg=.012,x0=Math.min(...xs)-mg,x1=Math.max(...xs)+mg,y0=Math.min(...ys)-mg,y1=Math.max(...ys)+mg,st=.0105,nx=Math.ceil((x1-x0)/st),ny=Math.ceil((y1-y0)/st),n=pts.length;
+  const inside=(x,y)=>{let c=false;for(let i=0,j=n-1;i<n;j=i++){const a=pts[i],b=pts[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])c=!c}return c};
+  const dist=(x,y)=>{let m=1e9;for(let i=0,j=n-1;i<n;j=i++){const a=pts[i],b=pts[j],dx=b[0]-a[0],dy=b[1]-a[1],l=dx*dx+dy*dy||1e-9;let t=((x-a[0])*dx+(y-a[1])*dy)/l;t=t<0?0:t>1?1:t;const ex=a[0]+dx*t-x,ey=a[1]+dy*t-y,d=ex*ex+ey*ey;if(d<m)m=d}return Math.sqrt(m)};
+  const sd=p.sd,fab=FAB[p.fab||'cotton'],T=p.dep*1.05,fm=Math.min(1.75,fab.fold*(p.fold||1)*(1+Math.max(0,.03-p.dep)*28)), /* 褶皱幅度封顶，免得相邻两件衣服互相穿过去 */
+   ph=[rnd(sd)*6.28,rnd(sd+1)*6.28,rnd(sd+2)*6.28],wl=[.085,.052,.12],am=[.0038,.0023,.0032],sk=[(rnd(sd+3)-.5)*9,(rnd(sd+4)-.5)*9,(rnd(sd+5)-.5)*5];
+  const fold=(x,y)=>{const dp=Math.min(1,Math.max(0,(-y-.05)/.26)),s=dp*dp*(3-2*dp);let f=0;for(let k=0;k<3;k++)f+=Math.sin(x*6.283/wl[k]+ph[k]+y*sk[k])*am[k];
+   if(p.pants)f+=.0055*Math.exp(-Math.pow((y+.045)/.022,2)); /* 裤子对折搭在衣架杆上：腰口那一圈鼓起来 */
+   const mw=Math.sin(x*130+y*40+ph[0]*3)*Math.sin(y*95-x*30+ph[1]*2)*.0011*(.45+.55*s); /* 细碎的小皱褶，布料才不会像塑料一样光滑 */
+   return f*s*fm+mw};
+  const AMX=(am[0]+am[1]+am[2])*fm+.0011;
+  const W1=nx+1,vc=W1*(ny+1),pos=new Float32Array(vc*2*3),uv=new Float32Array(vc*2*2),col=new Float32Array(vc*2*3),keep=new Uint8Array(vc);
+  for(let j=0;j<=ny;j++)for(let i=0;i<=nx;i++){const x=x0+i*st,y=y0+j*st,id=j*W1+i,ins=inside(x,y),dd=dist(x,y),d=ins?dd:0;
+   const prof=.12+.88*(1-Math.exp(-d/.04)),fo=fold(x,y),bow=.004*(1-Math.pow(x/bx,2));
+   pos[id*3]=x;pos[id*3+1]=y;pos[id*3+2]=T*prof/2+fo+bow*(ins?1:0);
+   const b=(vc+id)*3;pos[b]=x;pos[b+1]=y;pos[b+2]=-T*prof/2+fo*.85-bow*(ins?1:0)*.5;
+   uv[id*2]=uv[(vc+id)*2]=(x+bx)/(2*bx);uv[id*2+1]=uv[(vc+id)*2+1]=1+y/by;keep[id]=ins||dd<.014?1:0;
+   /* 褶皱的凹处、贴近边缘的地方稍微暗一点（假的环境光遮蔽），立体感会强很多 */
+   const vf=Math.pow(Math.min(1,Math.max(0,-fo/AMX)),1.1),vb=Math.pow(Math.min(1,Math.max(0,fo/AMX)),1.1),ed=.86+.14*Math.min(1,d/.03);
+   const af=(1-.36*vf)*ed,ab=(1-.36*vb)*ed;col[id*3]=col[id*3+1]=col[id*3+2]=af;const c3=(vc+id)*3;col[c3]=col[c3+1]=col[c3+2]=ab}
+  const idx=[];for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const a=j*W1+i,b=a+1,c=a+W1+1,d=a+W1;if(!(keep[a]||keep[b]||keep[c]||keep[d]))continue;idx.push(a,b,c,a,c,d,vc+a,vc+c,vc+b,vc+a,vc+d,vc+c)}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.setAttribute('color',new THREE.BufferAttribute(col,3));g.setIndex(idx);g.computeVertexNormals();return g};
+ const garment=p=>{const pts=outline(p),g=new THREE.Group();p.sd=gIdx++*7.31+3;
+  const bx=Math.max(...pts.map(q=>Math.abs(q[0]))),by=-Math.min(...pts.map(q=>q[1])),cw=512,ch=Math.round(512*by/(2*bx)),S=cw/(2*bx),X0=x=>(x+bx)/(2*bx)*cw,Y0=y=>-y/by*ch,fab=FAB[p.fab||'cotton'],light=hexLum(p.base)>.5;
+  const geo=softPanels(p,pts,bx,by);
+  const t=tex(cw,ch,(c,w,h)=>{const X=x=>(x+bx)/(2*bx)*w,Y=y=>-y/by*h;c.fillStyle=p.base;c.fillRect(0,0,w,h);p.draw(c,{X,Y,S,w,h,p,bx,by});
+   /* 收尾：织物的细小颗粒 + 轮廓内侧一圈阴影 + 一圈缝线（衣服是缝出来的） */
+   for(let i=0;i<2400;i++){c.fillStyle=rnd(i+p.sd)<.5?'rgba(255,255,255,.05)':'rgba(0,0,0,.05)';c.fillRect(rnd(i*2+p.sd)*w,rnd(i*3+p.sd)*h,1.6,1.6)}
+   c.save();polyPath(c,pts,X,Y);c.clip();c.strokeStyle='rgba(0,0,0,.2)';c.lineWidth=12;polyPath(c,pts,X,Y);c.stroke();
+   c.strokeStyle=light?'rgba(0,0,0,.24)':'rgba(255,255,255,.26)';c.lineWidth=1.3;c.setLineDash([7,5]);polyPath(c,insetPoly(pts,.0055),X,Y);c.stroke();c.restore()});
+  const am=tex(256,Math.max(64,Math.round(256*by/(2*bx))),(c,w,h)=>{c.fillStyle='#000';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.strokeStyle='#fff';c.lineWidth=1.4;polyPath(c,pts,x=>(x+bx)/(2*bx)*w,y=>-y/by*h);c.fill();c.stroke()});am.encoding=THREE.LinearEncoding;
+  const bm=fabBump(p.fab||'cotton');bm.repeat.set(2*bx/fab.rep,by/fab.rep);
+  const m=clothify(new THREE.MeshStandardMaterial({map:t,alphaMap:am,alphaTest:.5,bumpMap:bm,bumpScale:fab.bs*1.6,emissiveMap:t,emissive:0xffffff,emissiveIntensity:.12,color:0xe4e4e4,vertexColors:true,roughness:1,side:THREE.DoubleSide}),SHEEN[p.fab||'cotton']||.25);m.alphaToCoverage=true; /* 自发光调低，让灯光和褶皱的明暗更明显 */
+  const mesh=new THREE.Mesh(geo,m);mesh.castShadow=true;g.add(mesh);
+  if(p.hood){const hb=fabBump(p.fab||'fleece');hb.repeat.set(4,3);const hd=new THREE.Mesh(new THREE.SphereGeometry(1,28,18),clothify(new THREE.MeshStandardMaterial({color:p.hood,roughness:1,bumpMap:hb,bumpScale:fab.bs*1.6}),SHEEN[p.fab||'fleece']||.3));hd.scale.set(.1,.075,.024);hd.position.set(0,-.045,-p.dep*.62-.008);hd.castShadow=true;g.add(hd)} /* 连帽：软软垂在后颈 */
   /* 衣架：挂钩 + 横杆 */
   ad(g,new THREE.TorusGeometry(.014,.002,6,14),metal,0,0,0,0,Math.PI/2,0);ad(g,gB(p.pants?.3:.4,.006,.006),metal,0,-.025,0);
   return g};
@@ -984,7 +1178,7 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
   for(let i=0;i<3000;i++){c.fillStyle=rnd(i)<.5?'rgba(255,255,255,.18)':'rgba(60,60,70,.12)';c.fillRect(rnd(i*2+3)*K.w,rnd(i*5+1)*K.h,2,2)}
   c.fillStyle='#a8abb2';c.fillRect(0,K.Y(-.03),K.w,.05*K.S);c.strokeStyle='#f4f4f4';c.lineWidth=3;[-1,1].forEach(k=>{c.beginPath();c.moveTo(K.X(k*.01),K.Y(-.06));c.lineTo(K.X(k*.04),K.Y(-.2));c.stroke()});
   c.strokeStyle='#15151a';c.lineWidth=6;c.beginPath();c.moveTo(K.X(-.13),K.Y(-.28));c.bezierCurveTo(K.X(-.19),K.Y(-.35),K.X(-.07),K.Y(-.4),K.X(-.13),K.Y(-.46));c.stroke();c.beginPath();c.arc(K.X(-.12),K.Y(-.5),.02*K.S,0,6.3);c.stroke()}};
- const ASP={pants:1,len:.56,dep:.02,out:[[0,.19],[.2,.21],[1,.215]],inn:[[.42,.01],[1,.02]],base:'#17171a',draw:(c,K)=>{dashes(c,K,800,'rgba(238,236,230,.9)');dipdye(c,K,-.4,-.59,'rgba(110,62,28,.9)');c.fillStyle='#232326';c.fillRect(0,K.Y(-.03),K.w,.04*K.S)}};
+ const ASP={pants:1,len:.56,dep:.02,out:[[0,.19],[.2,.21],[1,.215]],inn:[[.42,.01],[1,.02]],base:'#17171a',draw:(c,K)=>{dashes(c,K,800,'rgba(238,236,230,.9)');dipdye(c,K,-.5,-.04-K.p.len,'rgba(110,62,28,.9)');c.fillStyle='#232326';c.fillRect(0,K.Y(-.03),K.w,.04*K.S)}};
  const CARGO={pants:1,len:.55,dep:.03,out:[[0,.2],[.2,.245],[.5,.25],[.85,.2],[1,.15]],inn:[[.42,.012],[.7,.05],[1,.075]],base:'#1c1c1e',draw:(c,K)=>{
   c.strokeStyle='#38383c';c.lineWidth=3;[[-.17,-.22],[.05,-.22],[-.17,-.4],[.05,-.4]].forEach(q=>c.strokeRect(K.X(q[0]),K.Y(q[1]),.12*K.S,.1*K.S));
   c.fillStyle='#c9c9cc';[[-.12,-.07],[.1,-.07],[-.14,-.3],[.12,-.3]].forEach(q=>{c.beginPath();c.arc(K.X(q[0]),K.Y(q[1]),3,0,6.3);c.fill()});
@@ -993,6 +1187,11 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
   [['#9db3d6',-.16,-.14,.1,.12],['#e7d28a',.04,-.2,.11,.1],['#c9a7a0',-.15,-.3,.1,.1],['#7f9fc9',.03,-.34,.12,.12],['#e7d28a',-.15,-.45,.1,.09]].forEach(q=>{c.fillStyle=q[0];c.fillRect(K.X(q[1]),K.Y(q[2]),q[3]*K.S,q[4]*K.S)});
   c.fillStyle='#2b2b30';c.font='italic 17px serif';c.textAlign='left';["You're Here","And That's","All That","Matters"].forEach((t,i)=>c.fillText(t,K.X(-.17),K.Y(-.08-i*.03)));
   c.fillStyle='#c4352f';c.beginPath();c.arc(K.X(.03),K.Y(-.45),.025*K.S,0,6.3);c.fill();c.strokeStyle='#b6b2a8';c.lineWidth=2;c.beginPath();c.moveTo(K.X(0),K.Y(-.05));c.lineTo(K.X(0),K.Y(-.2));c.stroke()}};
+ /* 每件衣服的面料（针织 / 牛仔 / 帆布 / 抓绒 / 棉布）和垂坠程度（越大褶皱越明显） */
+ [[POLKA,'fleece',1],[STRIPEH,'knit',1],[PINK,'fleece',1.1],[BLUE,'fleece',1.1],[REDSW,'knit',.9],[ASSH,'cotton',1.4],[STRIPT,'cotton',1.3],[TEE,'cotton',1.35],
+  [JEANS,'denim',.85],[SWEATP,'fleece',1.5],[ASP,'cotton',1.3],[CARGO,'twill',.95],[PRINTJ,'denim',1.05]].forEach(q=>{q[0].fab=q[1];q[0].fold=q[2]});
+ /* 裤子加长：原来约 55cm，现在 66–68cm（挂在下排杆上，裤脚离层板上叠的衣服还有 10cm 左右） */
+ JEANS.len=.68;SWEATP.len=.66;ASP.len=.67;CARGO.len=.66;PRINTJ.len=.66;
  /* 挂上去：略微斜着朝向正面，真实尺寸；上排 4+4 件上衣，下排 2+3 条裤子 */
  const hang=(spec,x,y)=>{const g=garment(spec);g.position.set(x,y,.255);g.rotation.y=-1.1;g.scale.setScalar(.93);wd.add(g);WD.garments.push(g)};
  [POLKA,STRIPEH,PINK,BLUE].forEach((s,i)=>hang(s,-.36+i*.075,1.95));
@@ -1015,16 +1214,19 @@ function fit(){const w=innerWidth,h=innerHeight,a=w/h,tf=Math.tan(cam.fov*Math.P
  HOME.r=Math.max((1.75)/tf,(3.3)/(tf*a))*1.08;cam.aspect=a;cam.updateProjectionMatrix();R.setSize(w,h,false);if(!focused)goal.r=HOME.r}
 addEventListener('resize',fit);fit();cur.r=goal.r;
 const near=t=>t+Math.round((goal.th-t)/(2*Math.PI))*2*Math.PI;
-function goHome(){closeCal();closeDoll();closeSongs();ipadHide();closeKB();closePol();closeWard();closeDP();closeMic();unflipAll();closeMaker();closeDrink();closeLaptop();focused=null;spots.forEach(s=>s.goal=0);panel.classList.remove('on');goal.r=Math.min(HOME.r,goal.r*1.3)}
+function goHome(){closeCal();closeDoll();closeSongs();ipadHide();closeKB();closePol();closeWard();closeDP();closeMic();unflipAll();closeMaker();closeDrink();closeLaptop();closeCerts();closeTrophy();closeFrame();focused=null;spots.forEach(s=>s.goal=0);panel.classList.remove('on');goal.r=Math.min(HOME.r,goal.r*1.3)}
 function focus(s){if(s.id==='laptop'&&LTP.open&&focused===s){if(LTP.ready)laptopPlay();return} /* 推近后再点笔记本：从头播放、从头打字 */
  if(s.id!=='laptop')closeLaptop();if(s.id==='drink'&&DRK.open){if(DRK.ready)drinkPlay();return} /* 杯子在中央：再点一次从头播放 */
- if(s.id!=='drink')closeDrink();if(s.id.startsWith('note')&&focused===s){flipNote(s.id);return} /* 已经推近的便利贴再点一次：翻起来 / 放回去 */
- if(!s.id.startsWith('note'))unflipAll();if(s.id!=='cal'&&CAL.open)closeCal();if(s.id!=='doll'&&DOLM.open)closeSoft(DOLM);if(s.id!=='seal'&&SEAL.open)closeSoft(SEAL);if(s.id!=='hp'&&SG.open)closeSongs();if(s.id!=='kb'&&KB.open)closeKB();if(!s.id.startsWith('pol'))closePol();if(s.id!=='wd'&&WD.open)closeWard();if(s.id!=='dp'&&DP.open)closeDP();if(s.id!=='pad')ipadHide();if(s.id!=='mic')closeMic();focused=s;const p=new THREE.Vector3();s.g.getWorldPosition(p);if(s.id.startsWith('scent'))p.y+=.1;if(s.id==='laptop')p.y+=.1;if(s.id==='wd'){p.y+=1;p.x-=.25}if(s.id==='dp'){p.y+=1.45;p.x-=.25}if(s.id==='mic'){p.x+=.3;p.y+=1.12;p.z+=.1}if(s.id==='seal')p.y+=.13;if(s.id.startsWith('note'))p.y-=s.g.userData.h/2;if(s.id==='leave')p.y+=.4;if(s.id==='drink')p.y+=.1;
- const off=(innerWidth>640&&s.id!=='pad'&&s.id!=='doll'&&s.id!=='seal'&&!s.id.startsWith('note')&&!s.id.startsWith('upol')&&s.id!=='leave'&&s.id!=='drink'&&s.id!=='laptop'&&s.id!=='hp'&&s.id!=='kb'&&!s.id.startsWith('pol')&&s.id!=='wd'&&s.id!=='dp'&&s.id!=='mic')?s.fd*.22:0,th=s.th===undefined?.12:s.th;goal.T.set(p.x+Math.cos(th)*off,p.y,p.z-Math.sin(th)*off);goal.th=near(th);goal.ph=s.phi;goal.r=s.fd;
+ if(s.id!=='drink')closeDrink();if(s.id!=='certs')closeCerts();if(!s.id.startsWith('trophy'))closeTrophy();if(s.id!=='frame')closeFrame();if(s.id.startsWith('note')&&focused===s){flipNote(s.id);return} /* 已经推近的便利贴再点一次：翻起来 / 放回去 */
+ if(!s.id.startsWith('note'))unflipAll();if(s.id!=='cal'&&CAL.open)closeCal();if(s.id!=='doll'&&DOLM.open)closeSoft(DOLM);if(s.id!=='seal'&&SEAL.open)closeSoft(SEAL);if(s.id!=='hp'&&SG.open)closeSongs();if(s.id!=='kb'&&KB.open)closeKB();if(!s.id.startsWith('pol'))closePol();if(s.id!=='wd'&&WD.open)closeWard();if(s.id!=='dp'&&DP.open)closeDP();if(s.id!=='pad')ipadHide();if(s.id!=='mic')closeMic();focused=s;const p=new THREE.Vector3();s.g.getWorldPosition(p);if(s.id.startsWith('scent'))p.y+=.1;if(s.id==='laptop')p.y+=.1;if(s.id==='wd'){p.y+=1;p.x-=.25}if(s.id==='dp'){p.y+=1.45;p.x-=.25}if(s.id==='mic'){p.x+=.3;p.y+=1.12;p.z+=.1}if(s.id==='seal')p.y+=.13;if(s.id.startsWith('note'))p.y-=s.g.userData.h/2;if(s.id==='leave')p.y+=.4;if(s.id==='drink')p.y+=.1;if(s.id==='certs')p.y+=.05;if(s.id.startsWith('trophy'))p.y+=.12;if(s.id==='frame')p.y+=.1;
+ const off=(innerWidth>640&&s.id!=='pad'&&s.id!=='doll'&&s.id!=='seal'&&!s.id.startsWith('note')&&!s.id.startsWith('upol')&&s.id!=='leave'&&s.id!=='drink'&&s.id!=='laptop'&&s.id!=='frame'&&!s.id.startsWith('cert')&&s.id!=='hp'&&s.id!=='kb'&&!s.id.startsWith('pol')&&s.id!=='wd'&&s.id!=='dp'&&s.id!=='mic')?s.fd*(s.id.startsWith('trophy')?-.3:.22):0,th=s.th===undefined?.12:s.th; /* 奖杯：反过来，奖杯偏在画面右边、照片弹在左边 */goal.T.set(p.x+Math.cos(th)*off,p.y,p.z-Math.sin(th)*off);goal.th=near(th);goal.ph=s.phi;goal.r=s.fd;
  if(s.id==='cal'){openCal();return}
  if(s.id==='doll'){openDoll();return}
  if(s.id==='seal'){openSoft(SEAL);return}
- if(s.id.startsWith('note')||s.id.startsWith('upol'))return; /* 便利贴 / 自己的拍立得：只聚焦推进 */
+ if(s.id.startsWith('note')||s.id.startsWith('upol'))return;
+ if(s.id==='certs'){openCerts();return}
+ if(s.id.startsWith('trophy')){openTrophy(s);return}
+ if(s.id==='frame'){openFrame(s);return} /* 便利贴 / 自己的拍立得：只聚焦推进 */
  if(s.id==='leave'){setTimeout(openMaker,250);return} /* 留下痕迹 */
  if(s.id==='drink'){openDrink();return}
  if(s.id==='kb'){openKB();return}
@@ -1053,9 +1255,10 @@ cv.addEventListener('pointerdown',e=>{ptrs.set(e.pointerId,{x:e.clientX,y:e.clie
 cv.addEventListener('pointermove',e=>{
  const p=ptrs.get(e.pointerId);
  if(p){const ox=p.x,oy=p.y;p.x=e.clientX;p.y=e.clientY;
-  if(ptrs.size>=2&&!SOFT()&&!KB.open){const t=two();if(pinch){goal.r=Math.max(1.2,Math.min(HOME.r*1.5,goal.r*pinch.d/t.d));panBy(-(t.x-pinch.x));panY(t.y-pinch.y)}pinch=t;return} /* 双指：缩放 + 左右平移 */
+  if(ptrs.size>=2&&!SOFT()&&!KB.open){if(LOCK())return; /* 固定镜头：双指不缩放 */
+   const t=two();if(pinch){goal.r=Math.max(1.2,Math.min(HOME.r*1.5,goal.r*pinch.d/t.d));panBy(-(t.x-pinch.x));panY(t.y-pinch.y)}pinch=t;return} /* 双指：缩放 + 左右平移 */
   if(drag){const dx=e.clientX-ox,dy=e.clientY-oy;drag.m+=Math.abs(dx)+Math.abs(dy);
-   if(CAL.open){swipe(drag,dx,dy)}else if(SOFT()||KB.open){}else if(drag.pan){panBy(-dx);panY(dy)}else{goal.th-=dx*.005;goal.ph=Math.max(.5,Math.min(1.6,goal.ph-dy*.004))}}}
+   if(CAL.open){swipe(drag,dx,dy)}else if(SOFT()||KB.open||LOCK()){}else if(drag.pan){panBy(-dx);panY(dy)}else{goal.th-=dx*.005;goal.ph=Math.max(.5,Math.min(1.6,goal.ph-dy*.004))}}}
  if(e.pointerType!=='mouse')return;
  hover=(drag&&drag.m>6)||CAL.open||SOFT()||KB.open||WD.open||DP.open?null:pick(e);if(hover&&hover===focused)hover=null; /* 已经推近的物件，不再有悬停放大 / 高亮 / 提示 */
  cv.style.cursor=hover?'pointer':(drag&&drag.pan?'move':'grab');tip.style.opacity=hover?1:0;
@@ -1068,7 +1271,7 @@ const up=e=>{ptrs.delete(e.pointerId);
 cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 cv.addEventListener('wheel',e=>{e.preventDefault();
  if(CAL.open){wheelCal(e.deltaY);return}
- if(SOFT()||KB.open)return;
+ if(SOFT()||KB.open||LOCK())return;
  goal.r=Math.max(1.2,Math.min(HOME.r*1.5,goal.r*(1+e.deltaY*.001)))},{passive:false});
 
 /* ========= 地毯拖动：在房间全景下，按住地毯拖动 → 地毯微微抬起、跟着手指 / 鼠标在地面上滑动，松手落下 ========= */
@@ -1614,6 +1817,108 @@ function laptopStep(){if(!LTP.open||!LTP.s)return;const g=LTP.s.g;
  const b=g.localToWorld(_lv.set(0,0,.14)).project(cam);lpTip.style.transform='translate(-50%,0) translate('+((b.x+1)/2*innerWidth)+'px,'+((1-b.y)/2*innerHeight+16)+'px)';
  const t=g.localToWorld(_lv.set(0,.24,-.19)).project(cam);lpType.style.transform='translate(-50%,-100%) translate('+((t.x+1)/2*innerWidth)+'px,'+Math.max(lpType.offsetHeight+14,(1-t.y)/2*innerHeight-14)+'px)'}
 
+/* ========= 固定镜头：聚焦饮料、笔记本、麦克风、iPad、拍立得相纸、香水柜、荣誉证书、奖杯、相框的时候，不能再拖动旋转 / 缩放 / 平移，只能点空白处返回 ========= */
+const LOCK=()=>!!(DRK.open||LTP.open||MIC.on||ipOn||FL.open||DP.open||CW.open||TRP.open||FR.open||(focused&&focused.id.startsWith('trophy'))||(focused&&(focused.id.startsWith('noteP')||focused.id.startsWith('cert'))));
+let _lk=false;
+function lockStep(){const k=LOCK();if(k===_lk)return;_lk=k;if(SOFT())return;hintEl.textContent=k?(DP.open?'点击瓶子查看 · 点击空白处返回':'点击空白处返回'):hintTxt}
+
+/* ========= 荣誉证书圆轮：点击杂物柜第二层那叠红色证书 → 镜头推近 → 背景虚化变白 → 证书从四周飞到中间，展开成一个圆轮（和耳机的歌曲圆轮一样的手感）；
+   左右拖动 / 滚轮 / 方向键转动，点侧边的一张把它转到正中，点正中的一张放大看清；点空白处或按 Esc 返回 ========= */
+ const CERT_IMG=["images/cert-1.jpg", "images/cert-2.jpg", "images/cert-3.jpg", "images/cert-4.jpg"];
+const CERT_ORDER=[0,3,1,2]; /* 按时间排：2020 → 2021.2 → 2021.7 → 2022 */
+const certw=document.getElementById('certw'),czoom=document.getElementById('czoom'),NC=CERT_ORDER.length;
+certw.innerHTML='<div class="cbg"></div><h2 class="ctitle">HONORS</h2><div class="cwheel"></div><div class="chint">点击空白处返回 · 点击中间的证书放大</div>';
+const cbg=certw.querySelector('.cbg'),ctitle=certw.querySelector('.ctitle'),cwheel=certw.querySelector('.cwheel'),chint=certw.querySelector('.chint');
+const CW={cur:0,tgt:0,fly:0,spread:0,open:false,S:420,sp:480,da:.22,tl:null,last:-1};
+const ccards=CERT_ORDER.map(k=>{const el=document.createElement('div');el.className='ccard';el.innerHTML='<img src="'+CERT_IMG[k]+'" alt="" draggable="false">';cwheel.appendChild(el);return{el,k,o:{x:0,y:0,r:0},st:{x:0,y:0,r:0,s:.42}}});
+function certSizes(){const w=innerWidth,h=innerHeight,por=w<h*.9;
+ CW.S=por?Math.min(.84*w,.46*h*1.42):Math.min(.4*w,.56*h*1.42,820);CW.sp=CW.S*(por?1.06:1.14);CW.da=por?.3:.22;
+ certw.style.setProperty('--CW',CW.S+'px');cwheel.style.top=(por?52:55)+'%'}
+function certScatter(){const D=Math.max(innerWidth,innerHeight)*.85;
+ ccards.forEach(c=>{const a=Math.random()*6.283;c.o={x:Math.cos(a)*D,y:Math.sin(a)*D*.8,r:(Math.random()-.5)*1.6};c.st={x:(Math.random()-.5)*CW.S*.12,y:(Math.random()-.5)*CW.S*.1,r:(Math.random()-.5)*.4,s:.42}})}
+/* 圆轮：证书沿一个很大的圆弧排列，当前这张在正中，两侧的向外倾斜并略微下沉 */
+function certRender(){const R=CW.sp/Math.sin(CW.da),sp=CW.spread;
+ ccards.forEach((c,i)=>{const d=i-CW.cur,th=d*CW.da,f=cl(CW.fly*1.5-(i/NC)*.5,0,1);
+  const wx=R*Math.sin(th),wy=R*(1-Math.cos(th));
+  let x=c.o.x+(c.st.x-c.o.x)*f,y=c.o.y+(c.st.y-c.o.y)*f,r=c.o.r+(c.st.r-c.o.r)*f,s=1+(c.st.s-1)*f;
+  x+=(wx-x)*sp;y+=(wy-y)*sp;r+=(th-r)*sp;s+=(1-s)*sp;
+  const vis=cl(2.4-Math.abs(d),0,1),e=c.el.style;
+  e.transform='translate(-50%,-50%) translate('+x+'px,'+y+'px) rotate('+r+'rad) scale('+s+')';
+  e.opacity=1+(vis-1)*sp;e.zIndex=100-Math.round(Math.abs(d)*10);
+  e.pointerEvents=sp>.95&&Math.abs(d)<1.6?'auto':'none'});
+}
+function certGo(v,snap){CW.tgt=cl(v,0,NC-1);gsap.to(CW,{cur:CW.tgt,duration:snap?.6:.45,ease:'power3.out',overwrite:'auto',onUpdate:certRender})}
+let wsnapC;
+certw.addEventListener('wheel',e=>{e.preventDefault();if(!CW.open||CW.spread<.9)return;
+ const d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;certGo(CW.tgt+d*.004,false);
+ clearTimeout(wsnapC);wsnapC=setTimeout(()=>certGo(Math.round(CW.tgt),true),140)},{passive:false});
+let cd=null;
+certw.addEventListener('pointerdown',e=>{if(!CW.open)return;
+ certw.setPointerCapture(e.pointerId);if(CW.spread>=.9)gsap.killTweensOf(CW);
+ cd={x:e.clientX,c:CW.cur,m:0,vx:0,lx:e.clientX,lt:performance.now(),t:e.target}});
+certw.addEventListener('pointermove',e=>{if(!cd)return;const dx=e.clientX-cd.x;cd.m=Math.max(cd.m,Math.abs(dx));
+ const now=performance.now();cd.vx=.7*cd.vx+.3*((e.clientX-cd.lx)/Math.max(now-cd.lt,1));cd.lx=e.clientX;cd.lt=now;
+ if(cd.m>6&&CW.spread>=.9){CW.cur=cl(cd.c-dx/CW.sp,-.3,NC-.7);certRender()}});
+certw.addEventListener('pointerup',()=>{if(!cd)return;const d=cd;cd=null;
+ if(d.m>6){if(CW.spread>=.9)certGo(Math.round(CW.cur-d.vx*220/CW.sp),true);return}
+ const card=d.t.closest('.ccard');if(!card){goHome();return} /* 点空白处：返回 */
+ const i=ccards.findIndex(c=>c.el===card);
+ if(i!==Math.round(CW.cur))certGo(i,true);else{czoom.querySelector('img').src=CERT_IMG[ccards[i].k];czoom.classList.add('on')}}); /* 点正中的一张：放大 */
+certw.addEventListener('pointercancel',()=>{cd=null;if(CW.spread>=.9)certGo(Math.round(CW.cur),true)});
+czoom.addEventListener('click',()=>czoom.classList.remove('on'));
+addEventListener('keydown',e=>{if(!CW.open)return;
+ if(e.key==='Escape'&&czoom.classList.contains('on')){e.stopImmediatePropagation();czoom.classList.remove('on');return}
+ if(czoom.classList.contains('on'))return;
+ if(e.key==='ArrowRight'){certGo(Math.round(CW.tgt)+1,true)}else if(e.key==='ArrowLeft'){certGo(Math.round(CW.tgt)-1,true)}},true);
+function openCerts(){if(CW.open)return;CW.open=true;hover=null;spots.find(q=>q.id==='certs').goal=0;
+ certSizes();certScatter();CW.cur=CW.tgt=0;CW.fly=0;CW.spread=0;CW.last=-1;certRender();
+ gsap.killTweensOf([certw,cbg,CW,ctitle,chint]);gsap.set(certw,{visibility:'visible',opacity:1});gsap.set(cbg,{'--a':0,'--b':'0px'});
+ gsap.set(ctitle,{autoAlpha:0,scaleX:1.12,transformOrigin:'right top'});gsap.set(chint,{autoAlpha:0});
+ CW.tl=gsap.timeline({delay:.85})
+  .to(cbg,{'--a':.2,'--b':'18px',duration:.7,ease:'power2.out'},0) /* 背景只做虚焦（加一点点淡淡的底色），不变白 */
+  .to(CW,{fly:1,duration:1.1,ease:'power3.inOut',onUpdate:certRender},.15) /* 证书从四周飞向中间聚拢 */
+  .to(CW,{spread:1,duration:1.2,ease:'power3.inOut',onUpdate:certRender},'>-.1') /* 展开成圆轮 */
+  .fromTo(ctitle,{y:-36},{autoAlpha:1,y:0,duration:.8,ease:'power3.out'},'<.4')
+  .to(chint,{autoAlpha:1,duration:.5},'<')}
+function closeCerts(){if(!CW.open)return;CW.open=false;czoom.classList.remove('on');if(CW.tl)CW.tl.kill();gsap.killTweensOf(CW);
+ gsap.to(certw,{opacity:0,duration:.4,ease:'power1.in',onComplete:()=>gsap.set(certw,{visibility:'hidden'})})}
+addEventListener('resize',()=>{if(CW.open){certSizes();certRender()}});
+
+/* ========= 奖杯：点击圆环奖杯（左）→ 镜头推近，奖杯在画面右边、第一张照片在左边弹出；点击话筒奖杯（右）→ 镜头推近，奖杯在右边、第二张照片（尺寸小一点）在左边弹出。
+   镜头推近后固定（不能旋转缩放），点空白处返回；两个奖杯之间可以直接切换 ========= */
+ const TROPHY_IMG=["images/trophy-1.jpg", "images/trophy-2.jpg"];
+const TRP={open:false,id:null,tm:0};
+const tcard=document.createElement('div');tcard.id='tcard';tcard.innerHTML='<img alt="">';document.body.appendChild(tcard);
+function openTrophy(s){const k=s.id==='trophy1'?0:1;if(TRP.open&&TRP.id===s.id&&tcard.classList.contains('on'))return;
+ TRP.open=true;TRP.id=s.id;clearTimeout(TRP.tm);const wasOn=tcard.classList.contains('on');tcard.classList.remove('on');
+ TRP.tm=setTimeout(()=>{if(!TRP.open||TRP.id!==s.id)return;tcard.querySelector('img').src=TROPHY_IMG[k];tcard.classList.toggle('sm',k===1);tcard.classList.add('on')},wasOn?450:950)} /* 等镜头推近再弹出 */
+function closeTrophy(){if(!TRP.open)return;TRP.open=false;TRP.id=null;clearTimeout(TRP.tm);tcard.classList.remove('on')}
+
+/* ========= 相框（杂物柜从上往下第二排）：点击 → 镜头推近，相框飘到画面正中（正对镜头）→ 相框下方出现播放键和可拖动的进度条 → 点播放键播放《连名带姓》；
+   暂停后再播放从暂停的位置接着放；推近后镜头固定，点空白处返回 ========= */
+const FRAME_SRC="audio/lianming.mp3";
+const FRA=new Audio(FRAME_SRC);FRA.preload='none';
+[AU,IPA,MICA,DRA,LPA].forEach(a=>a.addEventListener('play',()=>{if(!FRA.paused)FRA.pause()}));
+FRA.addEventListener('play',()=>[AU,IPA,MICA,DRA,LPA].forEach(b=>{if(!b.paused)b.pause()}));
+const FR={t:0,open:false,s:null,p0:null,q0:null,k0:1};
+const frp=document.createElement('div');frp.className='mini';frp.id='frp';
+frp.innerHTML='<button class="mbtn" aria-label="play">'+ICON_PLAY+'</button><span class="ferr">还没有找到 audio/lianming.mp3</span>';frp.insertBefore(mkBar(FRA),frp.querySelector('.ferr'));document.body.appendChild(frp);
+const fbtn=frp.querySelector('.mbtn');
+FRA.addEventListener('play',()=>{fbtn.innerHTML=ICON_PAUSE;frp.classList.remove('err')});FRA.addEventListener('pause',()=>{fbtn.innerHTML=ICON_PLAY});FRA.addEventListener('ended',()=>{fbtn.innerHTML=ICON_PLAY});
+FRA.addEventListener('error',()=>{frp.classList.add('err');fbtn.innerHTML=ICON_PLAY}); /* 音频文件还没放进 audio 文件夹时，给个提示，不报错 */
+fbtn.addEventListener('click',e=>{e.stopPropagation();if(FRA.paused){const q=FRA.play();if(q&&q.catch)q.catch(()=>{})}else FRA.pause()});
+function openFrame(s){if(FR.open)return;FR.open=true;FR.s=s;if(!FR.p0){FR.p0=s.g.position.clone();FR.q0=s.g.quaternion.clone();FR.k0=s.g.scale.x}hover=null;s.goal=0;
+ gsap.killTweensOf([FR,frp]);gsap.to(FR,{t:1,duration:1.1,delay:.35,ease:'back.out(1.15)'});gsap.set(frp,{visibility:'visible',opacity:0});gsap.to(frp,{opacity:1,duration:.5,delay:1.35})}
+function closeFrame(){if(!FR.open)return;FR.open=false;FRA.pause();gsap.killTweensOf([FR,frp]);gsap.to(frp,{opacity:0,duration:.25,onComplete:()=>gsap.set(frp,{visibility:'hidden'})});gsap.to(FR,{t:0,duration:.6,ease:'power2.inOut'})}
+const _fv=new THREE.Vector3(),_fu=new THREE.Vector3(),_ft=new THREE.Vector3();
+function frameStep(){if(!FR.s||!FR.p0)return;const g=FR.s.g;
+ if(FR.t>.002){const D=.5,vh=2*D*Math.tan(cam.fov*Math.PI/360),vw=vh*cam.aspect,k=Math.min(.5*vh/.19,.5*vw/.19),e=Math.min(1,Math.max(0,FR.t));
+  _fv.set(0,0,-1).applyQuaternion(cam.quaternion);_fu.set(0,1,0).applyQuaternion(cam.quaternion);
+  _ft.copy(cam.position).addScaledVector(_fv,D).addScaledVector(_fu,.04*vh-.095*k); /* 相框中心（离脚 9.5cm）放在画面正中偏上一点，给下面的播放条留位置 */
+  g.position.copy(FR.p0).lerp(_ft,FR.t);g.quaternion.copy(FR.q0).slerp(cam.quaternion,e);g.scale.setScalar(FR.k0+(k-FR.k0)*FR.t);
+  if(FR.open){const b=g.localToWorld(_fv.set(0,.0,.02)).project(cam);frp.style.transform='translate(-50%,0) translate('+((b.x+1)/2*innerWidth)+'px,'+Math.min(innerHeight-70,(1-b.y)/2*innerHeight+22)+'px)'}}
+ else if(!FR.open){g.position.copy(FR.p0);g.quaternion.copy(FR.q0);g.scale.setScalar(FR.k0)}}
+
 /* ========= 渲染循环 ========= */
 
 let last=performance.now();
@@ -1656,7 +1961,7 @@ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;const k=1-Mat
    const tp=cam.position.clone().addScaledVector(fwd,D).addScaledVector(up,Math.sin(now/700)*.006*e);
    g.position.copy(PAD.p0).lerp(tp,e);g.quaternion.copy(PAD.q0).slerp(cam.quaternion.clone().multiply(Q90),e);g.scale.setScalar(PAD.k0+(k-PAD.k0)*e)}
   else{g.position.copy(PAD.p0);g.quaternion.copy(PAD.q0)}}
- perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();R.render(scene,cam);if(!loop.ok){loop.ok=1;const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}requestAnimationFrame(loop)}
+ perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();R.render(scene,cam);if(!loop.ok){loop.ok=1;const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 </script>
 </body>
