@@ -130,6 +130,20 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 #frp .mbtn svg{width:14px;height:14px;fill:#fff}
 #frp .ferr{display:none;font-size:12px;color:var(--mute);white-space:nowrap}
 #frp.err .abar{display:none}#frp.err .ferr{display:block}
+body.night .top h1{color:#ece8e0}
+body.night .top p{color:#a29e96}
+body.night .hint{color:#8d8a84}
+body.night #boot{color:#8d8a84}
+body.night #certw .cbg{background:rgba(14,17,24,var(--a))}
+.top h1,.top p,.hint{transition:color .8s}
+#nsw{position:fixed;right:16px;top:calc(14px + env(safe-area-inset-top,0px));width:56px;height:30px;border-radius:999px;border:1px solid rgba(43,41,38,.14);background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer;padding:0;z-index:9;box-shadow:0 4px 14px rgba(60,50,40,.1);transition:background .5s,border-color .5s}
+#nsw .kn{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#2b2926;display:grid;place-items:center;transition:transform .45s cubic-bezier(.3,1.35,.5,1),background .5s}
+#nsw svg{position:absolute;width:13px;height:13px;transition:opacity .35s,transform .5s}
+#nsw .sun{color:#f6e7a1}#nsw .moon{color:#2b2926;opacity:0;transform:rotate(-50deg)}
+body.night #nsw{background:rgba(30,34,46,.72);border-color:rgba(255,255,255,.16)}
+body.night #nsw .kn{transform:translateX(26px);background:#ece8e0}
+body.night #nsw .sun{opacity:0;transform:rotate(70deg)}body.night #nsw .moon{opacity:1;transform:none}
+#nsw:focus-visible{outline:2px solid #8aa0d8;outline-offset:2px}
 </style>
 <script>/* 载入出错时把原因显示出来，不再是一片空白 */addEventListener('error',function(e){var b=document.getElementById('boot');if(b){b.textContent='载入出错了：'+(e.message||'资源没加载成功')+' · 刷新试试';b.style.opacity=1}},true);</script>
 </head>
@@ -138,6 +152,7 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 <div class="top"><h1>Notes of Henry</h1><p class="en">Scents · Sounds · Stories</p><p>装下Henry的万千宇宙</p></div>
 <div class="mkm" id="mkm"><div class="mkc" id="mkCrop"><h3>选一块正方形</h3><p>拖动照片调整位置，滑动条或双指缩放</p><div class="cropbox" id="cropBox"><img id="cropImg" alt=""></div><div class="mkz">缩放<input type="range" id="cropZ" min="1" max="4" step="0.01" value="1"></div><div class="mkb"><button id="cropNo">取消</button><button class="go" id="cropOk">做成拍立得</button></div></div><div class="mkc" id="mkText"><h3>写一张便利贴</h3><p>写点想说的，会贴到毛毡板上</p><textarea id="noteTa" maxlength="60" placeholder="写点什么吧～"></textarea><div class="mkn" id="noteN">0 / 60</div><div class="mkcol" id="noteCol"></div><div class="mkb"><button id="txtNo">取消</button><button class="go" id="txtOk" disabled>贴上去</button></div></div></div><input type="file" id="mkFile" accept="image/*" hidden>
 <div id="boot" aria-live="polite">正在布置房间…</div>
+<button id="nsw" type="button" aria-label="切换白天 / 夜晚" aria-pressed="false"><span class="kn"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg><svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"/></svg></span></button>
 <div class="hint">拖动旋转 · 滚轮/双指缩放 · Ctrl+左键拖动/双指拖动平移 · 点击物件</div>
 <div id="tip"></div>
 <div id="songs"></div>
@@ -291,7 +306,7 @@ const MIGU={"b":"YSy4PAqaAD3GycM8RjK4vAqaAD3GycM8dQy7PMuzoD1JI7o8WhK7vMuzoD1FI7o
   const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({map:t,roughness:.95,metalness:0})); /* 哑光 */
   mesh.castShadow=mesh.receiveShadow=true;geo.attributes.position.setUsage(THREE.DynamicDrawUsage);inner.add(mesh);DOLM.meshes.push({mesh,geo})});
  INFO.doll=['咪菇','Mi Gu','这里将介绍咪菇娃娃（10cm）。'];
- g.position.set(-1.72,.76,.52);g.rotation.y=.3;g.scale.setScalar(1.25);reg(g,'doll',.9,1.35);DOLM.g=g;DOLM.inner=inner;DOLM.p0=g.position.clone();DOLM.q0=g.quaternion.clone();DOLM.k0=g.scale.x}
+ g.position.set(-1.72,.76,.52);g.rotation.y=.3;g.scale.setScalar(1.3);reg(g,'doll',1.0,1.35); /* 比模型原来的 10cm 放大 30%，约 13cm 高 */DOLM.g=g;DOLM.inner=inner;DOLM.p0=g.position.clone();DOLM.q0=g.quaternion.clone();DOLM.k0=g.scale.x}
 
 /* ========= 笔记本电脑：打开着，屏幕是 Audition 风格的混音工作界面；只做点击聚焦，没有二级页面 ========= */
 {const g=new THREE.Group(),alu=M(0xcfc9c0,.45,.3),dk=M(0x242427,.6);
@@ -768,8 +783,8 @@ function bottle(kind,col,cap,s){const g=new THREE.Group(),glass=col===0xdfe6ea;
   const sm=new THREE.MeshStandardMaterial({map:linen('#f3e6c8'),roughness:.95,side:THREE.DoubleSide,emissive:0xf3d99a,emissiveIntensity:.32});
   ad(g,LA([[.07,.215],[.071,.217],[.042,.287],[.04,.285]],40),sm);
   [.216,.286].forEach((y,i)=>ad(g,new THREE.TorusGeometry(i?.041:.0705,.0018,6,40),M(0xd9c8a6,.9),0,y,0,Math.PI/2));
-  ad(g,new THREE.SphereGeometry(.018,16,12),new THREE.MeshStandardMaterial({color:0xfff6e0,emissive:0xffe6b0,emissiveIntensity:.9,roughness:.3}),0,.24,0).scale.y=1.2;
-  ad(g,new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(0,.01,-.05),new THREE.Vector3(.02,.003,-.1),new THREE.Vector3(.07,.003,-.13),new THREE.Vector3(.12,.003,-.16)]),20,.0022,6),M(0xf3efe7,.6));return g};
+  const bm=new THREE.MeshStandardMaterial({color:0xfff6e0,emissive:0xffe6b0,emissiveIntensity:.9,roughness:.3});ad(g,new THREE.SphereGeometry(.018,16,12),bm,0,.24,0).scale.y=1.2;g.userData.lm={sm,bm}; /* 灯罩和灯泡的材质留出来，台灯开关要改它们的发光 */
+  ad(g,new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(0,.01,-.05),new THREE.Vector3(.012,.003,-.075),new THREE.Vector3(.03,.003,-.095),new THREE.Vector3(.058,.003,-.105)]),20,.0022,6),M(0xf3efe7,.6));return g};
  /* 相框：方形的原木相框（18×18cm）：两层木框线 + 白色卡纸 + 你的照片 + 一层薄玻璃 + 背后的支架；点击后推近，相框飘到画面正中，下面出现播放键和进度条 */
  const frame=()=>{const g=new THREE.Group(),f=new THREE.Group(),S=.18,bw=.018;f.position.y=.095;f.rotation.x=-.12;g.add(f);const wd=M(0xd9b48a,.6),wd2=M(0xc89f72,.6);
   [[S,bw,0,S/2-bw/2],[S,bw,0,-(S/2-bw/2)],[bw,S,S/2-bw/2,0],[bw,S,-(S/2-bw/2),0]].forEach(q=>{ad(f,gB(q[0],q[1],.014),wd,q[2],q[3],0);ad(f,gB(q[0]===S?S-2*bw:.006,q[0]===S?.006:S-2*bw,.006),wd2,q[2]*.8,q[3]*.8,.007)});
@@ -778,6 +793,12 @@ function bottle(kind,col,cap,s){const g=new THREE.Group(),glass=col===0xdfe6ea;
   ad(f,new THREE.PlaneGeometry(.118,.118),new THREE.MeshStandardMaterial({map:ph,roughness:.6}),0,0,.0042).castShadow=false;
   const gp=ad(f,new THREE.PlaneGeometry(S-2*bw,S-2*bw),new THREE.MeshStandardMaterial({color:0xffffff,transparent:true,opacity:.1,roughness:.05,metalness:.2,depthWrite:false}),0,0,.0065);gp.castShadow=false;
   ad(f,gB(S-2*bw+.004,S-2*bw+.004,.003),M(0xb9a07a,.9),0,0,-.007);ad(g,gB(.022,.16,.004),M(0xb9a07a,.9),0,.08,-.05,.38);return g};
+ /* 长方形的空相框（竖版 13×18cm）：放在原来台灯的位置，里面先是一张空白卡纸，图片你后面再给我 */
+ const frameRect=(W,H)=>{const g=new THREE.Group(),f=new THREE.Group(),bw=.016;f.position.y=H/2+.006;f.rotation.x=-.12;g.add(f);const wd=M(0xd9b48a,.6),wd2=M(0xc89f72,.6);
+  [[W,bw,0,H/2-bw/2],[W,bw,0,-(H/2-bw/2)],[bw,H,W/2-bw/2,0],[bw,H,-(W/2-bw/2),0]].forEach(q=>{ad(f,gB(q[0],q[1],.014),wd,q[2],q[3],0);ad(f,gB(q[0]===W?W-2*bw:.006,q[0]===W?.006:H-2*bw,.006),wd2,q[2]*.8,q[3]*.8,.007)});
+  ad(f,gB(W-2*bw,H-2*bw,.004),M(0xf6f2ea,.9),0,0,.002);
+  const gp=ad(f,new THREE.PlaneGeometry(W-2*bw,H-2*bw),new THREE.MeshStandardMaterial({color:0xffffff,transparent:true,opacity:.1,roughness:.05,metalness:.2,depthWrite:false}),0,0,.0065);gp.castShadow=false;
+  ad(f,gB(W-2*bw+.004,H-2*bw+.004,.003),M(0xb9a07a,.9),0,0,-.007);ad(g,gB(.022,H*.88,.004),M(0xb9a07a,.9),0,H*.44,-.05,.38);return g};
  /* 储物罐：陶瓷罐身（转角圆润）+ 木盖 + 小把手 + 一圈麻绳和小吊牌 */
  const canisters=()=>{const g=new THREE.Group(),wl=M(0xb9a07a,.6),rope=M(0xcbb38a,1);
   [[.05,.16,0xe9e1d3],[.045,.12,0xcdd8c8],[.04,.09,0xe0c9b8]].forEach((q,i)=>{const r=q[0],h=q[1],x=i*.11,cm=new THREE.MeshStandardMaterial({color:q[2],roughness:.45,bumpMap:noiseT(),bumpScale:.0006});
@@ -863,7 +884,7 @@ function bottle(kind,col,cap,s){const g=new THREE.Group(),glass=col===0xdfe6ea;
  {const A=put(trophyRing(),.925,Y[1],.2,.12),B=put(trophyMic(),1.02,Y[1],.26,-.15);INFO.trophy1=['奖杯','Trophy'];INFO.trophy2=['奖杯','Trophy'];reg(A,'trophy1',.8,1.3);reg(B,'trophy2',.8,1.3)} /* 可以点击：见下面的奖杯照片 */ /* 右边：两个奖杯（金色圆环、金色复古话筒） */
  put(mug(0xc8d4cc),.95,1.5825,.13);put(mug(0xe0c9b8,1),1.01,1.5825,.28,.6);put(plant(),.58,1.5825,.2);
  /* 第 3 层：台灯、相框、三个储物罐、玻璃罐、花瓶 */
- put(lamp(),.22,Y[2],.19);{const F=put(frame(),.425,Y[2],.22);INFO.frame=['相框','Frame'];reg(F,'frame',.7,1.3)}put(canisters(),.58,Y[2],.19);put(jar(0x8a5a34,.1),.93,Y[2],.19);put(vase(),1.02,Y[2],.2)}
+ {const Lp=lamp();Lp.scale.setScalar(1.25);put(Lp,-2.15,.76,.17);INFO.lamp=['台灯 · 点一下开关','Lamp'];reg(Lp,'lamp',.8,1.3);const sp=spots[spots.length-1];sp.mats=sp.mats.filter(m=>m!==Lp.userData.lm.sm&&m!==Lp.userData.lm.bm)} /* 台灯放在书桌上（左后角；加载完以后会自动避开桌上其他东西），可以点：开 / 关 */{const F=put(frame(),.425,Y[2],.22);INFO.frame=['相框','Frame'];reg(F,'frame',.7,1.3)}put(frameRect(.13,.18),.225,Y[2],.2);put(canisters(),.58,Y[2],.19);put(jar(0x8a5a34,.1),.93,Y[2],.19);put(vase(),1.02,Y[2],.2)}
 
 /* ========= 化妆柜：靠在侧墙（x=2.35）上，宽 93cm、深 50cm（和大衣柜同厚）；从上到下：香水展示柜（12 瓶，点击后镜头推近、两扇玻璃门打开）→ 镜子 → 桌面（化妆品）→ 抽屉（拉出一截）；凳子收在桌下；原木色 ========= */
 const DP={open:false,l:null,r:null,light:null},PC={g:[],sel:null,hov:null};
@@ -1215,7 +1236,8 @@ function fit(){const w=innerWidth,h=innerHeight,a=w/h,tf=Math.tan(cam.fov*Math.P
 addEventListener('resize',fit);fit();cur.r=goal.r;
 const near=t=>t+Math.round((goal.th-t)/(2*Math.PI))*2*Math.PI;
 function goHome(){closeCal();closeDoll();closeSongs();ipadHide();closeKB();closePol();closeWard();closeDP();closeMic();unflipAll();closeMaker();closeDrink();closeLaptop();closeCerts();closeTrophy();closeFrame();focused=null;spots.forEach(s=>s.goal=0);panel.classList.remove('on');goal.r=Math.min(HOME.r,goal.r*1.3)}
-function focus(s){if(s.id==='laptop'&&LTP.open&&focused===s){if(LTP.ready)laptopPlay();return} /* 推近后再点笔记本：从头播放、从头打字 */
+function focus(s){if(s.id==='lamp'){toggleLamp();s.goal=0;return} /* 台灯：只是个开关，不推近镜头 */
+ if(s.id==='laptop'&&LTP.open&&focused===s){if(LTP.ready)laptopPlay();return} /* 推近后再点笔记本：从头播放、从头打字 */
  if(s.id!=='laptop')closeLaptop();if(s.id==='drink'&&DRK.open){if(DRK.ready)drinkPlay();return} /* 杯子在中央：再点一次从头播放 */
  if(s.id!=='drink')closeDrink();if(s.id!=='certs')closeCerts();if(!s.id.startsWith('trophy'))closeTrophy();if(s.id!=='frame')closeFrame();if(s.id.startsWith('note')&&focused===s){flipNote(s.id);return} /* 已经推近的便利贴再点一次：翻起来 / 放回去 */
  if(!s.id.startsWith('note'))unflipAll();if(s.id!=='cal'&&CAL.open)closeCal();if(s.id!=='doll'&&DOLM.open)closeSoft(DOLM);if(s.id!=='seal'&&SEAL.open)closeSoft(SEAL);if(s.id!=='hp'&&SG.open)closeSongs();if(s.id!=='kb'&&KB.open)closeKB();if(!s.id.startsWith('pol'))closePol();if(s.id!=='wd'&&WD.open)closeWard();if(s.id!=='dp'&&DP.open)closeDP();if(s.id!=='pad')ipadHide();if(s.id!=='mic')closeMic();focused=s;const p=new THREE.Vector3();s.g.getWorldPosition(p);if(s.id.startsWith('scent'))p.y+=.1;if(s.id==='laptop')p.y+=.1;if(s.id==='wd'){p.y+=1;p.x-=.25}if(s.id==='dp'){p.y+=1.45;p.x-=.25}if(s.id==='mic'){p.x+=.3;p.y+=1.12;p.z+=.1}if(s.id==='seal')p.y+=.13;if(s.id.startsWith('note'))p.y-=s.g.userData.h/2;if(s.id==='leave')p.y+=.4;if(s.id==='drink')p.y+=.1;if(s.id==='certs')p.y+=.05;if(s.id.startsWith('trophy'))p.y+=.12;if(s.id==='frame')p.y+=.1;
@@ -1533,6 +1555,7 @@ function softStep(T,dt){const S=T.sp,g=T===ST?SB.grab:null,rs=T===ST?SB.ripples:
    v[j]+=ax*dt;v[j+1]+=ay*dt;v[j+2]+=az*dt;
    d[j]+=v[j]*dt;d[j+1]+=v[j+1]*dt;d[j+2]+=v[j+2]*dt;
    P[j]=r[j]+d[j];P[j+1]=r[j+1]+d[j+1];P[j+2]=r[j+2]+d[j+2]}
+  if(!(Math.abs(P[1])<5)){d.fill(0);v.fill(0);P.set(r)} /* 软体算出异常值（非数字 / 飞得很远）：立刻复位，模型不会消失 */
   A.needsUpdate=true}
  if(T===ST)for(let k=rs.length-1;k>=0;k--){const q=rs[k];q.t+=dt;q.f=q.a*4*Math.exp(-q.t*3.5);if(q.t>1.2)rs.splice(k,1)}}
 function poke(h,amp){ /* 戳：在接触点瞬间压下去，并扩散一圈涟漪 */
@@ -1817,10 +1840,10 @@ function laptopStep(){if(!LTP.open||!LTP.s)return;const g=LTP.s.g;
  const b=g.localToWorld(_lv.set(0,0,.14)).project(cam);lpTip.style.transform='translate(-50%,0) translate('+((b.x+1)/2*innerWidth)+'px,'+((1-b.y)/2*innerHeight+16)+'px)';
  const t=g.localToWorld(_lv.set(0,.24,-.19)).project(cam);lpType.style.transform='translate(-50%,-100%) translate('+((t.x+1)/2*innerWidth)+'px,'+Math.max(lpType.offsetHeight+14,(1-t.y)/2*innerHeight-14)+'px)'}
 
-/* ========= 固定镜头：聚焦饮料、笔记本、麦克风、iPad、拍立得相纸、香水柜、荣誉证书、奖杯、相框的时候，不能再拖动旋转 / 缩放 / 平移，只能点空白处返回 ========= */
-const LOCK=()=>!!(DRK.open||LTP.open||MIC.on||ipOn||FL.open||DP.open||CW.open||TRP.open||FR.open||(focused&&focused.id.startsWith('trophy'))||(focused&&(focused.id.startsWith('noteP')||focused.id.startsWith('cert'))));
+/* ========= 固定镜头：聚焦饮料、笔记本、麦克风、iPad、拍立得相纸、荣誉证书、奖杯、相框的时候（香水柜不锁：手机上要能转动镜头才看得到所有香水），不能再拖动旋转 / 缩放 / 平移，只能点空白处返回 ========= */
+const LOCK=()=>!!(DRK.open||LTP.open||MIC.on||ipOn||FL.open||CW.open||TRP.open||FR.open||(focused&&focused.id.startsWith('trophy'))||(focused&&(focused.id.startsWith('noteP')||focused.id.startsWith('cert'))));
 let _lk=false;
-function lockStep(){const k=LOCK();if(k===_lk)return;_lk=k;if(SOFT())return;hintEl.textContent=k?(DP.open?'点击瓶子查看 · 点击空白处返回':'点击空白处返回'):hintTxt}
+function lockStep(){const k=LOCK();if(k===_lk)return;_lk=k;if(SOFT())return;hintEl.textContent=k?'点击空白处返回':hintTxt}
 
 /* ========= 荣誉证书圆轮：点击杂物柜第二层那叠红色证书 → 镜头推近 → 背景虚化变白 → 证书从四周飞到中间，展开成一个圆轮（和耳机的歌曲圆轮一样的手感）；
    左右拖动 / 滚轮 / 方向键转动，点侧边的一张把它转到正中，点正中的一张放大看清；点空白处或按 Esc 返回 ========= */
@@ -1919,6 +1942,136 @@ function frameStep(){if(!FR.s||!FR.p0)return;const g=FR.s.g;
   if(FR.open){const b=g.localToWorld(_fv.set(0,.0,.02)).project(cam);frp.style.transform='translate(-50%,0) translate('+((b.x+1)/2*innerWidth)+'px,'+Math.min(innerHeight-70,(1-b.y)/2*innerHeight+22)+'px)'}}
  else if(!FR.open){g.position.copy(FR.p0);g.quaternion.copy(FR.q0);g.scale.setScalar(FR.k0)}}
 
+/* ========= 咪菇可以拖着换位置：长按约 0.2 秒 → 被提起来 → 按住拖动：咪菇跟着鼠标 / 手指在三维空间里走，
+   鼠标往上它就升高，往下它就降低（降到桌面或者桌上东西的表面就停住，再往下拖就贴着桌面往前滑），左右前后都能走，只是不能超出书桌桌面的范围 →
+   桌面上会出现一块落点阴影，告诉你松手后它会落在哪（桌面、音箱、笔记本电脑键盘面、iPad 这些比较平的地方都行；不平的地方，比如台灯、耳机、杯子，会自动落在旁边最近的平地）→
+   松手：落下去，落地压扁一点，再轻轻回弹两下。短按还是原来的「点击聚焦、捏捏」。
+   稳定性：所有会参与计算的数值一开始就初始化，每一帧都检查一遍，万一出现异常值就立刻修回来，咪菇不会再凭空消失；
+   书桌表面的高低 / 平整度在后台提前算成一张表，拖动时只查表，不再每次现算，所以很顺 ========= */
+const DD={id:null,tm:0,lifted:false,x0:0,y0:0,px:0,py:0,tx:0,ty:0,tz:0,vx:0,pn:0,cands:null,land:null,mark:null,fp:new THREE.Plane(),off:new THREE.Vector3()};
+Object.assign(DOLM,{lift:0,tilt:0,lean:0,sway:0}); /* 这几个值以前没有初始值，第一次长按时算出了「非数字」，咪菇就整个消失了 */
+DOLM.home=DOLM.p0.clone();
+{const YMIN=.77,YMAX=1.55,DX0=-2.3,DX1=-.3,DZ0=0,DZ1=.7,R=.065; /* 咪菇放大后占地半径约 6.5cm；高度范围：离桌面 1cm ~ 约 80cm */
+ const hp=new THREE.Vector3(),Q0=new THREE.Vector3(),nv=new THREE.Vector3(),hz=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+ const lo=DX0+R,hi=DX1-R,zl=DZ0+R,zh=DZ1-R,fin=v=>v===v&&Math.abs(v)<1e6;
+ const free=()=>!focused&&!SOFT()&&!KB.open&&!CAL.open&&!WD.open&&!MK.open&&!LOCK()&&!RUG.drag;
+ const aim=(x,y)=>{mp.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(mp,cam)};
+ const dollMeshes=DOLM.meshes.map(m=>m.mesh);
+ const onDoll=e=>{aim(e.clientX,e.clientY);const a=ray.intersectObjects(dollMeshes,false)[0];if(!a)return false; /* 先只测咪菇自己：没点到就不用扫整个场景 */
+  const h=ray.intersectObjects(scene.children,true).find(q=>q.object.visible);return !!h&&dollMeshes.includes(h.object)};
+ /* 落点阴影 */
+ DD.mark=new THREE.Mesh(new THREE.CircleGeometry(.085,36),new THREE.MeshBasicMaterial({map:tex(64,64,(c,w,h)=>{const g=c.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);g.addColorStop(0,'rgba(30,24,18,.6)');g.addColorStop(.6,'rgba(30,24,18,.28)');g.addColorStop(1,'rgba(30,24,18,0)');c.fillStyle=g;c.fillRect(0,0,w,h)}),transparent:true,depthWrite:false}));
+ DD.mark.rotation.x=-Math.PI/2;DD.mark.renderOrder=6;DD.mark.visible=false;DD.mark.raycast=()=>{};scene.add(DD.mark);
+ /* 书桌范围内、可能被咪菇落上去的所有网格（桌面、桌上的物品）；半透明的玻璃、阴影面、光晕、被藏起来的东西都不算 */
+ const vis=m=>{for(let o=m;o;o=o.parent)if(!o.visible)return false;return true};
+ const gather=()=>{const out=[],bb=new THREE.Box3();scene.children.forEach(o=>{if(!o.visible||o===DOLM.g||o===DD.mark)return;bb.setFromObject(o);if(bb.isEmpty())return;
+   if(bb.max.x<DX0||bb.min.x>DX1||bb.max.z<DZ0||bb.min.z>DZ1||bb.min.y>1.3)return;
+   o.traverse(m=>{if(m.isMesh&&vis(m)&&!(m.material&&m.material.transparent&&m.material.opacity<.7))out.push(m)})});return out};
+ /* 书桌表面的「高度表」：每 1.5cm 一格，记录这一格最上面那个表面的高度和朝向。放到后台、一小块一小块地提前算好（加载完 2.5 秒后开始，不卡画面） */
+ const HF={ready:false,cell:.015,nx:0,nz:0,y:null,ny:null,row:0},rc=new THREE.Raycaster(),dn=new THREE.Vector3(0,-1,0),og=new THREE.Vector3(),nm=new THREE.Vector3();
+ const rawProbe=(x,z)=>{og.set(x,1.5,z);rc.set(og,dn);const h=rc.intersectObjects(DD.cands,false)[0];if(!h||!h.face)return null;nm.copy(h.face.normal).transformDirection(h.object.matrixWorld);return{y:h.point.y,ny:nm.y}};
+ const initHF=()=>{if(HF.y)return;DD.cands=gather();HF.nx=Math.ceil((DX1-DX0)/HF.cell)+1;HF.nz=Math.ceil((DZ1-DZ0)/HF.cell)+1;HF.y=new Float32Array(HF.nx*HF.nz);HF.ny=new Float32Array(HF.nx*HF.nz);HF.row=0};
+ const buildRows=n=>{for(let k=0;k<n&&HF.row<HF.nz;k++,HF.row++){const z=DZ0+HF.row*HF.cell;for(let i=0;i<HF.nx;i++){const p=rawProbe(DX0+i*HF.cell,z),id=HF.row*HF.nx+i;if(p){HF.y[id]=p.y;HF.ny[id]=p.ny}else{HF.y[id]=-1;HF.ny[id]=0}}}if(HF.row>=HF.nz)HF.ready=true};
+ const idle=window.requestIdleCallback?f=>requestIdleCallback(f,{timeout:200}):f=>setTimeout(f,30);
+ const bgStep=()=>{if(HF.ready)return;buildRows(3);idle(bgStep)};
+ setTimeout(()=>{initHF();bgStep()},2500);
+ const ensureHF=()=>{initHF();while(!HF.ready)buildRows(12)}; /* 如果 2.5 秒内就长按了，现场补完 */
+ const probe=(x,z)=>{const i=Math.round((x-DX0)/HF.cell),j=Math.round((z-DZ0)/HF.cell);if(i<0||j<0||i>=HF.nx||j>=HF.nz)return null;const id=j*HF.nx+i,y=HF.y[id];return y<0?null:{y,ny:HF.ny[id]}};
+ /* 这个位置能不能站稳：正中和脚底一圈 6 个点都要有表面、朝上，而且高低差不超过 2cm */
+ const flat=(x,z)=>{const c=probe(x,z);if(!c||c.ny<.82)return null;let mx=c.y,mn=c.y;
+  for(let k=0;k<6;k++){const a=k*Math.PI/3,p=probe(x+Math.cos(a)*.04,z+Math.sin(a)*.04);if(!p||p.ny<.6)return null;if(p.y>mx)mx=p.y;if(p.y<mn)mn=p.y}
+  return mx-mn<=.022?{x,z,y:mx}:null};
+ const findLand=(x,z)=>{x=cl(x,lo,hi);z=cl(z,zl,zh);let r=flat(x,z);if(r)return r;
+  for(let d=.02;d<=.3;d+=.02)for(let k=0;k<16;k++){const a=k/16*Math.PI*2;r=flat(cl(x+Math.cos(a)*d,lo,hi),cl(z+Math.sin(a)*d,zl,zh));if(r)return r}
+  return DD.land}; /* 周围实在没有平地（几乎不会发生）：用上一个落点 */
+ const updateMark=()=>{const L=findLand(DD.tx,DD.tz);if(!L)return;DD.land=L;DD.mark.position.set(L.x,L.y+.003,L.z);DD.mark.visible=true};
+ const lift=()=>{if(DD.id===null||DD.lifted)return;DD.lifted=true;drag=false; /* 不再旋转镜头 */
+  hover=null;tip.style.opacity=0;cv.style.cursor='grabbing';ensureHF();
+  const p=DOLM.p0;Q0.set(p.x,p.y+.14,p.z); /* 先升起 14cm，之后高度由鼠标 / 手指决定 */
+  DD.fp.setFromNormalAndCoplanarPoint(cam.getWorldDirection(nv),Q0); /* 一个正对镜头的平面：鼠标在屏幕上怎么动，咪菇就在这个平面上怎么动 */
+  aim(DD.px,DD.py);if(ray.ray.intersectPlane(DD.fp,hp))DD.off.copy(Q0).sub(hp);else DD.off.set(0,0,0);
+  DD.tx=p.x;DD.tz=p.z;DD.ty=Q0.y;DD.vx=0;DD.pn=0;DD.land={x:p.x,z:p.z,y:p.y};updateMark();
+  gsap.killTweensOf([DOLM,DOLM.p0,DOLM.inner.scale]);gsap.to(DOLM,{tilt:.1,duration:.3,ease:'power2.out'});gsap.to(DOLM.inner.scale,{x:1.06,y:1.06,z:1.06,duration:.3,ease:'power2.out'})}; /* 被提起来 */
+ addEventListener('pointerdown',e=>{if(e.target!==cv||e.button!==0||DD.id!==null||!free()||!onDoll(e))return;
+  DD.id=e.pointerId;DD.lifted=false;DD.x0=DD.px=e.clientX;DD.y0=DD.py=e.clientY;clearTimeout(DD.tm);DD.tm=setTimeout(lift,200)},true); /* 这里不拦截：短按还是照常点击聚焦 */
+ cv.addEventListener('contextmenu',e=>{if(DD.id!==null)e.preventDefault()}); /* 手机上长按会弹出系统菜单，这里挡掉 */
+ addEventListener('pointermove',e=>{if(DD.id===null||e.pointerId!==DD.id)return;DD.px=e.clientX;DD.py=e.clientY;
+  if(!DD.lifted){if(Math.hypot(e.clientX-DD.x0,e.clientY-DD.y0)>8){clearTimeout(DD.tm);DD.id=null}return} /* 还没提起来就动了：当作转动镜头，放开咪菇 */
+  e.stopImmediatePropagation();aim(e.clientX,e.clientY);
+  if(ray.ray.intersectPlane(DD.fp,hp)){const yv=hp.y+DD.off.y;
+   /* 高度超出范围时，改成沿着最低 / 最高那一层水平面滑动（两个平面在交界处刚好重合，所以不会跳） */
+   if(yv<YMIN||yv>YMAX){hz.constant=-((yv<YMIN?YMIN:YMAX)-DD.off.y);if(!ray.ray.intersectPlane(hz,hp))return}
+   const x=hp.x+DD.off.x,y=hp.y+DD.off.y,z=hp.z+DD.off.z;if(!(fin(x)&&fin(y)&&fin(z)))return; /* 算出奇怪的数就忽略这一次 */
+   DD.tx=cl(x,lo,hi);DD.tz=cl(z,zl,zh);DD.ty=cl(y,YMIN,YMAX);updateMark()}},true);
+ const up=e=>{if(DD.id===null||e.pointerId!==DD.id)return;clearTimeout(DD.tm);const was=DD.lifted;DD.id=null;if(!was)return;
+  e.stopImmediatePropagation();ptrs.delete(e.pointerId);cv.style.cursor='grab';DD.lifted=false;DD.mark.visible=false;
+  const T=DOLM;try{
+   const L=findLand(DD.tx,DD.tz)||DD.land||{x:T.p0.x,z:T.p0.z,y:T.p0.y},wy=Math.max(T.p0.y+(fin(T.lift)?T.lift:0),L.y); /* 当前的实际高度 */
+   gsap.killTweensOf([T,T.p0,T.inner.scale]);T.sway=0;T.p0.y=L.y;T.lift=wy-L.y;
+   gsap.to(T.p0,{x:L.x,z:L.z,duration:.25,ease:'power2.out'}); /* 先平移到落点正上方 */
+   const h=T.lift,tf=Math.max(.1,Math.sqrt(2*h/9.8)*1.2),bs=Math.min(1,h/.12),tl=gsap.timeline(); /* 下落：自由落体的时间，稍慢一点；放得越低，回弹越小 */
+   tl.to(T,{lift:0,duration:tf,ease:'power2.in'},0).to(T,{tilt:0,duration:.35,ease:'power2.out'},0)
+    .to(T,{lift:.004+.012*bs,duration:.12,ease:'power2.out'},tf).to(T,{lift:0,duration:.12,ease:'power2.in'}).to(T,{lift:.002+.004*bs,duration:.08,ease:'power2.out'}).to(T,{lift:0,duration:.08,ease:'power2.in'}); /* 落地后轻轻回弹两下 */
+   gsap.timeline().to(T.inner.scale,{x:1.02,y:1.02,z:1.02,duration:tf*.9,ease:'none'}).to(T.inner.scale,{x:1+.12*bs,y:1-.16*bs,z:1+.12*bs,duration:.07,ease:'power2.out'}).to(T.inner.scale,{x:1,y:1,z:1,duration:.75,ease:'elastic.out(1,.35)'}) /* 落地那一下压扁，再弹回来 */
+  }catch(err){T.lift=0;T.tilt=0;T.sway=0;T.inner.scale.set(1,1,1)}}; /* 万一中间出错，也让咪菇安安稳稳地落在原地 */
+ addEventListener('pointerup',up,true);addEventListener('pointercancel',up,true)}
+function dollStep(now){const T=DOLM,p=T.p0;if(!p)return;
+ /* 体检：位置、高度、倾斜、缩放只要有一个不是正常的数，马上修回来 */
+ if(!(isFinite(p.x+p.y+p.z)))p.copy(T.home);
+ if(!(isFinite(T.lift)))T.lift=0;if(!(isFinite(T.tilt)))T.tilt=0;if(!(isFinite(T.lean)))T.lean=0;if(!(isFinite(T.sway)))T.sway=0;
+ const sc=T.inner.scale;if(!(isFinite(sc.x+sc.y+sc.z))||sc.y<=0.05)sc.set(1,1,1);
+ const dt=Math.min(.05,DD.pn?(now-DD.pn)/1000:.016);DD.pn=now;
+ if(DD.lifted){const f=1-Math.exp(-dt*18); /* 按时间平滑，帧率高低都一样顺 */
+  const nx=p.x+(DD.tx-p.x)*f,nz=p.z+(DD.tz-p.z)*f;DD.vx=(nx-p.x)*(.0167/Math.max(dt,.004));p.x=nx;p.z=nz;
+  const wantY=Math.max(DD.ty,(DD.land?DD.land.y:p.y)+.012); /* 不会比脚下的表面更低 */
+  T.lift+=((wantY-p.y)-T.lift)*f; /* 高度跟着鼠标走 */
+  T.sway=Math.sin(now/170)*.004;T.lean=cl(T.lean+(-DD.vx*7-T.lean)*(1-Math.exp(-dt*11)),-.25,.25)} /* 往哪边拖就往哪边稍微倾一点 */
+ else if(T.lean){T.lean*=Math.exp(-dt*10);if(Math.abs(T.lean)<.002)T.lean=0}}
+
+/* ========= 台灯放到书桌上：先放在桌子的左后角，加载完所有东西后，再按桌上其他东西的实际占地自动找一个不压到它们的位置（离左后角最近的空位） ========= */
+{const L=spots.find(q=>q.id==='lamp');if(L){const g=L.g,R=.1,bb=new THREE.Box3(),ob=[];
+ scene.children.forEach(o=>{if(o===g||!o.visible||o===desk)return;bb.setFromObject(o);if(bb.isEmpty())return;
+  if(bb.min.y<.745||bb.min.y>.9)return;if(bb.max.x<-2.3||bb.min.x>-.3||bb.max.z<0||bb.min.z>.7)return;if(Math.max(bb.max.x-bb.min.x,bb.max.z-bb.min.z)>.8)return;
+  ob.push([bb.min.x-R,bb.max.x+R,bb.min.z-R,bb.max.z+R])});
+ let best=null,bd=1e9;
+ for(let x=-2.2;x<=-1.75;x+=.02)for(let z=.15;z<=.42;z+=.02){if(ob.some(o=>x>o[0]&&x<o[1]&&z>o[2]&&z<o[3]))continue;const d=(x+2.17)*(x+2.17)+(z-.17)*(z-.17);if(d<bd){bd=d;best=[x,z]}}
+ if(best)g.position.set(best[0],.76,best[1])}}
+
+/* ========= 夜间氛围：按打开网页的这台设备的本地时间判断——晚上 7 点到早上 6 点是「夜晚」：背景变成深蓝黑，主光变成冷冷的月光，
+   整个房间暗下来；柜子上的台灯默认亮着，点一下台灯就是开关（白天默认关着，也可以点亮）。白天 / 夜晚之间切换是慢慢渐变的；右上角有个开关可以自己选；页面开着跨过 7 点或 6 点时，没自己选过就自动过渡 ========= */
+const NT={k:0,lampK:0,lampOn:false,manual:false,auto:false,light:null,glow:null,shade:null,bulb:null};
+{const hemi=scene.children.find(o=>o.isHemisphereLight),C=h=>new THREE.Color(h);
+ const lampSpot=spots.find(q=>q.id==='lamp');
+ if(lampSpot&&lampSpot.g.userData.lm){NT.shade=lampSpot.g.userData.lm.sm;NT.bulb=lampSpot.g.userData.lm.bm;
+  NT.light=new THREE.PointLight(0xffd7a0,0,2.4,1.6);NT.light.position.set(0,.27,.03);lampSpot.g.add(NT.light); /* 台灯发出的暖光，跟着台灯走 */
+  const gt=tex(128,128,(c,w,h)=>{const g=c.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);g.addColorStop(0,'rgba(255,226,170,.95)');g.addColorStop(.35,'rgba(255,205,135,.38)');g.addColorStop(1,'rgba(255,190,110,0)');c.fillStyle=g;c.fillRect(0,0,w,h)});
+  NT.glow=new THREE.Sprite(new THREE.SpriteMaterial({map:gt,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));NT.glow.scale.set(.34,.34,1);NT.glow.position.set(0,.25,.02);NT.glow.geometry.boundingBox=new THREE.Box3();lampSpot.g.add(NT.glow)} /* 光晕不算台灯的占地（咪菇拖动避让时按台灯真实大小算） */ /* 灯罩周围一圈柔和的光晕 */
+ const lerpC=(a,b,k)=>C(a).lerp(C(b),k);
+ window.applyLamp=()=>{const a=NT.lampK,k=NT.k;
+  if(NT.light)NT.light.intensity=a*(.55+.95*k);
+  if(NT.shade){NT.shade.emissive.setHex(0xf3d99a);NT.shade.emissiveIntensity=.06+.62*a;NT.bulb.emissive.setHex(0xffe6b0);NT.bulb.emissiveIntensity=.08+1.0*a}
+  if(NT.glow)NT.glow.material.opacity=a*(.28+.5*k)};
+ window.applyNight=()=>{const k=NT.k,L=(a,b)=>a+(b-a)*k;
+  scene.background.copy(lerpC(0xf3f1ee,0x0e1118,k));document.documentElement.style.setProperty('--bg','#'+scene.background.getHexString());
+  document.body.classList.toggle('night',NT.goal!==undefined?NT.goal:k>.5); /* 按「目标」切换样式，开关和标题的颜色一点下去就变，不等渐变走完 */
+  if(hemi){hemi.color.copy(lerpC(0xffffff,0x8c9bd6,k));hemi.groundColor.copy(lerpC(0xe6dfd6,0x1f2438,k));hemi.intensity=L(1.2,.42)}
+  sun.color.copy(lerpC(0xfff3e4,0x9db2f0,k));sun.intensity=L(.95,.28);
+  fill.color.copy(lerpC(0xdfe8ff,0x7f95d8,k));fill.intensity=L(.3,.1);
+  back.color.copy(lerpC(0xfff6ea,0x6d83c8,k));back.intensity=L(.5,.18);
+  R.toneMappingExposure=L(1.1,1.0);floor.material.opacity=L(.11,.28);window.applyLamp()};
+ window.setLamp=(on,instant)=>{NT.lampOn=on;gsap.killTweensOf(NT,'lampK');if(instant){NT.lampK=on?1:0;window.applyLamp()}else gsap.to(NT,{lampK:on?1:0,duration:.35,ease:'power2.out',onUpdate:window.applyLamp})};
+ window.toggleLamp=()=>{NT.manual=true;window.setLamp(!NT.lampOn)}; /* 点台灯：开 / 关 */
+ const forced=(()=>{try{const q=new URLSearchParams(location.search).get('night');return q==='1'?true:q==='0'?false:null}catch(e){return null}})(); /* 网址后面加 ?night=1 强制看夜晚，?night=0 强制看白天，方便预览 */
+ const isNight=()=>forced!==null?forced:(h=>h>=19||h<6)(new Date().getHours());
+ NT.auto=isNight();NT.k=NT.auto?1:0;NT.goal=NT.auto;window.applyNight();window.setLamp(NT.auto,true);
+ const nsw=document.getElementById('nsw');nsw.setAttribute('aria-pressed',String(NT.goal));
+ /* 右上角的白天 / 夜晚开关：默认就是上面按时间判断的结果，用户点一下就自己选；这次打开网页期间，用户的选择优先于时间 */
+ window.setNightMode=(on,byUser)=>{NT.goal=on;if(byUser)NT.user=on;nsw.setAttribute('aria-pressed',String(on));document.body.classList.toggle('night',on);
+  gsap.killTweensOf(NT,'k');gsap.to(NT,{k:on?1:0,duration:1.3,ease:'power1.inOut',onUpdate:window.applyNight});
+  if(!NT.manual)window.setLamp(on)}; /* 台灯没被手动动过的话，跟着夜晚亮、白天灭 */
+ nsw.addEventListener('click',()=>window.setNightMode(!NT.goal,true)); /* 一打开就按当前时间设好：夜里台灯亮着，白天关着 */
+ setInterval(()=>{const n=isNight();if(n===NT.auto)return;NT.auto=n;if(NT.user!==undefined)return;window.setNightMode(n,false)},300000)} /* 用户自己选过就不再按时间自动切 */
+
 /* ========= 渲染循环 ========= */
 
 let last=performance.now();
@@ -1947,7 +2100,7 @@ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;const k=1-Mat
    const tp=cam.position.clone().addScaledVector(fwd,D).addScaledVector(up,-T.cy*k);
    dg.position.copy(T.p0).lerp(tp,T.t);dg.quaternion.copy(T.q0).slerp(cam.quaternion,Math.min(1,Math.max(0,T.t)));dg.scale.setScalar(T.k0+(k-T.k0)*T.t);
    softStep(T,Math.min(dt,.02))}
-  else{dg.position.copy(T.p0);dg.quaternion.copy(T.q0)}});
+  else{dg.position.copy(T.p0);if(T.lift)dg.position.y+=T.lift+(T.sway||0);dg.quaternion.copy(T.q0);const tl=(T.tilt||0)+(T.lean||0)+(T.sway||0)*8;if(tl)dg.rotateZ(tl)}}); /* 咪菇被拿起来 / 落下时的高度和倾斜 */
  if(CP.t>.002){const cg=spots.find(q=>q.id==='cal').g;CAL.g.visible=true;
   const D=.55,vh=2*D*Math.tan(cam.fov*Math.PI/360),vw=vh*cam.aspect,k=Math.min(.84*vh/(PH+.07),.88*vw/(PW+.05));
   const fwd=new THREE.Vector3(0,0,-1).applyQuaternion(cam.quaternion),up=new THREE.Vector3(0,1,0).applyQuaternion(cam.quaternion);
@@ -1961,7 +2114,7 @@ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;const k=1-Mat
    const tp=cam.position.clone().addScaledVector(fwd,D).addScaledVector(up,Math.sin(now/700)*.006*e);
    g.position.copy(PAD.p0).lerp(tp,e);g.quaternion.copy(PAD.q0).slerp(cam.quaternion.clone().multiply(Q90),e);g.scale.setScalar(PAD.k0+(k-PAD.k0)*e)}
   else{g.position.copy(PAD.p0);g.quaternion.copy(PAD.q0)}}
- perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();R.render(scene,cam);if(!loop.ok){loop.ok=1;const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}requestAnimationFrame(loop)}
+ perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();dollStep(now);R.render(scene,cam);if(!loop.ok){loop.ok=1;const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 </script>
 </body>
