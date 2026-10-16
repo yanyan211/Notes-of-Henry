@@ -1740,14 +1740,24 @@ function micStep(){if(!MIC.on)return;_mv.copy(MIC.p).project(cam);
 AU.addEventListener('pause',()=>{if(AU.paused&&SG.play>=0)setPlay(-1)});IPA.addEventListener('pause',()=>{if(IPA.paused)ipIcon(false)});
 
 /* ========= 键盘演奏：点击键盘 → 镜头推近、键盘悬浮到画面中央 → 鼠标 / 手指按住滑动连续弹奏（WebAudio 合成钢琴音色） ========= */
-let AC=null,KBM=null;
-function audioInit(){if(AC){AC.resume();return}AC=new(window.AudioContext||window.webkitAudioContext)();
+let AC=null,KBM=null,SIL=null;
+/* 手机上的坑：① iOS / Safari 只认「抬起手指」那一下才允许发声，在按下琴键（pointerdown）时才创建音频，会一直是「暂停」状态，所以没声音；② iOS 静音拨片会把网页合成的声音整个静掉。
+   处理：点开键盘的那一下（手指抬起，合法手势）就把音频创建好并唤醒；再放一段听不见的静音播放，让系统把这个页面当成「播放媒体」，不再被静音拨片拦住 */
+function startSilent(){try{if(!SIL){const n=2400,b=new Uint8Array(44+n),v=new DataView(b.buffer),w=(o,s)=>{for(let i=0;i<s.length;i++)b[o+i]=s.charCodeAt(i)};
+  w(0,'RIFF');v.setUint32(4,36+n,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,8000,true);v.setUint32(28,8000,true);v.setUint16(32,1,true);v.setUint16(34,8,true);w(36,'data');v.setUint32(40,n,true);b.fill(128,44);
+  SIL=new Audio(URL.createObjectURL(new Blob([b],{type:'audio/wav'})));SIL.loop=true;SIL.setAttribute('playsinline','')}const p=SIL.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}}
+function stopSilent(){try{if(SIL)SIL.pause()}catch(e){}}
+['touchend','pointerup','click'].forEach(ev=>addEventListener(ev,()=>{if(AC&&AC.state!=='running')AC.resume()},{capture:true,passive:true})); /* 之后每次手指抬起，只要音频被系统挂起了就再唤醒 */
+function audioInit(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(e){} /* iOS 17+：声明这是「播放」类声音，静音拨片不再拦 */
+ if(AC){if(AC.state!=='running')AC.resume();return}
+ AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.resume)AC.resume();
+ {const bf=AC.createBuffer(1,1,22050),sr=AC.createBufferSource();sr.buffer=bf;sr.connect(AC.destination);sr.start(0)} /* 放一个空声音，iOS 就算解锁了 */
  const comp=AC.createDynamicsCompressor();KBM=AC.createGain();KBM.gain.value=.8;
  const conv=AC.createConvolver(),len=AC.sampleRate*1.6,buf=AC.createBuffer(2,len,AC.sampleRate);
  for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}
  conv.buffer=buf;const wet=AC.createGain();wet.gain.value=.16;
  KBM.connect(comp);comp.connect(AC.destination);KBM.connect(conv);conv.connect(wet);wet.connect(comp)}
-function noteOn(n){if(!AC||KB.voices.has(n))return;const f=440*Math.pow(2,(n-69)/12),t=AC.currentTime;
+function noteOn(n){if(!AC||KB.voices.has(n))return;if(AC.state!=='running')AC.resume();const f=440*Math.pow(2,(n-69)/12),t=AC.currentTime;
  const g=AC.createGain(),lp=AC.createBiquadFilter();lp.type='lowpass';lp.Q.value=.5;lp.frequency.setValueAtTime(Math.min(9000,f*10),t);lp.frequency.setTargetAtTime(f*3+500,t,.4);
  const parts=[[1,'triangle',.7],[2,'sine',.28],[3,'sine',.12],[4,'sine',.05]].map(q=>{const o=AC.createOscillator(),og=AC.createGain();o.type=q[1];o.frequency.value=f*q[0];og.gain.value=q[2];o.connect(og);og.connect(g);o.start(t);return o});
  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.36,t+.006);g.gain.setTargetAtTime(.13,t+.006,.55);
@@ -1764,10 +1774,10 @@ cv.addEventListener('pointermove',e=>{if(!KB.open||!KB.down.has(e.pointerId))ret
  keyRelease(o);KB.down.set(e.pointerId,k);if(k>=0)keyPress(k)});
 const kbUp=e=>{if(!KB.down.has(e.pointerId))return;keyRelease(KB.down.get(e.pointerId));KB.down.delete(e.pointerId)};
 cv.addEventListener('pointerup',kbUp);cv.addEventListener('pointercancel',kbUp);
-function openKB(){if(KB.open)return;KB.open=true;hover=null;spots.find(q=>q.id==='kb').goal=0;
+function openKB(){if(KB.open)return;KB.open=true;hover=null;audioInit();startSilent(); /* 点开键盘这一下是手指抬起的合法手势：在这里把声音准备好 */spots.find(q=>q.id==='kb').goal=0;
  hintEl.textContent='按住琴键滑动即可连续弹奏 · 点击空白处返回';
  gsap.killTweensOf(KB);gsap.to(KB,{t:1,duration:1.1,delay:.4,ease:'back.out(1.3)'})}
-function closeKB(){if(!KB.open)return;KB.open=false;for(const n of [...KB.voices.keys()])noteOff(n);KB.down.clear();KB.pr=[];hintEl.textContent=hintTxt;
+function closeKB(){if(!KB.open)return;KB.open=false;stopSilent();for(const n of [...KB.voices.keys()])noteOff(n);KB.down.clear();KB.pr=[];hintEl.textContent=hintTxt;
  gsap.killTweensOf(KB);gsap.to(KB,{t:0,duration:.6,ease:'power2.inOut'})}
 
 
