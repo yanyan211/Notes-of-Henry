@@ -9,7 +9,7 @@
 <meta property="og:description" content="装下Henry的万千宇宙 · Scents, Sounds, Stories">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<link rel="preload" as="style" data-fonts href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap"></noscript>
 <style>
 :root{--bg:#f3f1ee;--ink:#2b2926;--mute:#8a847c;box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif}
@@ -145,9 +145,345 @@ body.night #nsw .kn{transform:translateX(26px);background:#ece8e0}
 body.night #nsw .sun{opacity:0;transform:rotate(70deg)}body.night #nsw .moon{opacity:1;transform:none}
 #nsw:focus-visible{outline:2px solid #8aa0d8;outline-offset:2px}
 </style>
-<script>/* 载入出错时把原因显示出来，不再是一片空白 */addEventListener('error',function(e){var b=document.getElementById('boot');if(b){b.textContent='载入出错了：'+(e.message||'资源没加载成功')+' · 刷新试试';b.style.opacity=1}},true);</script>
+<script>addEventListener('error',function(e){var t=e.target;if(t&&t!==window&&t.tagName)return;var m=document.getElementById('plMsg');if(m){m.textContent='载入出错了：'+(e.message||'脚本出错')+' · 刷新试试';var a=document.getElementById('plAct');if(a){a.hidden=false;var g=document.getElementById('plGo');if(g)g.hidden=true;var r=document.getElementById('plRetry');if(r){r.hidden=false;r.textContent='刷新'}}}},true);</script>
+<style>/* ===== 首屏预加载页（Preloader） ===== */
+#boot{display:none!important}
+#pl{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top,0px) 16px env(safe-area-inset-bottom,0px);box-sizing:border-box;
+ background:radial-gradient(120% 90% at 50% 38%,#f8f6f3 0%,#f3f1ee 55%,#ebe7e1 100%);color:#2b2926;transition:opacity .65s ease,visibility 0s linear .65s}
+#pl.out{opacity:0;visibility:hidden;pointer-events:none}
+html.pl-night #pl{background:radial-gradient(120% 90% at 50% 38%,#161b26 0%,#0e1118 60%,#0a0c11 100%);color:#ece8e0}
+#pl .pl-box{width:min(300px,76vw);text-align:center}
+#pl .pl-t{margin:0;font-size:clamp(19px,5.4vw,24px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1.3}
+#pl .pl-s{margin:10px 0 0;font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.5}
+#pl .pl-bar{margin:34px auto 0;height:2px;border-radius:2px;background:rgba(127,120,110,.22);overflow:hidden}
+#pl .pl-bar i{display:block;height:100%;background:currentColor;transform-origin:0 50%;transform:scaleX(0);transition:transform .28s ease-out}
+#pl .pl-row{margin-top:12px;display:flex;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.08em;opacity:.62;font-variant-numeric:tabular-nums}
+#pl .pl-row span:last-child{text-align:right}
+#pl .pl-slow{margin:18px 0 0;font-size:12px;line-height:1.7;opacity:.72}
+#pl .pl-act{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#pl button{font:inherit;font-size:12px;letter-spacing:.1em;padding:9px 20px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#pl button.go{background:#2b2926;border-color:#2b2926;color:#fff}
+html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e1118}
+#pl [hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){#pl,#pl *{transition:none!important;animation:none!important}}
+</style>
+<script>(function(){var h=new Date().getHours(),q=/[?&]night=(\d)/.exec(location.search),n=q?q[1]==='1':(h>=19||h<6);if(n){document.documentElement.classList.add('pl-night');document.documentElement.style.setProperty('--bg','#0e1118')}})()</script>
+<script id="__res" type="application/json">{"v":"ce5db659","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
 </head>
 <body>
+<div id="pl" role="status" aria-live="polite"><div class="pl-box"><h1 class="pl-t">Notes of Henry</h1><p class="pl-s">Scents · Sounds · Stories</p><div class="pl-bar"><i id="plFill"></i></div><div class="pl-row"><span id="plPct">0%</span><span id="plMsg">正在准备…</span></div><p class="pl-slow" id="plSlow" hidden>网络有点慢，仍在加载，请稍等…</p><div class="pl-act" id="plAct" hidden><button type="button" id="plRetry">重试</button><button type="button" class="go" id="plGo">继续进入</button></div></div></div><noscript><p style="position:fixed;z-index:101;left:0;right:0;bottom:24px;text-align:center;font-size:12px">需要开启 JavaScript 才能打开这个网站</p></noscript>
+<script>/* ===== Notes of Henry · 首屏资源预加载系统 =====
+   顺序：① 3D 引擎（three / gsap，多个镜像依次尝试）② 首屏图片（优先 WebP，手机用精简分辨率）③ 很小的音频 → 全部就绪后才开始搭建房间（主程序）
+        ④ 等房间第一帧画出来、初始贴图都铺好 → 加载页淡出。
+   进度条的数字全部来自真实的下载字节数 / 贴图加载个数，没有任何定时器造假。
+   其余图片（台历、歌曲封面、证书、香水、奖杯照片）和大音频：按需加载，或进入网站以后在后台空闲时慢慢预热。 */
+(function(){
+'use strict';
+var W=window,D=document,H=D.documentElement,NOW=Date.now;
+var M={};try{M=JSON.parse(D.getElementById('__res').textContent)||{}}catch(e){}
+M.img=M.img||{};M.aud=M.aud||{};M.libs=M.libs||[];M.ver=M.ver||'0';
+var conn=navigator.connection||navigator.mozConnection||{},saveData=!!conn.saveData,eff=conn.effectiveType||'';
+var slowNet=saveData||eff==='slow-2g'||eff==='2g'||eff==='3g';
+var coarse=false;try{coarse=matchMedia('(pointer:coarse)').matches}catch(e){}
+var small=coarse||Math.min(screen.width,screen.height)<=820||(navigator.deviceMemory||4)<=2;
+var useM=small||slowNet,CONC=small?4:6,STALL=slowNet?14000:9000;
+var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+var $=function(i){return D.getElementById(i)};
+var U={pl:$('pl'),fill:$('plFill'),pct:$('plPct'),msg:$('plMsg'),slow:$('plSlow'),act:$('plAct'),retry:$('plRetry'),go:$('plGo')};
+var S={tasks:[],queue:[],running:0,pct:0,mainRan:false,mainAt:0,frame:false,texL:0,texT:0,texDone:false,go:false,fade:false,t0:NOW(),webp:false,warm:[],jobs:[],bg:false};
+var imgBlob={},audBlob={},audEls={},FAILV={},lazyJobs=[];
+var TEX_LAZY={cal:1}; /* 这些分组的贴图等到真的需要（点开台历）才加载 */
+
+/* —— 小工具 —— */
+function tick(){update();check()}
+function setPct(v){if(v>S.pct)S.pct=Math.min(1,v);if(U.fill)U.fill.style.transform='scaleX('+S.pct+')';if(U.pct)U.pct.textContent=Math.round(S.pct*100)+'%'}
+function say(t){if(U.msg&&U.msg.textContent!==t)U.msg.textContent=t}
+function show(el,on){if(el)el.hidden=!on}
+function netPct(){var l=0,t=0;S.tasks.forEach(function(k){t+=k.size;l+=(k.state==='ok'||k.state==='fail')?k.size:Math.min(k.loaded,k.size)});return t?l/t:1}
+function count(kind){var n=0,d=0;S.tasks.forEach(function(k){if(k.kind===kind){n++;if(k.state==='ok'||k.state==='fail')d++}});return[d,n]}
+function libsState(){var ok=0,fail=0,n=0;S.tasks.forEach(function(k){if(k.kind==='lib'){n++;if(k.state==='ok')ok++;if(k.state==='fail')fail++}});return{ok:ok,fail:fail,n:n}}
+function pending(){return S.tasks.some(function(k){return k.state==='wait'||k.state==='run'})}
+function failedTasks(){return S.tasks.filter(function(k){return k.state==='fail'})}
+function update(){
+  var v;
+  if(!S.mainRan)v=.78*netPct();else v=.84+.14*(S.texT?S.texL/S.texT:1);
+  if(S.fade)v=1;
+  setPct(v);
+  var L=libsState();
+  if(S.fade)say('完成');
+  else if(!S.mainRan){
+    if(L.ok<L.n)say('正在加载 3D 引擎…');
+    else{var c=count('img'),a=count('aud');say(c[1]?('正在加载图片 '+c[0]+' / '+c[1]):(a[1]?'正在加载声音…':'马上就好…'))}
+  }else if(!S.texDone)say(S.texT?('正在铺开贴图 '+S.texL+' / '+S.texT):'正在搭建房间…');
+  else say('马上就好…');
+}
+
+/* —— 缓存（Cache Storage：下次打开直接读本地，不再访问网络；版本号变了旧缓存自动清掉） —— */
+var CN='noh-'+M.ver;
+function cacheOpen(){return W.caches&&caches.open?caches.open(CN):Promise.resolve(null)}
+function cacheGet(u){return cacheOpen().then(function(c){return c?c.match(u):null}).then(function(r){return r?r.blob():null}).catch(function(){return null})}
+function cachePut(u,b){cacheOpen().then(function(c){if(c)return c.put(u,new Response(b,{headers:{'content-type':b.type||'application/octet-stream'}}))}).catch(function(){})}
+try{if(W.caches&&caches.keys)caches.keys().then(function(ks){ks.forEach(function(k){if(k.indexOf('noh-')===0&&k!==CN)caches.delete(k)})})}catch(e){}
+
+/* —— 带进度的下载（读取字节流，进度是真的） —— */
+function fetchBlob(t,url){
+  return new Promise(function(res,rej){
+    var ctrl=W.AbortController?new AbortController():null;t.ctrl=ctrl;
+    var o={credentials:'same-origin'};if(ctrl)o.signal=ctrl.signal;if(t.kind==='img')o.priority='high';
+    fetch(url,o).then(function(r){
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      var type=r.headers.get('content-type')||'';
+      if(!r.body||!r.body.getReader)return r.blob().then(function(b){t.loaded=t.size;res(b)});
+      var rd=r.body.getReader(),parts=[];
+      (function pump(){rd.read().then(function(x){
+        if(x.done){res(new Blob(parts,{type:type}));return}
+        parts.push(x.value);t.loaded+=x.value.length;t.last=NOW();update();pump()
+      },rej)})();
+    }).catch(rej);
+  });
+}
+
+/* —— 图片 / 音频 任务 —— */
+function variant(key){
+  var e=M.img[key];if(!e)return null;var u=key,s=e.s;
+  if(S.webp&&e.w){u=e.w;s=e.ws||s;if(useM&&e.m){u=e.m;s=e.ms||s}}
+  return{u:u+(e.h?'?v='+e.h:''),raw:key+(e.h?'?v='+e.h:''),s:s,webp:u!==key};
+}
+function addTask(kind,key,url,alt,size){var t={kind:kind,key:key,url:url,url0:url,alt:alt,size:Math.max(1,size||1),loaded:0,state:'wait',tries:0,ctrl:null,last:0};S.tasks.push(t);return t}
+function warmDecode(blobUrl){try{var i=new Image();i.src=blobUrl;if(i.decode){i.decode().catch(function(){})}S.warm.push(i)}catch(e){}}
+function runTask(t){
+  return new Promise(function(done){
+    (function attempt(){
+      t.state='run';t.loaded=0;t.last=NOW();
+      cacheGet(t.url).then(function(hit){if(hit){t.loaded=t.size;return hit}return fetchBlob(t,t.url).then(function(b){cachePut(t.url,b);return b})})
+      .then(function(b){
+        if(!b||!b.size)throw new Error('empty');
+        t.blob=b;t.state='ok';t.loaded=t.size;
+        var u=URL.createObjectURL(b);
+        if(t.kind==='img'){imgBlob[t.key]=u;if(!t.bg)warmDecode(u)}else if(t.kind==='aud'){audBlob[t.key]=u;repoint(t.key)}
+        tick();done(t);
+      }).catch(function(e){
+        t.tries++;
+        if(t.tries===2&&t.alt&&t.url!==t.alt){t.url=t.alt;FAILV[t.key]=1} /* 精简版 / WebP 连续失败：最后一次改用原始文件 */
+        if(t.tries<3){t.state='wait';setTimeout(attempt,(slowNet?900:500)*t.tries)}
+        else{t.state='fail';tick();done(t)}
+      });
+    })();
+  });
+}
+function pump(){
+  while(S.running<CONC&&S.queue.length){
+    var t=S.queue.shift();S.running++;
+    runTask(t).then(function(){S.running--;pump();check()});
+  }
+}
+function enqueue(t){S.queue.push(t);pump()}
+
+/* —— 3D 引擎：多个镜像依次尝试；fetch 被拦（比如预览沙盒）时退回普通 script 标签 —— */
+function execText(txt){var sc=D.createElement('script');sc.text=txt;D.head.appendChild(sc);if(sc.parentNode)sc.parentNode.removeChild(sc)}
+function loadLib(t,L){
+  var i=0;
+  function fail(){t.state='fail';tick()}
+  function viaTag(j){
+    if(j>=L.urls.length)return fail();
+    var s=D.createElement('script'),to=setTimeout(function(){s.onerror&&s.onerror()},15000);
+    s.async=true;s.src=L.urls[j];
+    s.onload=function(){clearTimeout(to);if(W[L.g]){t.state='ok';t.loaded=t.size;tick()}else{viaTag(j+1)}};
+    s.onerror=function(){clearTimeout(to);if(s.parentNode)s.parentNode.removeChild(s);s.onload=s.onerror=null;viaTag(j+1)};
+    D.head.appendChild(s);
+  }
+  function next(){
+    if(i>=L.urls.length){t.tries++;return viaTag(0)}
+    var url=L.urls[i++];t.state='run';t.loaded=0;t.last=NOW();
+    fetchBlob(t,url).then(function(b){return b.text()}).then(function(txt){execText(txt);if(!W[L.g])throw new Error('lib');t.state='ok';t.loaded=t.size;tick()}).catch(function(){next()});
+  }
+  if(!W.fetch)return viaTag(0);
+  next();
+}
+
+/* —— 补丁：让程序里原有的图片 / 贴图 / 音频加载，自动用上预加载的数据 —— */
+var PHC=null;
+function placeholder(){if(PHC)return PHC;var c=D.createElement('canvas');c.width=c.height=2;var x=c.getContext('2d');x.fillStyle='#e9e4dc';x.fillRect(0,0,2,2);return(PHC=c)} /* 还没加载好的贴图先显示柔和的米色，不是一片黑 */
+function mapImg(v){
+  if(typeof v!=='string')return{u:v};
+  var k=v.replace(/^\.\//,'');if(!M.img[k])return{u:v};
+  if(imgBlob[k])return{u:imgBlob[k]};
+  var e=variant(k);if(!e)return{u:v};
+  if(FAILV[k])return{u:e.raw};
+  return{u:e.u,k:k,raw:e.raw,webp:e.webp};
+}
+function installPatches(){
+  try{
+    var d=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');
+    if(d&&d.set)Object.defineProperty(HTMLImageElement.prototype,'src',{configurable:true,enumerable:d.enumerable,get:d.get,set:function(v){
+      var m=mapImg(v),el=this;
+      if(m.k&&m.webp&&!el.__plfb){el.__plfb=1;el.addEventListener('error',function(){FAILV[m.k]=1;d.set.call(el,m.raw)},{once:true})}
+      d.set.call(this,m.u);
+    }});
+  }catch(e){}
+  try{
+    var TL=THREE.TextureLoader.prototype,orig=TL.load;
+    TL.load=function(url,onLoad,onProgress,onError){
+      var self=this,k=typeof url==='string'?url.replace(/^\.\//,''):'',en=M.img[k],tex;
+      if(en&&TEX_LAZY[en.g]){ /* 台历这类很大又不在首屏的贴图：先给一块米色，真要看的时候再加载 */
+        tex=new THREE.Texture(placeholder());tex.needsUpdate=true;
+        lazyJobs.push({g:en.g,go:function(){orig.call(self,url,function(t2){tex.image=t2.image;tex.needsUpdate=true;if(onLoad)onLoad(tex)},onProgress,retry(onError))}});
+        return tex;
+      }
+      function retry(cb){var n=0;return function err(e){if(n<2){n++;setTimeout(function(){orig.call(self,url,function(t2){tex.image=t2.image;tex.needsUpdate=true;if(onLoad)onLoad(tex)},onProgress,err)},900*n)}else{S.jobs.push(function(){orig.call(self,url,function(t2){tex.image=t2.image;tex.needsUpdate=true;if(onLoad)onLoad(tex)})});if(cb)cb(e)}}}
+      tex=orig.call(self,url,onLoad,onProgress,retry(onError));
+      if(!tex.image){tex.image=placeholder();tex.needsUpdate=true}
+      return tex;
+    };
+  }catch(e){}
+  try{
+    var ds=Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype,'src'),OA=W.Audio;
+    if(ds&&ds.set){
+      Object.defineProperty(HTMLMediaElement.prototype,'src',{configurable:true,enumerable:ds.enumerable,get:ds.get,set:function(v){
+        var k=typeof v==='string'?v.replace(/^\.\//,''):null;
+        if(k&&M.aud[k]){this.__plk=k;(audEls[k]=audEls[k]||[]).push(this);if(audBlob[k]){ds.set.call(this,audBlob[k]);return}}
+        ds.set.call(this,v);
+      }});
+      var op=HTMLMediaElement.prototype.play;
+      HTMLMediaElement.prototype.play=function(){ /* 用户点了播放：后台的预热下载让位，直接让播放器自己边下边放 */
+        var k=this.__plk;if(k&&S.bgTask&&S.bgTask.key===k&&S.bgTask.state==='run'&&S.bgTask.ctrl){try{S.bgTask.ctrl.abort()}catch(e){}}
+        return op.apply(this,arguments)};
+      if(OA){W.Audio=function(u){var a=new OA();if(u!==undefined)a.src=u;return a};W.Audio.prototype=OA.prototype}
+    }
+  }catch(e){}
+}
+function repoint(k){ /* 预热好的音频：还没开始放的播放器，换成本地的数据，第一次点播放就是秒开 */
+  var u=audBlob[k];(audEls[k]||[]).forEach(function(el){try{if(el.paused&&!el.currentTime&&el.readyState===0){Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype,'src').set.call(el,u)}}catch(e){}})
+}
+
+/* —— 主程序（房间）：库和首屏图片都准备好以后才开始搭 —— */
+function runMain(){
+  if(S.mainRan)return;S.mainRan=true;S.mainAt=NOW();
+  show(U.act,false);show(U.slow,false);
+  installPatches();
+  try{
+    var m=THREE.DefaultLoadingManager;
+    m.onProgress=function(u,l,t){S.texL=l;S.texT=t;update()};
+    m.onLoad=function(){S.texDone=true;check()};
+  }catch(e){S.texDone=true}
+  update();
+  function go(){
+    try{var sc=D.createElement('script');sc.text=$('__main').textContent;D.body.appendChild(sc)}
+    catch(e){say('载入出错了：'+(e.message||e)+' · 刷新试试');show(U.act,true);if(U.retry)U.retry.textContent='刷新';return}
+    try{if(!S.texT&&THREE.DefaultLoadingManager.itemsTotal===0)S.texDone=true}catch(e){}
+    check();
+  }
+  /* 先让浏览器把「正在搭建房间」画出来，再开始搭（搭的时候主线程会忙一会儿） */
+  (W.requestAnimationFrame||setTimeout)(function(){setTimeout(go,30)});
+}
+function maybeFinish(){
+  if(S.fade||!S.mainRan)return;
+  if(S.frame&&(S.texDone||NOW()-S.mainAt>9000))finish();
+  else if(NOW()-S.mainAt>14000&&S.frame)finish();
+}
+function finish(){
+  if(S.fade)return;S.fade=true;update();
+  (W.requestAnimationFrame||setTimeout)(function(){(W.requestAnimationFrame||setTimeout)(function(){
+    if(U.pl)U.pl.classList.add('out');
+    H.classList.add('pl-done');
+    setTimeout(function(){if(U.pl&&U.pl.parentNode)U.pl.parentNode.removeChild(U.pl);S.warm.length=0;bgStart();bgRetry(0)},reduce?30:700);
+  })});
+}
+
+/* —— 总调度 —— */
+function check(){
+  if(S.fade)return;
+  var L=libsState(),pend=pending(),fails=failedTasks().length;
+  if(!S.mainRan){
+    if(L.fail>0&&!S.go){say('3D 引擎没有加载成功，请检查网络');show(U.act,true);show(U.go,false);if(U.retry)U.retry.hidden=false;return}
+    var ready=L.ok===L.n&&D.readyState!=='loading'&&!!$('__main');
+    if(ready&&(!pend||S.go)){
+      if(fails>0&&!S.go){
+        say('有 '+fails+' 个资源没有加载成功');show(U.act,true);show(U.go,true);if(U.retry)U.retry.hidden=false;
+        if(fails<=3&&!S.autoGo){S.autoGo=setTimeout(function(){S.go=true;check()},4500)} /* 只缺一两张：提示一下就先进去，缺的图继续在后台重试 */
+        return;
+      }
+      runMain();
+    }
+  }else maybeFinish();
+}
+function slowWatch(){
+  if(S.fade||S.mainRan){return}
+  var el=NOW()-S.t0,L=libsState();
+  if(el>6000&&S.pct<.62)show(U.slow,true);
+  if(el>12000&&L.ok===L.n&&pending()){show(U.act,true);show(U.go,true);if(U.retry)U.retry.hidden=!failedTasks().length} /* 等太久了：让用户自己决定要不要先进去 */
+}
+function kick(){ /* 切回前台 / 网络恢复：卡住的下载重新来；已经进入网站的话，失败的图片也重新试 */
+  if(S.fade)failedTasks().forEach(function(t){if(t.kind!=='lib'){t.state='wait';t.tries=0;t.loaded=0;t.url=t.url0;enqueue(t)}});
+  S.tasks.forEach(function(t){if(t.state==='run'&&NOW()-t.last>3000&&t.ctrl){try{t.ctrl.abort()}catch(e){}}});
+  S.jobs.splice(0).forEach(function(f){try{f()}catch(e){}});
+  check();
+}
+function bgRetry(n){ /* 进入网站以后，首屏没加载成功的图片继续在后台重试（间隔越来越长，最多 4 轮；切回前台 / 网络恢复也会触发） */
+  var f=failedTasks().filter(function(t){return t.kind!=='lib'});if(!f.length||n>=4)return;
+  setTimeout(function(){f.forEach(function(t){if(t.state==='fail'){t.state='wait';t.tries=0;t.loaded=0;t.url=t.url0;enqueue(t)}});setTimeout(function(){bgRetry(n+1)},4000)},12000*(n+1));
+}
+function retryAll(){
+  clearTimeout(S.autoGo);S.autoGo=0;S.go=false;
+  S.tasks.forEach(function(t){if(t.state==='fail'){t.state='wait';t.tries=0;t.loaded=0;if(t.kind==='lib'){var L=M.libs.filter(function(x){return x.id===t.key})[0];if(L)loadLib(t,L)}else enqueue(t)}});
+  show(U.act,false);update();
+}
+function start(){
+  /* 字体样式表：用脚本在后台加载，不挡住首屏（国内访问 googleapis 有时很慢）；加载完才应用，没加载上就用系统字体 */
+  try{var fl=D.querySelector('link[data-fonts]');if(fl){var ln=D.createElement('link');ln.rel='stylesheet';ln.href=fl.href;ln.media='print';ln.onload=function(){ln.media='all'};D.head.appendChild(ln)}}catch(e){}
+  var libs=M.libs.map(function(L){var t=addTask('lib',L.id,'',null,L.s);return{t:t,L:L}});
+  Object.keys(M.img).forEach(function(k){var e=M.img[k];if(!e.c)return;var v=variant(k);addTask('img',k,v.u,v.raw,v.s)});
+  Object.keys(M.aud).forEach(function(k){var e=M.aud[k];if(e.t!==1)return;addTask('aud',k,k+(e.h?'?v='+e.h:''),null,e.s)});
+  S.tasks.forEach(function(t){if(t.kind!=='lib'&&t.state==='wait'){S.queue.push(t)}});
+  libs.forEach(function(x){loadLib(x.t,x.L)});
+  if(!W.fetch){S.queue.forEach(function(t){t.state='ok';t.loaded=t.size});S.queue.length=0}
+  pump();update();
+  if(slowNet){show(U.slow,true);if(U.slow)U.slow.textContent='当前网络较慢：已为你选用精简版图片，请稍等…'}
+  setInterval(function(){
+    var n=NOW();S.tasks.forEach(function(t){if(t.state==='run'&&t.ctrl&&n-t.last>STALL){try{t.ctrl.abort()}catch(e){}}}); /* 下载长时间没有新数据：中断后自动重试 */
+    slowWatch();
+  },1000);
+  D.addEventListener('visibilitychange',function(){if(!D.hidden)kick()});
+  W.addEventListener('online',kick);W.addEventListener('pageshow',kick);
+  D.addEventListener('DOMContentLoaded',check);
+  if(U.retry)U.retry.addEventListener('click',function(){if(U.retry.textContent==='刷新'){location.reload();return}retryAll()});
+  if(U.go)U.go.addEventListener('click',function(){S.go=true;check()});
+  check();
+}
+
+/* —— 进入网站以后：后台空闲时慢慢预热 —— */
+function bgOK(){return!saveData&&(eff===''||eff==='4g')&&(navigator.deviceMemory||4)>=2&&!D.hidden}
+function bgStart(){
+  if(S.bg||!bgOK())return;S.bg=true;
+  var list=[];
+  Object.keys(M.aud).forEach(function(k){if(M.aud[k].t===2)list.push({kind:'aud',key:k})});
+  ['cover','cert','perf','cal'].forEach(function(g){Object.keys(M.img).forEach(function(k){if(M.img[k].g===g)list.push({kind:'img',key:k})})});
+  (function nextOne(){
+    if(!list.length||!bgOK()){S.bgTask=null;return}
+    var it=list.shift(),t;
+    if(it.kind==='img'){if(imgBlob[it.key])return nextOne();var v=variant(it.key);t=addTask('img',it.key,v.u,v.raw,v.s);t.bg=true}
+    else{if(audBlob[it.key])return nextOne();var e=M.aud[it.key];t=addTask('aud',it.key,it.key+(e.h?'?v='+e.h:''),null,e.s);t.bg=true}
+    S.bgTask=t;
+    runTask(t).then(function(){(W.requestIdleCallback||setTimeout)(nextOne,{timeout:1500})});
+  })();
+}
+
+/* —— 对外接口 —— */
+W.PL={sceneReady:function(){S.frame=true;check()},state:S};
+W.RES={
+  need:function(g){lazyJobs.forEach(function(j){if(j.g===g&&!j.s){j.s=1;j.go()}})},
+  lazyImgs:function(root){if(!root)return;var l=root.querySelectorAll('img[data-src]');for(var i=0;i<l.length;i++){l[i].src=l[i].getAttribute('data-src');l[i].removeAttribute('data-src')}},
+  retryFailed:kick
+};
+
+/* —— 开始：先判断浏览器支不支持 WebP，再下载 —— */
+var wi=new Image(),done=false;
+function go1(ok){if(done)return;done=true;S.webp=ok;start()}
+wi.onload=function(){go1(wi.width===1)};wi.onerror=function(){go1(false)};
+wi.src='data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
+setTimeout(function(){go1(false)},800);
+})();
+</script>
 <canvas id="c"></canvas>
 <div class="top"><h1>Notes of Henry</h1><p class="en">Scents · Sounds · Stories</p><p>装下Henry的万千宇宙</p></div>
 <div class="mkm" id="mkm"><div class="mkc" id="mkCrop"><h3>选一块正方形</h3><p>拖动照片调整位置，滑动条或双指缩放</p><div class="cropbox" id="cropBox"><img id="cropImg" alt=""></div><div class="mkz">缩放<input type="range" id="cropZ" min="1" max="4" step="0.01" value="1"></div><div class="mkb"><button id="cropNo">取消</button><button class="go" id="cropOk">做成拍立得</button></div></div><div class="mkc" id="mkText"><h3>写一张便利贴</h3><p>写点想说的，会贴到毛毡板上</p><textarea id="noteTa" maxlength="60" placeholder="写点什么吧～"></textarea><div class="mkn" id="noteN">0 / 60</div><div class="mkcol" id="noteCol"></div><div class="mkb"><button id="txtNo">取消</button><button class="go" id="txtOk" disabled>贴上去</button></div></div></div><input type="file" id="mkFile" accept="image/*" hidden>
@@ -161,9 +497,7 @@ body.night #nsw .sun{opacity:0;transform:rotate(70deg)}body.night #nsw .moon{opa
 <aside id="pcard" aria-live="polite"><button class="px" id="pcX" aria-label="关闭">×</button><div class="pimg"><img id="pcImg" alt=""></div><small id="pcBrand"></small><h2 id="pcName"></h2><div class="pnotes" id="pcNotes"></div><p id="pcNote"></p><div class="pnav"><button id="pcPrev">上一瓶</button><button id="pcNext">下一瓶</button></div></aside>
 <aside id="panel"><small id="pTag"></small><h2 id="pTitle"></h2><p id="pText"></p><div class="ph">二级页面占位：完整内容稍后补充</div><button id="pBack">返回房间</button></aside>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script>
+<script type="text/plain" id="__main">
 /* ========= 内容（后续在这里改文字）========= */
 const INFO={
   hp:['原创歌曲','Original Songs','这里将收录并播放 Henry 的原创歌曲。'],
@@ -1055,7 +1389,7 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
  /* 布料的「绒感」：在材质着色器里加一圈柔和的侧光（越接近侧面越亮，像棉布、抓绒在灯下的那层毛茸茸的光晕），面料不同强度不同 */
  const SHEEN={knit:.34,fleece:.42,cotton:.26,denim:.18,twill:.2};
  const clothify=(m,k)=>{m.onBeforeCompile=sh=>{sh.uniforms.uSheen={value:k};
-   const inj='{float fr=1.0-clamp(dot(normalize(normal),normalize(vViewPosition)),0.0,1.0);outgoingLight+=(diffuseColor.rgb*0.55+0.2)*pow(fr,2.2)*uSheen;}';
+   const inj='{float fr=1.0-clamp(dot(normalize(normal),normalize(vViewPosition)),0.0,1.0);outgoingLight+=(diffuseColor.rgb*0.55+0.07)*pow(fr,2.4)*uSheen;}';
    let f='uniform float uSheen;\n'+sh.fragmentShader;
    if(f.includes('#include <output_fragment>'))f=f.replace('#include <output_fragment>',inj+'\n#include <output_fragment>');
    else f=f.replace('gl_FragColor = vec4( outgoingLight, diffuseColor.a );',inj+'\ngl_FragColor = vec4( outgoingLight, diffuseColor.a );');
@@ -1098,7 +1432,7 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
  /* ============ 衣服（reg 之后再加，不参与悬停高亮） ============ */
  const rnd=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v)};
  /* 轮廓：上衣（肩、袖、身体）/ 裤子（对折挂在衣架上），原点在衣架挂钩处，单位是米，真实尺寸 */
- const outline=p=>{let pts;
+ const outline=p=>{if(p.pts)return p.pts;let pts; /* 自带轮廓的东西（比如背心式托特包）直接用它自己的 */
   if(p.pants){const h=p.len,t=-.03,Y=f=>t-h*f,V=a=>a.map(q=>new THREE.Vector2(q[1],Y(q[0])));
    const out=new THREE.SplineCurve(V(p.out)).getPoints(30).map(v=>[v.x,v.y]),inn=new THREE.SplineCurve(V(p.inn)).getPoints(20).map(v=>[v.x,v.y]).reverse();
    const rp=out.concat(inn);pts=rp.concat(rp.slice().reverse().map(q=>[-q[0],q[1]]))}
@@ -1136,20 +1470,22 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
   const idx=[];for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const a=j*W1+i,b=a+1,c=a+W1+1,d=a+W1;if(!(keep[a]||keep[b]||keep[c]||keep[d]))continue;idx.push(a,b,c,a,c,d,vc+a,vc+c,vc+b,vc+a,vc+d,vc+c)}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.setAttribute('color',new THREE.BufferAttribute(col,3));g.setIndex(idx);g.computeVertexNormals();return g};
  const garment=p=>{const pts=outline(p),g=new THREE.Group();p.sd=gIdx++*7.31+3;
-  const bx=Math.max(...pts.map(q=>Math.abs(q[0]))),by=-Math.min(...pts.map(q=>q[1])),cw=512,ch=Math.round(512*by/(2*bx)),S=cw/(2*bx),X0=x=>(x+bx)/(2*bx)*cw,Y0=y=>-y/by*ch,fab=FAB[p.fab||'cotton'],light=hexLum(p.base)>.5;
+  const bx=Math.max(...pts.map(q=>Math.abs(q[0]))),by=-Math.min(...pts.map(q=>q[1])),cw=p.res||512,ch=Math.round(cw*by/(2*bx)),S=cw/(2*bx),X0=x=>(x+bx)/(2*bx)*cw,Y0=y=>-y/by*ch,fab=FAB[p.fab||'cotton'],light=hexLum(p.base)>.5;
   const geo=softPanels(p,pts,bx,by);
   const t=tex(cw,ch,(c,w,h)=>{const X=x=>(x+bx)/(2*bx)*w,Y=y=>-y/by*h;c.fillStyle=p.base;c.fillRect(0,0,w,h);p.draw(c,{X,Y,S,w,h,p,bx,by});
    /* 收尾：织物的细小颗粒 + 轮廓内侧一圈阴影 + 一圈缝线（衣服是缝出来的） */
    for(let i=0;i<2400;i++){c.fillStyle=rnd(i+p.sd)<.5?'rgba(255,255,255,.05)':'rgba(0,0,0,.05)';c.fillRect(rnd(i*2+p.sd)*w,rnd(i*3+p.sd)*h,1.6,1.6)}
    c.save();polyPath(c,pts,X,Y);c.clip();c.strokeStyle='rgba(0,0,0,.2)';c.lineWidth=12;polyPath(c,pts,X,Y);c.stroke();
    c.strokeStyle=light?'rgba(0,0,0,.24)':'rgba(255,255,255,.26)';c.lineWidth=1.3;c.setLineDash([7,5]);polyPath(c,insetPoly(pts,.0055),X,Y);c.stroke();c.restore()});
+  if(p.decal){const im=new Image();im.onload=()=>{const cx=t.image.getContext('2d'),Wc=t.image.width,Hc=t.image.height,X=x=>(x+bx)/(2*bx)*Wc,Y=y=>-y/by*Hc,d=p.decal,dw=X(d.cx+d.w/2)-X(d.cx-d.w/2),dh=dw*im.height/im.width;
+    cx.save();polyPath(cx,pts,X,Y);cx.clip();cx.drawImage(im,X(d.cx-d.w/2),Y(d.cy)-dh/2,dw,dh);cx.restore();t.needsUpdate=true};im.src=p.decal.src} /* 印花：图片加载好以后画到衣服 / 包的贴图上（只画在轮廓里面） */
   const am=tex(256,Math.max(64,Math.round(256*by/(2*bx))),(c,w,h)=>{c.fillStyle='#000';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.strokeStyle='#fff';c.lineWidth=1.4;polyPath(c,pts,x=>(x+bx)/(2*bx)*w,y=>-y/by*h);c.fill();c.stroke()});am.encoding=THREE.LinearEncoding;
   const bm=fabBump(p.fab||'cotton');bm.repeat.set(2*bx/fab.rep,by/fab.rep);
   const m=clothify(new THREE.MeshStandardMaterial({map:t,alphaMap:am,alphaTest:.5,bumpMap:bm,bumpScale:fab.bs*1.6,emissiveMap:t,emissive:0xffffff,emissiveIntensity:.12,color:0xe4e4e4,vertexColors:true,roughness:1,side:THREE.DoubleSide}),SHEEN[p.fab||'cotton']||.25);m.alphaToCoverage=true; /* 自发光调低，让灯光和褶皱的明暗更明显 */
   const mesh=new THREE.Mesh(geo,m);mesh.castShadow=true;g.add(mesh);
   if(p.hood){const hb=fabBump(p.fab||'fleece');hb.repeat.set(4,3);const hd=new THREE.Mesh(new THREE.SphereGeometry(1,28,18),clothify(new THREE.MeshStandardMaterial({color:p.hood,roughness:1,bumpMap:hb,bumpScale:fab.bs*1.6}),SHEEN[p.fab||'fleece']||.3));hd.scale.set(.1,.075,.024);hd.position.set(0,-.045,-p.dep*.62-.008);hd.castShadow=true;g.add(hd)} /* 连帽：软软垂在后颈 */
   /* 衣架：挂钩 + 横杆 */
-  ad(g,new THREE.TorusGeometry(.014,.002,6,14),metal,0,0,0,0,Math.PI/2,0);ad(g,gB(p.pants?.3:.4,.006,.006),metal,0,-.025,0);
+  if(!p.nohanger){ad(g,new THREE.TorusGeometry(.014,.002,6,14),metal,0,0,0,0,Math.PI/2,0);ad(g,gB(p.pants?.3:.4,.006,.006),metal,0,-.025,0)}
   return g};
  /* 通用画法：罗纹、拉链 */
  const rib=(c,K,x0,x1,y,hh,col)=>{c.fillStyle=col;c.fillRect(K.X(x0),K.Y(y),K.X(x1)-K.X(x0),K.Y(y-hh)-K.Y(y));c.strokeStyle='rgba(255,255,255,.13)';c.lineWidth=1;for(let x=K.X(x0);x<K.X(x1);x+=4){c.beginPath();c.moveTo(x,K.Y(y));c.lineTo(x,K.Y(y-hh));c.stroke()}};
@@ -1218,10 +1554,189 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
  [POLKA,STRIPEH,PINK,BLUE].forEach((s,i)=>hang(s,-.36+i*.075,1.95));
  [REDSW,ASSH,STRIPT,TEE].forEach((s,i)=>hang(s,.14+i*.075,1.95));
  [JEANS,SWEATP].forEach((s,i)=>hang(s,-.34+i*.12,1.16));
- [ASP,CARGO,PRINTJ].forEach((s,i)=>hang(s,.17+i*.09,1.16))}
+ [ASP,CARGO,PRINTJ].forEach((s,i)=>hang(s,.17+i*.09,1.16));
+ /* ============ 衣柜门上的挂钩（挂在两扇门的外面，跟着门一起开合）：
+    左门（衣柜正面左边那扇）挂包：一根竖着的黑色挂条，4 个粗钩子，挂着 斜挎小包 / 皮质单肩包 / 水桶包 / 帆布托特包；
+    右门挂帽子：一根竖着的钢色挂条，5 个小钩子，挂着 棒球帽 / 毛线帽 / 渔夫帽 / 草编宽檐帽 / 另一顶棒球帽（帽口朝着门，钩子从帽口伸进去，帽顶朝外）。
+    先做成通用的样子，等你给了参考图再照着复刻得更像 ============ */
+ {const blk=new THREE.MeshStandardMaterial({color:0x242427,roughness:.42,metalness:.6}),steel=new THREE.MeshStandardMaterial({color:0xcfcfd2,roughness:.28,metalness:.8,envMapIntensity:1}),brass=new THREE.MeshStandardMaterial({color:0xc9a35a,roughness:.32,metalness:.7});
+  const gr=tex(128,128,(c,w,h)=>{c.fillStyle='#808080';c.fillRect(0,0,w,h);for(let i=0;i<2400;i++){c.fillStyle=Math.random()<.5?'rgba(255,255,255,.16)':'rgba(0,0,0,.16)';c.beginPath();c.arc(Math.random()*w,Math.random()*h,.5+Math.random()*1.3,0,6.3);c.fill()}});gr.encoding=THREE.LinearEncoding;gr.wrapS=gr.wrapT=THREE.RepeatWrapping;gr.repeat.set(3,3);
+  /* 一张中性的「摄影棚」反射图：皮和金属要有它才会有亮面和暗面（场景里本来没有环境光） */
+  const lenv=(()=>{const mk=f=>{const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+    if(f===2){x.fillStyle='#f2f2f0';x.fillRect(0,0,128,128)}else if(f===3){x.fillStyle='#3b3b3e';x.fillRect(0,0,128,128)}
+    else{const g=x.createLinearGradient(0,0,0,128);g.addColorStop(0,'#eeeeec');g.addColorStop(.5,'#9a9a9e');g.addColorStop(1,'#46464a');x.fillStyle=g;x.fillRect(0,0,128,128);
+     if(f<2||f===4){x.fillStyle='rgba(255,255,255,.95)';x.fillRect(f===4?36:22,10,30,76);x.fillStyle='rgba(235,240,255,.7)';x.fillRect(f===4?86:82,22,12,52)}}return c};
+   const t=new THREE.CubeTexture([mk(0),mk(1),mk(2),mk(3),mk(4),mk(5)]);t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;return t})();
+  [steel,brass].forEach(m=>{m.envMap=lenv;m.envMapIntensity=1.1;m.needsUpdate=true});blk.envMap=lenv;blk.envMapIntensity=.55;blk.needsUpdate=true;
+  const leather=(c,r,ei)=>new THREE.MeshStandardMaterial({color:SC(c),roughness:r||.55,metalness:.06,envMap:lenv,envMapIntensity:ei===undefined?.4:ei,bumpMap:gr,bumpScale:.0014,side:THREE.DoubleSide});
+
+  const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+  /* 颜色：three 的材质颜色直接写十六进制时，会被当成「已经是线性空间」的数，显示出来会偏亮偏灰（纯黑 0x060607 会变成深灰）；所以我自己做的东西都先从 sRGB 转成线性再用 */
+  const SC=h=>new THREE.Color(h).convertSRGBToLinear();
+  /* ——— 挂条 + 钩子 ——— */
+  const rail=(door,xc,y0,y1,ys,mat,len,r)=>{const g=new THREE.Group();g.position.set(xc,0,.01);door.add(g);
+   ad(g,gB(.022,y1-y0,.008),mat,0,(y0+y1)/2,.004);[y0+.025,y1-.025].forEach(y=>ad(g,gC(.0065,.003,14),steel,0,y,.0095,Math.PI/2)); /* 条子两头各一颗螺丝 */
+   ys.forEach(y=>{const c=new THREE.CatmullRomCurve3([V(0,0,.006),V(0,0,len*.45),V(0,.001,len*.82),V(0,.012,len*1.02),V(0,.034,len*1.0),V(0,.052,len*.82)]);
+    const t=new THREE.Mesh(new THREE.TubeGeometry(c,28,r,10),mat);t.position.y=y;t.castShadow=true;g.add(t);
+    ad(g,new THREE.SphereGeometry(r*1.25,10,8),mat,0,y+.052,len*.82);ad(g,gC(r*2.2,.004,14),mat,0,y,.008,Math.PI/2)}); /* 钩尖一颗小圆球，钩根一块小圆座 */
+   g.userData.len=len;g.userData.r=r;return g};
+  const hangAt=(rg,y,obj)=>{const h=new THREE.Group();h.position.set(0,y+rg.userData.r,rg.userData.len*.72);rg.add(h);h.add(obj);WD.garments.push(h);return h}; /* 挂点在钩子最低处；加进衣服的列表里，开门时跟着轻轻晃 */
+  /* ——— 包（按你给的四张参考图做：PERSONSOUL 机车风新月包 / RELABEL 麂皮大托特 / crying center 黑色亮面水桶托特 / Matin Kim 背心式大托特）——— */
+  /* 提手 / 肩带：从包的两个角拱起，翻过钩子再落到另一个角；扁扁的一条（或者一条链子） */
+  const archC=(ax,ay,za,L)=>new THREE.CatmullRomCurve3([V(-ax,-ay,za),V(-ax*.7,-ay*.55,za*.7),V(-ax*.25,-.012+L*.7,za*.2),V(0,.002+L,0),V(ax*.25,-.012+L*.7,za*.2),V(ax*.7,-ay*.55,za*.7),V(ax,-ay,za)]); /* L：带子最高处比钩子顶面再抬高多少 */
+  const arch=(ax,ay,za,w,mat)=>{const m=new THREE.Mesh(new THREE.TubeGeometry(archC(ax,ay,za,w/2+.001),48,w/2,8),mat);m.scale.z=.3;m.castShadow=true;return m}; /* 带子骑在钩子上面，不再和钩子重叠 */
+  const LEN=.14,HR=.0095,HZ=LEN*.72,BACK=.03; /* 包的钩子：长 14cm、粗 1.9cm；包的背面离门至少 3cm（门把手凸出 2cm 多） */
+  const zshift=D=>Math.max(0,BACK+D/2-HZ);
+  const smoothN=g=>{g.computeVertexNormals();const P=g.attributes.position,N=g.attributes.normal,m=new Map(),k=i=>Math.round(P.getX(i)*1e4)+','+Math.round(P.getY(i)*1e4)+','+Math.round(P.getZ(i)*1e4);
+   for(let i=0;i<P.count;i++){const q=k(i),a=m.get(q)||[0,0,0];a[0]+=N.getX(i);a[1]+=N.getY(i);a[2]+=N.getZ(i);m.set(q,a)}
+   for(let i=0;i<P.count;i++){const a=m.get(k(i)),l=Math.hypot(a[0],a[1],a[2])||1;N.setXYZ(i,a[0]/l,a[1]/l,a[2]/l)}return g};
+  /* 表面纹理：crinkle 皱皮的大褶 / nap 麂皮的绒毛 / pebble 荔枝纹的细小凹点 / blotch 一块一块很淡的深浅变化（真的皮和麂皮颜色不会一模一样） */
+  const noiseTex=kind=>{const t=tex(256,256,(c,w,h)=>{c.fillStyle='#808080';c.fillRect(0,0,w,h);
+    if(kind==='crinkle'){c.lineCap='round';for(let i=0;i<260;i++){const x=Math.random()*w,y=Math.random()*h;c.strokeStyle=Math.random()<.5?'rgba(255,255,255,.3)':'rgba(0,0,0,.34)';c.lineWidth=1+Math.random()*3;c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x+(Math.random()-.5)*70,y+(Math.random()-.5)*70,x+(Math.random()-.5)*90,y+(Math.random()-.5)*90);c.stroke()}}
+    else if(kind==='pebble'){for(let i=0;i<2600;i++){const x=Math.random()*w,y=Math.random()*h,r=1.4+Math.random()*2.2;const g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,'rgba(0,0,0,.34)');g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,6.3);c.fill()}}
+    else if(kind==='blotch'){c.fillStyle='#ffffff';c.fillRect(0,0,w,h);for(let i=0;i<46;i++){const x=Math.random()*w,y=Math.random()*h,r=18+Math.random()*50,g=c.createRadialGradient(x,y,0,x,y,r),d=Math.random()<.5?'rgba(0,0,0,.06)':'rgba(255,255,255,.4)';g.addColorStop(0,d);g.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,6.3);c.fill()}}
+    else{for(let i=0;i<6500;i++){c.fillStyle=Math.random()<.5?'rgba(255,255,255,.2)':'rgba(0,0,0,.2)';c.beginPath();c.arc(Math.random()*w,Math.random()*h,.6+Math.random()*1.6,0,6.3);c.fill()}
+     for(let i=0;i<500;i++){const x=Math.random()*w,y=Math.random()*h,a=Math.random()*3.14;c.strokeStyle=Math.random()<.5?'rgba(255,255,255,.1)':'rgba(0,0,0,.1)';c.lineWidth=1;c.beginPath();c.moveTo(x,y);c.lineTo(x+Math.cos(a)*6,y+Math.sin(a)*6);c.stroke()}}}); /* 绒毛：除了小点还有短短的、朝向不一的纤维 */
+   t.encoding=THREE.LinearEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;return t};
+  const crinkleT=noiseTex('crinkle'),napT=noiseTex('nap'),pebbleT=noiseTex('pebble'),blotchT=noiseTex('blotch');blotchT.encoding=THREE.sRGBEncoding;
+  /* 褶皱场：返回 -1 ~ 1，大褶 + 小褶叠起来；用来把衣料推出去 / 拉进来，同时给凹处上暗色（假的环境光遮蔽），立体感会强很多 */
+  const foldF=(x,y,sd)=>.6*Math.sin(x*21+Math.sin(y*7+sd)*1.5+sd)+.3*Math.sin(x*47-y*13+sd*2.3)+.18*Math.sin(y*31+x*9+sd*.7);
+  const aoColors=(geo,fn)=>{const P=geo.attributes.position,c=new Float32Array(P.count*3);for(let i=0;i<P.count;i++){const v=fn(i);c[i*3]=c[i*3+1]=c[i*3+2]=v}geo.setAttribute('color',new THREE.BufferAttribute(c,3))};
+  const zipTex=tex(256,16,(c,w,h)=>{c.fillStyle='#8f9094';c.fillRect(0,0,w,h);for(let x=0;x<w;x+=8){c.fillStyle='#e6e7ea';c.fillRect(x,0,4,h/2);c.fillStyle='#4a4b50';c.fillRect(x+4,h/2,4,h/2)}});zipTex.wrapS=THREE.RepeatWrapping;
+  const zipper=(len,w)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(len,w),new THREE.MeshStandardMaterial({map:zipTex,roughness:.3,metalness:.55,envMap:lenv,envMapIntensity:.9}));zipTex.repeat.set(len/.1,1);m.castShadow=false;return m}; /* 拉链：一条银色的小齿 */
+  const grom=(g,x,y,z,r)=>{const t=new THREE.Mesh(new THREE.TorusGeometry(r||.0055,.0017,6,14),steel);t.position.set(x,y,z);g.add(t)}; /* 鸡眼扣 */
+  const buckle=(g,x,y,z,w)=>{const m=steel,t=.0022;w=w||.032;ad(g,gB(w,t*1.6,.005),m,x,y+.012,z);ad(g,gB(w,t*1.6,.005),m,x,y-.012,z);ad(g,gB(t*1.6,.026,.005),m,x-w/2,y,z);ad(g,gB(t*1.6,.026,.005),m,x+w/2,y,z);ad(g,gB(.003,.024,.004),m,x+w*.1,y,z+.001)}; /* 皮带扣：一个方框 + 一根扣针 */
+  /* 缝线：一圈虚线（贴在口袋 / 翻盖上），拉链头（水滴形的小金属片 + 小环），D 形环，带小皮片的 O 形环 */
+  const stitchT=tex(128,64,(c,w,h)=>{c.clearRect(0,0,w,h);c.setLineDash([5,4]);c.lineWidth=2;c.strokeStyle='rgba(176,176,182,.85)';c.beginPath();c.roundRect?c.roundRect(5,5,w-10,h-10,10):c.rect(5,5,w-10,h-10);c.stroke()});
+  const stitch=(g,w,h,x,y,z,ry)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({map:stitchT,transparent:true,roughness:.6,depthWrite:false}));m.position.set(x,y,z);m.rotation.y=ry||0;m.renderOrder=3;g.add(m);return m};
+  const pull=(g,x,y,z,rz)=>{const p=new THREE.Group();p.position.set(x,y,z);p.rotation.z=rz||0;ad(p,gB(.006,.013,.0025),steel,0,-.0065,0);const t=new THREE.Mesh(new THREE.TorusGeometry(.0042,.0013,6,12),steel);t.position.set(0,-.016,0);p.add(t);g.add(p)};
+  const dring=(g,x,y,z)=>{const t=new THREE.Mesh(new THREE.TorusGeometry(.0085,.0018,6,18,Math.PI),steel);t.position.set(x,y,z);t.rotation.z=Math.PI;g.add(t);ad(g,gB(.018,.0016,.0016),steel,x,y,z)};
+  const oring=(g,x,y,z)=>{ad(g,gB(.008,.016,.003),leather(0x090909,.5,.3),x,y+.006,z);const t=new THREE.Mesh(new THREE.TorusGeometry(.0072,.0017,6,16),steel);t.position.set(x,y-.004,z+.002);g.add(t)};
+  /* 带颜色的柔软材质：皮 / 麂皮 都用这个；带「凹处暗一点」的顶点色 */
+  const softMat=(c,r,ei,bump,bs,rep,map)=>{bump.repeat.set(rep,rep);return new THREE.MeshStandardMaterial({color:SC(c),roughness:r,metalness:.05,envMap:lenv,envMapIntensity:ei,bumpMap:bump,bumpScale:bs,map:map||null,vertexColors:true,side:THREE.DoubleSide})};
+  /* ① PERSONSOUL 风格：纯黑皮质机车风新月包——上沿中间下陷、两头翘起；前面分好几层：中间口袋（一块光面金属牌）、下面三个口袋（左右皮带扣，中间 D 形环 + 子母扣）、两头的竖口袋，
+     每个口袋都有缝线；左右两边斜拉链（带拉链头），一排铆钉，几个 O 形环，右边一条斜缠下来的鸡眼皮带；肩带上一排鸡眼扣。小零件都按包身的真实表面高度贴上去，不再嵌进包里 */
+  const bagMoto=()=>{const g=new THREE.Group(),W=.5,Hc=.2,He=.3,D=.16,drop=.12,zs=zshift(D),sd=3.1;
+   const hh=u=>Hc+(He-Hc)*u*u;
+   const mz=(x,y)=>{const u=2*x/W,h=hh(u),yv=Math.min(1,Math.max(0,y/h)),edge=1-Math.pow(Math.abs(yv*2-1),3)*.4,tip=1-.55*Math.pow(Math.abs(u),3.2),sag=1-.07*Math.sin(yv*Math.PI)*(1-Math.abs(u)*.5);return(D/2)*edge*tip*(1+.06*(1-Math.abs(u)))*sag}; /* 包身前表面在 (x, y) 的高度 */
+   const bg=new THREE.BoxGeometry(W,1,D,70,14,20),P=bg.attributes.position,fv=new Float32Array(P.count);
+   for(let i=0;i<P.count;i++){const x=P.getX(i),yv=P.getY(i)+.5,zn=P.getZ(i)/(D/2),u=2*x/W,h=hh(u);
+    const edge=1-Math.pow(Math.abs(yv*2-1),3)*.4,tip=1-.55*Math.pow(Math.abs(u),3.2);
+    const f=foldF(x,yv*h,sd),amp=.0042*(.3+.7*Math.min(1,Math.abs(zn)));
+    const sag=1-.07*Math.sin(yv*Math.PI)*(1-Math.abs(u)*.5);
+    P.setXYZ(i,x*(.93+.07*yv)*(1-.03*Math.abs(zn)),yv*h*(1-.025*(1-Math.abs(u))*(1-yv)),zn*(D/2)*edge*tip*(1+.06*(1-Math.abs(u)))*sag+Math.sign(zn||1)*f*amp*Math.min(1,(1-Math.abs(u))*1.4+.2));fv[i]=f}
+   smoothN(bg);aoColors(bg,i=>1-.14*Math.max(0,-fv[i])+.02*Math.max(0,fv[i]));
+   const lm=softMat(0x060607,.52,.38,pebbleT,.0021,5);lm.metalness=0; /* 纯黑，环境反射压得很低，不再发灰 */
+   const body=new THREE.Mesh(bg,lm);body.castShadow=true;body.position.set(0,-(drop+He),zs);g.add(body);
+   const B=new THREE.Group();B.position.copy(body.position);g.add(B);
+   const pk=(w,h,d,x,y,ry,lift)=>{const p=softFold(w,h,d,0x060607,'cotton',x*50+y*30);p.material=leather(0x070708,.46,.38);p.position.set(x,y,mz(x,y)+(lift===undefined?.006:lift));p.rotation.y=ry||0;B.add(p);return p};
+   /* 中间口袋 + 光面金属牌（没有任何标志） + 缝线 + 拉链头 */
+   pk(.15,.08,.034,0,.15);const cz=mz(0,.15)+.006+.017;const plate=new THREE.Mesh(new THREE.SphereGeometry(1,28,14),steel);plate.scale.set(.03,.02,.005);plate.position.set(0,.15,cz+.002);B.add(plate);stitch(B,.15,.075,0,.15,cz+.0012);
+   /* 下面三个口袋 */
+   [[-.125,.12,.12],[.1,.12,-.12]].forEach(q=>{const x=q[0],p=pk(.11,.1,.04,x,.075,q[2],.008),f=mz(x,.075)+.008+.02;stitch(B,.11,.095,x,.075,f+.0012,q[2]);
+    ad(B,gB(.11,.032,.012),leather(0x080809,.46,.38),x,.108,f+.005).rotation.y=q[2]; /* 口袋翻盖 */
+    const sx=x+(x<0?.012:-.012);ad(B,gB(.026,.07,.004),leather(0x0a0a0b,.4,.4),sx,.07,f+.012);buckle(B,sx,.04,f+.016);ad(B,gB(.003,.01,.003),steel,sx,.103,f+.016)});
+   {const x=-.012,f=mz(x,.055)+.008+.02;pk(.1,.075,.036,x,.055,0,.008);stitch(B,.1,.07,x,.055,f+.0012);ad(B,gB(.1,.026,.01),leather(0x080809,.46,.38),x,.082,f+.004);
+    dring(B,x,.045,f+.006);const sn=new THREE.Mesh(new THREE.CylinderGeometry(.0065,.0065,.004,16),steel);sn.rotation.x=Math.PI/2;sn.position.set(x,.082,f+.01);B.add(sn)} /* 中间口袋：翻盖 + 子母扣 + D 形环 */
+   [[-.222,.1,.9],[.222,.1,-.9]].forEach(q=>{const x=q[0],p=pk(.06,.15,.05,x,q[1],q[2],.012);const k=Math.sign(x);const zp=zipper(.12,.008);zp.position.set(x-k*.002,q[1],mz(x,q[1])+.012+.027);zp.rotation.y=q[2];zp.rotation.z=Math.PI/2;B.add(zp);pull(B,x-k*.002,q[1]+.05,mz(x,q[1])+.012+.03,0)}); /* 两头竖口袋：一道竖拉链 + 拉链头 */
+   /* 上沿那一圈（斜拉链、包顶拉链、铆钉）会悬在凹下去的上沿外面，看着很怪，已经去掉 */
+   [-.07,.07,.2].forEach((x,i)=>{const y=.03+(i%2)*.012;oring(B,x,y,mz(x,y)+.006)}); /* 几个小 O 形环（带小皮片） */
+   /* 右边一条斜缠下来的鸡眼皮带：从上沿翘起的一头，斜着绕到右下口袋的位置，上面一排鸡眼扣，尾端一个带扣 */
+   {const pts=[V(.2,.275,mz(.2,.275)+.006),V(.215,.2,mz(.215,.2)+.008),V(.19,.12,mz(.19,.12)+.012),V(.15,.085,mz(.15,.085)+.016)];const c=new THREE.CatmullRomCurve3(pts),bm=new THREE.Mesh(new THREE.TubeGeometry(c,24,.011,8),leather(0x0b0b0c,.42,.4));bm.scale.z=1;bm.castShadow=true;B.add(bm);
+    for(let i=0;i<6;i++){const p=c.getPoint(.1+i*.15);grom(B,p.x,p.y,p.z+.01,.0042)}buckle(B,.152,.092,mz(.15,.085)+.03,.028)}
+   /* 肩带：宽 3cm，一排鸡眼扣，肩带上一个小皮圈（固定带尾）+ 一个带扣 */
+   const st=arch(.195,drop+.045,zs,.03,leather(0x070708,.5,.4));g.add(st);
+   {const c=archC(.195,drop+.045,zs,.016);
+    for(let i=1;i<14;i++){const t=i/14,p=c.getPoint(t);if(Math.abs(p.x)<.035&&p.y>-.03)continue;grom(g,p.x,p.y,p.z+.005)} /* 鸡眼扣沿着带子排，离钩子近的几个跳过，不压在钩子上 */
+   }
+   {const tz=zs+mz(.215,.2)+.004;ad(g,gB(.026,.2,.003),leather(0x070708,.5,.4),.215,-drop-.14,tz);for(let i=0;i<5;i++)grom(g,.215,-drop-.05-i*.035,tz+.003)} /* 带尾：贴在包身的表面上，不再嵌进去 */
+   g.userData.h=drop+He;return g};
+  /* ② RELABEL 风格：焦糖棕麂皮大托特——整个包（包身、滚边、肩带、提手）是同一个焦糖棕，软塌塌、有垂感，表面是麂皮的细绒；肩带的接口全部落在包的上沿，不会飘在外面 */
+  const bagSuede=()=>{const g=new THREE.Group(),W=.5,H=.36,D=.22,drop=.12,zs=zshift(D*1.06),sd=1.7,CC=0x5b3920;
+   const bg=new THREE.BoxGeometry(1,1,1,54,36,26),P=bg.attributes.position,fv=new Float32Array(P.count);
+   for(let i=0;i<P.count;i++){const nx=P.getX(i),yv=P.getY(i)+.5,nz=P.getZ(i)*2;
+    const ws=.5+.5*Math.pow(1-yv,.6),ds=.34+.66*Math.pow(1-yv,.5),bulge=1+.12*Math.sin(Math.min(1,yv*1.25)*Math.PI);
+    let x=nx*W*ws*bulge,y=yv*H,z=nz*(D/2)*ds*bulge;
+    const f=foldF(x,y,sd),k=Math.pow(yv,.7);fv[i]=f;
+    x+=f*.011*k*Math.sign(nx||1)*.5+Math.sin(yv*9+nz*2.4+sd)*.009*k;
+    z+=f*.013*k*Math.sign(nz||1)+Math.sin(nx*13+yv*5)*.006*k;
+    y-=.075*(1-Math.pow(nx*2,2))*Math.pow(yv,4)*(1-.35*Math.abs(nz));
+    P.setXYZ(i,x,y,z)}
+   smoothN(bg);aoColors(bg,i=>1-.26*Math.max(0,-fv[i])+.07*Math.max(0,fv[i]));
+   const mt=tex(64,64,(c,w,h)=>{c.fillStyle='#5b3920';c.fillRect(0,0,w,h)}); /* 照你给的特写图量出来的焦糖棕：包身亮处约 (146,97,58)；场景里的灯会把它提亮约 1.6 倍，所以这里要用更深一点的底色 */ /* 整个包同一个焦糖棕，不再分上下两截 */
+   const sm=softMat(0xffffff,.95,.1,napT,.0023,4,mt);sm.metalness=0;
+   const body=new THREE.Mesh(bg,clothify(sm,.2));body.castShadow=true;body.position.set(0,-(drop+H),zs);g.add(body);
+   const sm2=()=>clothify(new THREE.MeshStandardMaterial({color:SC(CC).multiplyScalar(.9),roughness:.95,bumpMap:napT,bumpScale:.0021,side:THREE.DoubleSide}),.2); /* 带子和包身一个颜色 */
+   g.add(arch(.125,drop+.012,zs,.034,sm2())); /* 长肩带：从两侧上角拱起，翻过钩子 */
+   [1,-1].forEach(k=>g.add(arch(.07,drop+.034,zs+k*.037,.034,sm2()))); /* 短提手：前后两片各一条，接在上沿 */
+   const zp=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([V(-.12,-drop-.1,0),V(-.04,-drop-.135,0),V(.06,-drop-.125,0),V(.13,-drop-.09,0)]),16,.0022,6),steel);zp.position.z=zs+.0826;g.add(zp); /* 前面的一道拉链，贴在表面上 */
+   g.userData.h=drop+H;return g};
+  /* ③ crying center 风格：纯黑亮面皱皮水桶托特——不带图案；像漆皮一样亮、表面一道道大大的皱，能反出灯光，但底色是纯黑，不发灰；一条带扣的单肩带 */
+  const bagCrying=()=>{const g=new THREE.Group(),W=.34,H=.38,D=.13,drop=.13,zs=zshift(D),sd=5.3;
+   const bg=new THREE.BoxGeometry(1,1,1,40,32,18),P=bg.attributes.position,fv=new Float32Array(P.count);
+   for(let i=0;i<P.count;i++){const nx=P.getX(i),yv=P.getY(i)+.5,nz=P.getZ(i)*2;
+    const flare=.92+.1*yv,ds=.95+.1*yv;
+    let x=nx*W*flare,y=yv*H,z=nz*(D/2)*ds;const e=Math.pow(Math.abs(nx*2),6)*.4+Math.pow(Math.abs(nz),6)*.25;
+    x*=1-e*.07;z*=1-e*.12;
+    const f=foldF(x*1.3,y*1.1,sd),a=.0055*Math.min(1,Math.abs(nz)*1.4);fv[i]=f;z+=Math.sign(nz||1)*f*a;y-=.006*Math.abs(f)*yv;
+    P.setXYZ(i,x,y,z)}
+   smoothN(bg);aoColors(bg,i=>1-.18*Math.max(0,-fv[i])+.02*Math.max(0,fv[i]));
+   crinkleT.repeat.set(1.5,1.5);const lm=softMat(0x040405,.22,.7,crinkleT,.0034,1.5);lm.metalness=0;
+   const body=new THREE.Mesh(bg,lm);body.castShadow=true;body.position.set(0,-(drop+H),zs);g.add(body);
+   const lk=leather(0x050506,.3,.55);
+   g.add(arch(.145,drop+.03,zs,.017,lk));
+   ad(g,gB(.022,.018,.006),steel,.145,-drop-.05,zs+.004);ad(g,gB(.014,.1,.0025),lk,.152,-drop-.1,zs+.004);for(let i=0;i<4;i++)grom(g,.152,-drop-.06-i*.02,zs+.0065,.0028);
+   g.userData.h=drop+H;return g};
+  /* ④ Matin Kim 风格：帆布托特——两条宽肩带在钩子上汇合，中间一个 U 形领口，下面是方方正正的大包身；厚棉帆布：斜纹织纹清楚、哑光、比较挺，所以褶皱少、边缘平直，沿着边有一圈缝线 */
+  const MKTEXT="images/mk-text.png"; /* 你给的那张白色字样（只取了白字，黑底变透明） */
+  const bagTank=()=>{const pts=[[.004,.004],[.04,0],[.135,-.115],[.205,-.165],[.216,-.21],[.216,-.52],[.2,-.545],[.1,-.553],[0,-.556],[-.1,-.553],[-.2,-.545],[-.216,-.52],[-.216,-.21],[-.205,-.165],[-.135,-.115],[-.04,0],[-.004,.004],
+     [-.006,-.02],[-.05,-.075],[-.1,-.13],[-.118,-.18],[-.1,-.24],[-.05,-.285],[0,-.295],[.05,-.285],[.1,-.24],[.118,-.18],[.1,-.13],[.05,-.075],[.006,-.02]]; /* 两侧是直的，底下只切掉一点点圆角，不再有多出来的一小块 */
+   const g=garment({pts,base:'#161618',dep:.05,fab:'twill',fold:.85,nohanger:true,res:1024,decal:{src:MKTEXT,cx:0,cy:-.375,w:.375},draw:(c,K)=>{c.save();c.globalAlpha=1;for(let k=-K.h;k<K.w+K.h;k+=5){c.strokeStyle='rgba(255,255,255,.075)';c.lineWidth=1.6;c.beginPath();c.moveTo(k,0);c.lineTo(k+K.h*.9,K.h);c.stroke();c.strokeStyle='rgba(0,0,0,.28)';c.lineWidth=1.3;c.beginPath();c.moveTo(k+2.5,0);c.lineTo(k+2.5+K.h*.9,K.h);c.stroke()}c.restore()}}); /* 帆布的斜纹 */
+   g.userData.h=.556;return g};
+  /* ——— 帽子 ——— */
+  const hatMat=(c,kind,rep)=>{const f=FAB[kind]||FAB.cotton,bm=fabBump(kind);bm.repeat.set(rep||4,3);return clothify(new THREE.MeshStandardMaterial({color:SC(c),roughness:1,bumpMap:bm,bumpScale:f.bs*1.4,side:THREE.DoubleSide}),SHEEN[kind]||.25)};
+  const dome=(r,sy,mat)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,28,16,0,Math.PI*2,0,Math.PI*.5),mat);m.scale.set(1,sy,1.03);m.castShadow=true;return m};
+  const capHat=(c1,c2)=>{const g=new THREE.Group(),r=.085,mat=hatMat(c1,'cotton',5);g.add(dome(r,.82,mat)); /* 棒球帽：帽顶 + 6 片接缝 + 帽扣 + 帽舌 + 后面的调节带 */
+   for(let k=0;k<6;k++){const ph=k*Math.PI/3,pts=[];for(let i=0;i<=12;i++){const th=i/12*Math.PI/2;pts.push(V(Math.sin(th)*Math.cos(ph)*r*1.004,Math.cos(th)*r*.82*1.004,Math.sin(th)*Math.sin(ph)*r*1.03*1.004))}
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),12,.0009,5),new THREE.MeshStandardMaterial({color:SC(c1).multiplyScalar(.62),roughness:1})))}
+   ad(g,new THREE.SphereGeometry(.0095,12,8),new THREE.MeshStandardMaterial({color:SC(c2),roughness:.7}),0,r*.82+.001,0);
+   const vg=new THREE.CircleGeometry(.092,28,0,Math.PI);vg.rotateX(Math.PI/2);vg.scale(1,1,1.22);{const P=vg.attributes.position;for(let i=0;i<P.count;i++){const x=P.getX(i),z=P.getZ(i);P.setY(i,-.014*(x/.092)*(x/.092)-.2*z)}vg.computeVertexNormals()}
+   const vs=new THREE.Mesh(vg,hatMat(c2,'cotton',2));vs.position.set(0,.004,r*.97);vs.castShadow=true;g.add(vs);
+   const bk=new THREE.Mesh(new THREE.TorusGeometry(r*.97,.007,6,18,Math.PI*.42),new THREE.MeshStandardMaterial({color:SC(c2),roughness:.8}));bk.rotation.x=Math.PI/2;bk.rotation.z=Math.PI*.5-Math.PI*.21+Math.PI;bk.position.y=.012;g.add(bk);ad(g,gB(.022,.014,.004),brass,0,.012,-r*.99);
+   g.userData.rc=r*.82;return g};
+  const beanie=(c,pc)=>{const g=new THREE.Group(),r=.088,m=hatMat(c,'knit',10);g.add(dome(r,.92,m)); /* 毛线帽：帽顶 + 卷边 + 毛球 */
+   const cuff=new THREE.Mesh(new THREE.CylinderGeometry(r*1.012,r*1.0,.05,34,1,true),hatMat(c,'knit',16));cuff.position.y=.025;cuff.castShadow=true;g.add(cuff);
+   ad(g,new THREE.TorusGeometry(r*1.006,.004,6,34),m,0,.05,0,Math.PI/2);
+   const pp=new THREE.Mesh(new THREE.SphereGeometry(.03,18,12),hatMat(pc,'fleece',3));pp.position.y=r*.92+.022;pp.castShadow=true;g.add(pp);g.userData.rc=r*.92;return g};
+  const bucketHat=c=>{const g=new THREE.Group(),m=hatMat(c,'twill',6); /* 渔夫帽：直筒帽顶 + 软软垂下来的帽檐，帽檐上几圈缝线 */
+   const pr=[[0,.092],[.062,.092],[.074,.078],[.08,.0],[.1,-.004],[.14,-.013],[.153,-.028]].map(p=>new THREE.Vector2(p[0],p[1]));
+   const b=new THREE.Mesh(new THREE.LatheGeometry(pr,40),m);b.castShadow=true;g.add(b);const sm=new THREE.MeshStandardMaterial({color:SC(c).multiplyScalar(.7),roughness:1});
+   [.115,.13,.145].forEach(rr=>ad(g,new THREE.TorusGeometry(rr,.0008,5,40),sm,0,-.004-(rr-.1)*.3,0,Math.PI/2));ad(g,new THREE.TorusGeometry(.0775,.0012,5,40),sm,0,.04,0,Math.PI/2);
+   g.userData.rc=.08;return g};
+  const strawHat=()=>{const g=new THREE.Group(); /* 草编宽檐帽：宽宽的帽檐、一圈深棕色缎带和蝴蝶结 */
+   const wt=tex(256,128,(c,w,h)=>{c.fillStyle='#d6bd82';c.fillRect(0,0,w,h);for(let y=0;y<h;y+=4)for(let x=0;x<w;x+=8){c.fillStyle=((x/8+y/4)%2)?'rgba(255,240,190,.5)':'rgba(120,90,40,.28)';c.fillRect(x+((y/4)%2?4:0),y,7,3)}});wt.wrapS=wt.wrapT=THREE.RepeatWrapping;wt.repeat.set(10,2);
+   const sm=new THREE.MeshStandardMaterial({map:wt,roughness:.95,side:THREE.DoubleSide});
+   const pr=[[0,.09],[.045,.088],[.065,.066],[.072,.0],[.12,-.003],[.17,-.015],[.18,-.02]].map(p=>new THREE.Vector2(p[0],p[1]));const sg=new THREE.LatheGeometry(pr,56);
+   {const P=sg.attributes.position;for(let i=0;i<P.count;i++){const x=P.getX(i),z=P.getZ(i),rr=Math.hypot(x,z);if(rr>.1)P.setY(i,P.getY(i)+Math.sin(Math.atan2(z,x)*5)*.006*((rr-.1)/.08))}sg.computeVertexNormals()} /* 帽檐微微起伏 */
+   const s=new THREE.Mesh(sg,sm);s.castShadow=true;g.add(s);
+   const band=new THREE.Mesh(new THREE.CylinderGeometry(.0745,.0775,.024,40,1,true),new THREE.MeshStandardMaterial({color:SC(0x4a3524),roughness:.6,side:THREE.DoubleSide}));band.position.y=.014;g.add(band);
+   [-1,1].forEach(k=>{const w=new THREE.Mesh(new THREE.SphereGeometry(.017,12,8),band.material);w.scale.set(1.2,.55,.5);w.position.set(.072,.016,k*.018);w.rotation.y=k*.5;g.add(w)});ad(g,new THREE.SphereGeometry(.007,10,8),band.material,.076,.016,0);
+   g.userData.rc=.072;return g};
+  /* 把一顶帽子挂到钩子上：帽口朝着门，钩子从帽口伸进去，帽顶朝外；帽檐所在的平面离门 3cm */
+  const hatOn=(rg,y,hat)=>{const o=new THREE.Group();o.add(hat);hat.rotation.x=1.45;hat.position.set(0,-hat.userData.rc*.9,0);o.position.z=-.02;return hangAt(rg,y,o)};
+  /* ——— 左门挂包，右门挂帽 ——— */
+  /* ——— 左门挂包：四个包从上往下依次挂；包太大放不下时，整体按比例缩小一点 ——— */
+  {const bags=[bagMoto(),bagSuede(),bagCrying(),bagTank()],GAP=.016,TOP=1.995,AV=TOP-.075;let tot=bags.reduce((a,b)=>a+b.userData.h,0)+GAP*(bags.length-1);const sc=Math.min(1,AV/tot);
+   const ys=[];let y=TOP;bags.forEach(b=>{b.scale.setScalar(sc);ys.push(y);y-=b.userData.h*sc+GAP});
+   const rb=rail(WD.l,.25,Math.max(.1,y+GAP-.03),2.02,ys,blk,LEN,HR);
+   bags.forEach((b,i)=>hangAt(rb,ys[i],b))}
+  const rh=rail(WD.r,-.25,.76,1.99,[1.93,1.75,1.52,1.22,.86],steel,.075,.0055);
+  hatOn(rh,1.93,capHat(0x1f2a44,0xf1ece0));hatOn(rh,1.75,beanie(0xd9a441,0xf2ead8));hatOn(rh,1.52,bucketHat(0xcdbd9a));hatOn(rh,1.22,strawHat());hatOn(rh,.86,capHat(0xa8262b,0xf4efe6));
+ }
+}
 
 function openWard(){if(WD.open)return;WD.open=true;hover=null;spots.find(q=>q.id==='wd').goal=0;gsap.killTweensOf([WD.l.rotation,WD.r.rotation,WD.light]);
- gsap.to(WD.l.rotation,{y:-1.8,duration:1.1,delay:.6,ease:'power2.inOut'});gsap.to(WD.r.rotation,{y:1.8,duration:1.1,delay:.6,ease:'power2.inOut'});
+ gsap.to(WD.l.rotation,{y:-1.1,duration:1.1,delay:.6,ease:'power2.inOut'});gsap.to(WD.r.rotation,{y:1.8,duration:1.1,delay:.6,ease:'power2.inOut'}); /* 左门（挂包）只开到约 63°，开太大会让包扫进左边的化妆桌；右门（挂帽子）右边没有东西挡着，照原来完全打开（约 103°） */
  gsap.to(WD.light,{intensity:1.1,duration:1,delay:.8});
  WD.garments.forEach((g,i)=>gsap.fromTo(g.rotation,{z:(i%2?1:-1)*.035},{z:0,duration:1.8,delay:1.4+i*.05,ease:'elastic.out(1,.25)'}))} /* 门开后衣服轻轻晃一下 */
 function closeWard(){if(!WD.open)return;WD.open=false;gsap.killTweensOf([WD.l.rotation,WD.r.rotation,WD.light]);
@@ -1529,7 +2044,7 @@ function swipe(d,dx,dy){d.sx=(d.sx||0)+dx;d.sy=(d.sy||0)+dy;
 function hitCal(e){if(!CAL.g.visible)return false;mp.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(mp,cam);
  return ray.intersectObject(CAL.g,true).some(h=>h.object.visible)}
 const hintEl=document.querySelector('.hint'),hintTxt=hintEl.textContent;
-function openCal(){if(CAL.open)return;CAL.open=true;CAL.busy=false;CAL.cur=new Date().getMonth(); /* 默认翻到当前月份 */
+function openCal(){if(CAL.open)return;CAL.open=true;if(typeof RES!=='undefined')RES.need('cal');CAL.busy=false;CAL.cur=new Date().getMonth(); /* 默认翻到当前月份 */
  layoutCal();hintEl.textContent='滚轮 / 手指滑动翻页 · 点击空白处返回';
  gsap.killTweensOf(CP);gsap.to(CP,{t:1,duration:1,delay:.5,ease:'back.out(1.5)'})}
 function closeCal(){if(!CAL.open)return;CAL.open=false;hintEl.textContent=hintTxt;
@@ -1620,7 +2135,7 @@ const ICON_PLAY='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',ICON_
 const SG={cur:0,tgt:0,fly:0,spread:0,open:false,play:-1,S:300,sp:360,da:.21,tl:null};
 const AU=new Audio();AU.preload='none';
 const scards=SONGS.map(s=>{const el=document.createElement('div');el.className='scard';
- el.innerHTML='<img src="'+s.img+'" alt="" draggable="false"><button class="pbtn" aria-label="play">'+ICON_PLAY+'</button>';wheel.appendChild(el);
+ el.innerHTML='<img data-src="'+s.img+'" decoding="async" alt="" draggable="false"><button class="pbtn" aria-label="play">'+ICON_PLAY+'</button>';wheel.appendChild(el);
  return{el,btn:el.querySelector('.pbtn'),o:{x:0,y:0,r:0},st:{x:0,y:0,r:0,s:.42}}});
 const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
 function songSizes(){const w=innerWidth,h=innerHeight,por=w<h*.9;
@@ -1663,7 +2178,7 @@ function songToggle(i){if(SG.play===i){AU.pause();setPlay(-1);return}
  if(AUi!==i){AU.src=SONGS[i].src;AUi=i;sbar.querySelector('.stt').textContent=SONGS[i].t;sbar.classList.add('on')}
  setPlay(i);const p=AU.play();if(p&&p.catch)p.catch(()=>setPlay(-1))}
 AU.addEventListener('ended',()=>setPlay(-1));
-function openSongs(){if(SG.open)return;SG.open=true;hover=null;spots.find(q=>q.id==='hp').goal=0;
+function openSongs(){if(SG.open)return;SG.open=true;if(typeof RES!=='undefined')RES.lazyImgs(document.getElementById('songs'));hover=null;spots.find(q=>q.id==='hp').goal=0;
  songSizes();songScatter();SG.cur=SG.tgt=0;SG.fly=0;SG.spread=0;songRender();
  gsap.killTweensOf([songs,sbg,SG,stitle,sback]);gsap.set(songs,{visibility:'visible',opacity:1});gsap.set(sbg,{'--a':0,'--b':'0px'});
  gsap.set(stitle,{autoAlpha:0,scaleX:1.12,transformOrigin:'right top'});gsap.set(sback,{autoAlpha:0});
@@ -1863,7 +2378,7 @@ const certw=document.getElementById('certw'),czoom=document.getElementById('czoo
 certw.innerHTML='<div class="cbg"></div><h2 class="ctitle">HONORS</h2><div class="cwheel"></div><div class="chint">点击空白处返回 · 点击中间的证书放大</div>';
 const cbg=certw.querySelector('.cbg'),ctitle=certw.querySelector('.ctitle'),cwheel=certw.querySelector('.cwheel'),chint=certw.querySelector('.chint');
 const CW={cur:0,tgt:0,fly:0,spread:0,open:false,S:420,sp:480,da:.22,tl:null,last:-1};
-const ccards=CERT_ORDER.map(k=>{const el=document.createElement('div');el.className='ccard';el.innerHTML='<img src="'+CERT_IMG[k]+'" alt="" draggable="false">';cwheel.appendChild(el);return{el,k,o:{x:0,y:0,r:0},st:{x:0,y:0,r:0,s:.42}}});
+const ccards=CERT_ORDER.map(k=>{const el=document.createElement('div');el.className='ccard';el.innerHTML='<img data-src="'+CERT_IMG[k]+'" decoding="async" alt="" draggable="false">';cwheel.appendChild(el);return{el,k,o:{x:0,y:0,r:0},st:{x:0,y:0,r:0,s:.42}}});
 function certSizes(){const w=innerWidth,h=innerHeight,por=w<h*.9;
  CW.S=por?Math.min(.84*w,.46*h*1.42):Math.min(.4*w,.56*h*1.42,820);CW.sp=CW.S*(por?1.06:1.14);CW.da=por?.3:.22;
  certw.style.setProperty('--CW',CW.S+'px');cwheel.style.top=(por?52:55)+'%'}
@@ -1903,7 +2418,7 @@ addEventListener('keydown',e=>{if(!CW.open)return;
  if(e.key==='Escape'&&czoom.classList.contains('on')){e.stopImmediatePropagation();czoom.classList.remove('on');return}
  if(czoom.classList.contains('on'))return;
  if(e.key==='ArrowRight'){certGo(Math.round(CW.tgt)+1,true)}else if(e.key==='ArrowLeft'){certGo(Math.round(CW.tgt)-1,true)}},true);
-function openCerts(){if(CW.open)return;CW.open=true;hover=null;spots.find(q=>q.id==='certs').goal=0;
+function openCerts(){if(CW.open)return;CW.open=true;if(typeof RES!=='undefined')RES.lazyImgs(certw);hover=null;spots.find(q=>q.id==='certs').goal=0;
  certSizes();certScatter();CW.cur=CW.tgt=0;CW.fly=0;CW.spread=0;CW.last=-1;certRender();
  gsap.killTweensOf([certw,cbg,CW,ctitle,chint]);gsap.set(certw,{visibility:'visible',opacity:1});gsap.set(cbg,{'--a':0,'--b':'0px'});
  gsap.set(ctitle,{autoAlpha:0,scaleX:1.12,transformOrigin:'right top'});gsap.set(chint,{autoAlpha:0});
@@ -2124,7 +2639,7 @@ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;const k=1-Mat
    const tp=cam.position.clone().addScaledVector(fwd,D).addScaledVector(up,Math.sin(now/700)*.006*e);
    g.position.copy(PAD.p0).lerp(tp,e);g.quaternion.copy(PAD.q0).slerp(cam.quaternion.clone().multiply(Q90),e);g.scale.setScalar(PAD.k0+(k-PAD.k0)*e)}
   else{g.position.copy(PAD.p0);g.quaternion.copy(PAD.q0)}}
- perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();dollStep(now);R.render(scene,cam);if(!loop.ok){loop.ok=1;const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}requestAnimationFrame(loop)}
+ perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();dollStep(now);R.render(scene,cam);if(!loop.ok){loop.ok=1;if(typeof PL!=='undefined')PL.sceneReady();else{const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 </script>
 </body>
