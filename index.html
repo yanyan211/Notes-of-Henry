@@ -197,14 +197,14 @@ html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e111
 </style>
 <style>/* ===== Happy Henry's Day · 开场动画（Mint Y2K Retro Desktop） =====
    整套用 CSS 变量统一：薄荷绿底、冷白窗口、经典蓝标题栏、像素字体 + 打字机字体 + 复古衬线。 */
-#intro{position:fixed;inset:0;z-index:95;display:none;color:#12474f;transition:opacity 1.1s ease;
+#intro{position:fixed;inset:0;z-index:95;display:none;color:#12474f;transition:opacity 1.1s ease;overscroll-behavior:none;background:radial-gradient(120% 90% at 50% 34%,#e6fbf4 0%,#c3f0e2 36%,#9ae0d1 68%,#86cde0 100%);
  --ink:#12474f;--sh:#5f9496;--chrome:#e6f6f1;--blue1:#1f56d6;--blue2:#63a6ff;--pink:#ff9ec1;
  --px:"Press Start 2P","Courier New",monospace;--tw:"Special Elite","American Typewriter","Courier New",monospace;
  --serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","Noto Serif SC",serif;
  --ui:Tahoma,"Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-family:var(--ui)}
 #intro.on{display:block}
 #intro *{box-sizing:border-box}
-#intro .in-stage{position:absolute;left:0;right:0;top:0;height:var(--ivh,100%);overflow:hidden;transition:transform 1.1s ease}
+#intro .in-stage{position:absolute;inset:0;overflow:hidden;transition:transform 1.1s ease}
 #intro[data-state=exit]{opacity:0;pointer-events:none}
 #intro[data-state=exit] .in-stage{transform:scale(.965)}
 #intro i[data-px]{display:block}
@@ -261,7 +261,7 @@ html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e111
 #intro .in-boot pre{margin:0;width:min(92vw,520px);font:400 10px/2.1 var(--px);color:var(--ink);white-space:pre-wrap;text-shadow:0 0 8px rgba(255,255,255,.8)}
 #intro .in-boot pre::after{content:"█";margin-left:4px;animation:blink .8s steps(1) infinite}
 /* —— 密码窗口 —— */
-#intro .login{left:50%;top:44%;width:min(92vw,410px);transform:translate(-50%,-50%);visibility:hidden;opacity:0}
+#intro .login{left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.44));width:min(92vw,410px);transform:translate(-50%,-50%);visibility:hidden;opacity:0}
 #intro[data-state=login] .login,#intro[data-state=unlock] .login{visibility:visible;opacity:1}
 #intro[data-state=login] .login{animation:inPop .62s cubic-bezier(.2,.9,.3,1.2)}
 #intro[data-state=unlock] .login{animation:inClose .5s ease forwards}
@@ -285,7 +285,7 @@ html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e111
 /* —— 错误提示（系统弹窗） —— */
 #intro .in-dim{position:absolute;inset:0;background:rgba(18,71,79,.18);opacity:0;pointer-events:none;transition:opacity .25s}
 #intro .in-dim.on{opacity:1;pointer-events:auto}
-#intro .err{left:50%;top:44%;width:min(86vw,340px);transform:translate(-50%,-50%);visibility:hidden;opacity:0;z-index:5}
+#intro .err{left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.44));width:min(86vw,340px);transform:translate(-50%,-50%);visibility:hidden;opacity:0;z-index:5}
 #intro .err.on{visibility:visible;opacity:1;animation:inPop .35s cubic-bezier(.2,.9,.3,1.2)}
 #intro .err .bd{display:grid;grid-template-columns:44px 1fr;gap:6px 12px;align-items:center}
 #intro .err .bd i{width:40px;height:40px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.4))}
@@ -327,11 +327,14 @@ html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e111
 @media (max-width:640px){
  #intro .ic,#intro .np,#intro .pet{display:none}
  #intro .mp{left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);width:min(74vw,230px);margin-left:calc(min(74vw,230px) / -2)}
- #intro .login{top:46%}#intro .err{top:46%}
+ #intro{--lt:.46}
  #intro .hint{font-size:14px}
  #intro .tk{max-width:46vw}
 }
-@media (max-height:520px){#intro .mp,#intro .pet,#intro .np,#intro .ic{display:none}#intro .login{top:50%}}
+@media (max-height:520px){#intro .mp,#intro .pet,#intro .np,#intro .ic{display:none}#intro{--lt:.5}}
+/* 键盘弹出、可见区域很矮的时候，把窗口收紧，保证输入框和按钮都在屏幕里 */
+#intro.kb{--lt:.5}#intro.kb .mp,#intro.kb .pet,#intro.kb .np,#intro.kb .ic{display:none}
+#intro.kb .login .st{display:none}#intro.kb .login .bd{padding:10px 12px}#intro.kb .lk i{width:34px;height:34px}#intro.kb .hint{font-size:13px}#intro.kb .fm{margin-top:9px}#intro.kb #inPw{height:38px}#intro.kb .bt{margin-top:9px}
 @media (prefers-reduced-motion:reduce){
  #intro *{animation:none!important;transition-duration:.01s!important}
  #intro .fl,#intro .bu{display:none!important}
@@ -564,7 +567,11 @@ D.addEventListener('keydown',function(e){
   if(e.key==='Escape'){if(S.err)closeErr();else skip()}
   else if(e.key==='Enter'&&S.err){e.preventDefault();closeErr()}
 });
-try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){root.style.setProperty('--ivh',Math.round(vv.height)+'px')};vv.addEventListener('resize',fit);fit()}}catch(e){} /* 手机弹出键盘时，窗口跟着可见区域走，不会被挡住 */
+try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){ /* 手机弹出键盘：窗口跟着「看得见的那一块」居中，背景始终铺满，不会露出后面的首页 */
+  root.style.setProperty('--vvh',Math.round(vv.height)+'px');root.style.setProperty('--vvt',Math.round(vv.offsetTop)+'px');
+  root.classList.toggle('kb',vv.height<430);
+  if(S.state!=='done'&&(W.scrollY||(D.documentElement&&D.documentElement.scrollTop)))W.scrollTo(0,0)};
+  vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);fit()}}catch(e){}
 /* 兜底：开场自己出了任何错，都直接放首页出来，不能把访客卡在这里 */
 W.addEventListener('error',function(e){if(S.started&&S.state!=='done'&&e.target===W&&/intro|Intro/.test(String(e.filename||'')+String(e.message||''))){finish()}});
 
