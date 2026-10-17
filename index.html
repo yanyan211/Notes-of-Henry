@@ -145,33 +145,54 @@ body.night #nsw .kn{transform:translateX(26px);background:#ece8e0}
 body.night #nsw .sun{opacity:0;transform:rotate(70deg)}body.night #nsw .moon{opacity:1;transform:none}
 #nsw:focus-visible{outline:2px solid #8aa0d8;outline-offset:2px}
 </style>
-<script>addEventListener('error',function(e){var t=e.target;if(t&&t!==window&&t.tagName)return;var m=document.getElementById('plMsg');if(m){m.textContent='载入出错了：'+(e.message||'脚本出错')+' · 刷新试试';var a=document.getElementById('plAct');if(a){a.hidden=false;var g=document.getElementById('plGo');if(g)g.hidden=true;var r=document.getElementById('plRetry');if(r){r.hidden=false;r.textContent='刷新'}}}},true);</script>
-<style>/* ===== 首屏预加载页（Preloader） ===== */
+<script>addEventListener('error',function(e){var t=e.target;if(t&&t!==window&&t.tagName)return;var m=document.getElementById('plMsg');if(m){m.textContent='载入出错了：'+(e.message||'脚本出错')+' · 刷新试试';m.classList.add('err');var a=document.getElementById('plAct');if(a){a.hidden=false;var g=document.getElementById('plGo');if(g)g.hidden=true;var r=document.getElementById('plRetry');if(r){r.hidden=false;r.textContent='刷新'}}}},true);</script>
+<style>/* ===== 首屏预加载页（Preloader）：米色底、细字、一条很细的进度线 ===== */
 #boot{display:none!important}
-#pl{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top,0px) 16px env(safe-area-inset-bottom,0px);box-sizing:border-box;
- background:radial-gradient(120% 90% at 50% 38%,#f8f6f3 0%,#f3f1ee 55%,#ebe7e1 100%);color:#2b2926;transition:opacity .65s ease,visibility 0s linear .65s}
+#pl{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;box-sizing:border-box;
+ padding:calc(env(safe-area-inset-top,0px) + 20px) 24px calc(env(safe-area-inset-bottom,0px) + 20px);
+ background:radial-gradient(130% 95% at 50% 40%,#f5f2ed 0%,#efebe4 58%,#e6e1d8 100%);color:#2f2b27;
+ font-family:"Avenir Next","Helvetica Neue","SF Pro Display","PingFang SC","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+ transition:opacity .65s ease,visibility 0s linear .65s}
 #pl.out{opacity:0;visibility:hidden;pointer-events:none}
-html.pl-night #pl{background:radial-gradient(120% 90% at 50% 38%,#161b26 0%,#0e1118 60%,#0a0c11 100%);color:#ece8e0}
-#pl .pl-box{width:min(300px,76vw);text-align:center}
-#pl .pl-t{margin:0;font-size:clamp(19px,5.4vw,24px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1.3}
-#pl .pl-s{margin:10px 0 0;font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.5}
-#pl .pl-bar{margin:34px auto 0;height:2px;border-radius:2px;background:rgba(127,120,110,.22);overflow:hidden}
-#pl .pl-bar i{display:block;height:100%;background:currentColor;transform-origin:0 50%;transform:scaleX(0);transition:transform .28s ease-out}
-#pl .pl-row{margin-top:12px;display:flex;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.08em;opacity:.62;font-variant-numeric:tabular-nums}
-#pl .pl-row span:last-child{text-align:right}
-#pl .pl-slow{margin:18px 0 0;font-size:12px;line-height:1.7;opacity:.72}
-#pl .pl-act{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-#pl button{font:inherit;font-size:12px;letter-spacing:.1em;padding:9px 20px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#pl button.go{background:#2b2926;border-color:#2b2926;color:#fff}
-html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e1118}
+#pl .pl-box{width:min(520px,86vw);text-align:center}
+#pl .pl-e{margin:0;font-size:clamp(10px,2.9vw,12.5px);font-weight:400;letter-spacing:.34em;text-transform:uppercase;color:#85796d;padding-left:.34em}
+#pl .pl-t{margin:clamp(14px,3.4vh,26px) 0 0;font-size:clamp(40px,12.6vw,68px);font-weight:300;letter-spacing:-.012em;line-height:1.06;color:#2a2622}
+#pl .pl-s{margin:clamp(14px,3vh,22px) 0 0;font-size:clamp(14px,4vw,18px);font-style:italic;font-weight:300;letter-spacing:.015em;color:#8c8176}
+#pl .pl-bar{margin:clamp(34px,7.5vh,56px) 0 0;height:2px;background:rgba(85,72,58,.16);overflow:hidden}
+#pl .pl-bar i{display:block;height:100%;background:#5d554c;transform-origin:0 50%;transform:scaleX(0);transition:transform .3s ease-out}
+#pl .pl-row{margin-top:11px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:#8c8176;font-variant-numeric:tabular-nums;text-align:left}
+#pl .pl-row span:last-child{letter-spacing:.06em;text-align:right;flex:none}
+#pl #plMsg.err{text-transform:none;letter-spacing:.04em;font-size:12px;line-height:1.5;color:#6f655a}
+#pl .pl-slow{margin:16px 0 0;font-size:12px;line-height:1.7;font-style:italic;color:#8c8176}
+#pl .pl-act{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#pl button{font:inherit;font-size:12px;letter-spacing:.12em;padding:9px 22px;border-radius:999px;border:1px solid #5d554c;background:transparent;color:#5d554c;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#pl button.go{background:#2f2b27;border-color:#2f2b27;color:#f5f2ed}
 #pl [hidden]{display:none!important}
-@media (prefers-reduced-motion:reduce){#pl,#pl *{transition:none!important;animation:none!important}}
+/* 进场：几行字依次轻轻浮出来（只有透明度和一点点位移，不耗性能） */
+#pl .pl-e,#pl .pl-t,#pl .pl-s,#pl .pl-bar,#pl .pl-row{opacity:0;animation:plIn .9s cubic-bezier(.2,.7,.2,1) forwards}
+#pl .pl-e{animation-delay:.05s}#pl .pl-t{animation-delay:.16s}#pl .pl-s{animation-delay:.3s}#pl .pl-bar{animation-delay:.46s}#pl .pl-row{animation-delay:.5s}
+@keyframes plIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+/* 夜间 */
+html.pl-night #pl{background:radial-gradient(130% 95% at 50% 40%,#171c27 0%,#0f131b 58%,#0a0d13 100%);color:#ece8e0}
+html.pl-night #pl .pl-e{color:#8f8a82}
+html.pl-night #pl .pl-t{color:#efebe3}
+html.pl-night #pl .pl-s{color:#9a948a}
+html.pl-night #pl .pl-bar{background:rgba(236,232,224,.14)}
+html.pl-night #pl .pl-bar i{background:#d9d4ca}
+html.pl-night #pl .pl-row{color:#8f8a82}
+html.pl-night #pl #plMsg.err{color:#b4aea4}
+html.pl-night #pl .pl-slow{color:#8f8a82}
+html.pl-night #pl button{border-color:#a9a39a;color:#d9d4ca}
+html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e1118}
+@media (max-width:380px){#pl .pl-e{letter-spacing:.26em}#pl .pl-row{letter-spacing:.12em}}
+@media (max-height:520px){#pl .pl-t{font-size:clamp(34px,9vw,52px)}#pl .pl-bar{margin-top:24px}}
+@media (prefers-reduced-motion:reduce){#pl,#pl *{transition:none!important;animation:none!important}#pl .pl-e,#pl .pl-t,#pl .pl-s,#pl .pl-bar,#pl .pl-row{opacity:1}}
 </style>
 <script>(function(){var h=new Date().getHours(),q=/[?&]night=(\d)/.exec(location.search),n=q?q[1]==='1':(h>=19||h<6);if(n){document.documentElement.classList.add('pl-night');document.documentElement.style.setProperty('--bg','#0e1118')}})()</script>
 <script id="__res" type="application/json">{"v":"ce5db659","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
 </head>
 <body>
-<div id="pl" role="status" aria-live="polite"><div class="pl-box"><h1 class="pl-t">Notes of Henry</h1><p class="pl-s">Scents · Sounds · Stories</p><div class="pl-bar"><i id="plFill"></i></div><div class="pl-row"><span id="plPct">0%</span><span id="plMsg">正在准备…</span></div><p class="pl-slow" id="plSlow" hidden>网络有点慢，仍在加载，请稍等…</p><div class="pl-act" id="plAct" hidden><button type="button" id="plRetry">重试</button><button type="button" class="go" id="plGo">继续进入</button></div></div></div><noscript><p style="position:fixed;z-index:101;left:0;right:0;bottom:24px;text-align:center;font-size:12px">需要开启 JavaScript 才能打开这个网站</p></noscript>
+<div id="pl" role="status" aria-live="polite"><div class="pl-box"><p class="pl-e">A Private Collection</p><h1 class="pl-t">Notes of Henry</h1><p class="pl-s">Every trace tells a story.</p><div class="pl-bar"><i id="plFill"></i></div><div class="pl-row"><span id="plMsg">Loading memories</span><span id="plPct">0%</span></div><p class="pl-slow" id="plSlow" hidden>网络有点慢，仍在加载，请稍等…</p><div class="pl-act" id="plAct" hidden><button type="button" id="plRetry">重试</button><button type="button" class="go" id="plGo">继续进入</button></div></div></div><noscript><p style="position:fixed;z-index:101;left:0;right:0;bottom:24px;text-align:center;font-size:12px">需要开启 JavaScript 才能打开这个网站</p></noscript>
 <script>/* ===== Notes of Henry · 首屏资源预加载系统 =====
    顺序：① 3D 引擎（three / gsap，多个镜像依次尝试）② 首屏图片（优先 WebP，手机用精简分辨率）③ 很小的音频 → 全部就绪后才开始搭建房间（主程序）
         ④ 等房间第一帧画出来、初始贴图都铺好 → 加载页淡出。
@@ -197,7 +218,7 @@ var TEX_LAZY={cal:1}; /* 这些分组的贴图等到真的需要（点开台历�
 /* —— 小工具 —— */
 function tick(){update();check()}
 function setPct(v){if(v>S.pct)S.pct=Math.min(1,v);if(U.fill)U.fill.style.transform='scaleX('+S.pct+')';if(U.pct)U.pct.textContent=Math.round(S.pct*100)+'%'}
-function say(t){if(U.msg&&U.msg.textContent!==t)U.msg.textContent=t}
+function say(t,err){var m=U.msg;if(!m)return;if(m.textContent!==t)m.textContent=t;m.classList.toggle('err',!!err)}
 function show(el,on){if(el)el.hidden=!on}
 function netPct(){var l=0,t=0;S.tasks.forEach(function(k){t+=k.size;l+=(k.state==='ok'||k.state==='fail')?k.size:Math.min(k.loaded,k.size)});return t?l/t:1}
 function count(kind){var n=0,d=0;S.tasks.forEach(function(k){if(k.kind===kind){n++;if(k.state==='ok'||k.state==='fail')d++}});return[d,n]}
@@ -209,13 +230,11 @@ function update(){
   if(!S.mainRan)v=.78*netPct();else v=.84+.14*(S.texT?S.texL/S.texT:1);
   if(S.fade)v=1;
   setPct(v);
-  var L=libsState();
-  if(S.fade)say('完成');
-  else if(!S.mainRan){
-    if(L.ok<L.n)say('正在加载 3D 引擎…');
-    else{var c=count('img'),a=count('aud');say(c[1]?('正在加载图片 '+c[0]+' / '+c[1]):(a[1]?'正在加载声音…':'马上就好…'))}
-  }else if(!S.texDone)say(S.texT?('正在铺开贴图 '+S.texL+' / '+S.texT):'正在搭建房间…');
-  else say('马上就好…');
+  if(S.err&&!S.fade)return;
+  if(S.fade)say('Welcome');
+  else if(!S.mainRan)say('Loading memories');
+  else if(!S.texDone)say('Arranging the room');
+  else say('Almost there');
 }
 
 /* —— 缓存（Cache Storage：下次打开直接读本地，不再访问网络；版本号变了旧缓存自动清掉） —— */
@@ -358,7 +377,7 @@ function repoint(k){ /* 预热好的音频：还没开始放的播放器，换�
 
 /* —— 主程序（房间）：库和首屏图片都准备好以后才开始搭 —— */
 function runMain(){
-  if(S.mainRan)return;S.mainRan=true;S.mainAt=NOW();
+  if(S.mainRan)return;S.mainRan=true;S.err=0;S.mainAt=NOW();
   show(U.act,false);show(U.slow,false);
   installPatches();
   try{
@@ -369,7 +388,7 @@ function runMain(){
   update();
   function go(){
     try{var sc=D.createElement('script');sc.text=$('__main').textContent;D.body.appendChild(sc)}
-    catch(e){say('载入出错了：'+(e.message||e)+' · 刷新试试');show(U.act,true);if(U.retry)U.retry.textContent='刷新';return}
+    catch(e){S.err=1;say('载入出错了：'+(e.message||e)+' · 刷新试试',true);show(U.act,true);if(U.retry)U.retry.textContent='刷新';return}
     try{if(!S.texT&&THREE.DefaultLoadingManager.itemsTotal===0)S.texDone=true}catch(e){}
     check();
   }
@@ -395,11 +414,11 @@ function check(){
   if(S.fade)return;
   var L=libsState(),pend=pending(),fails=failedTasks().length;
   if(!S.mainRan){
-    if(L.fail>0&&!S.go){say('3D 引擎没有加载成功，请检查网络');show(U.act,true);show(U.go,false);if(U.retry)U.retry.hidden=false;return}
+    if(L.fail>0&&!S.go){S.err=1;say('3D 引擎没有加载成功，请检查网络后重试',true);show(U.act,true);show(U.go,false);if(U.retry)U.retry.hidden=false;return}
     var ready=L.ok===L.n&&D.readyState!=='loading'&&!!$('__main');
     if(ready&&(!pend||S.go)){
       if(fails>0&&!S.go){
-        say('有 '+fails+' 个资源没有加载成功');show(U.act,true);show(U.go,true);if(U.retry)U.retry.hidden=false;
+        S.err=1;say('有 '+fails+' 个资源没有加载成功',true);show(U.act,true);show(U.go,true);if(U.retry)U.retry.hidden=false;
         if(fails<=3&&!S.autoGo){S.autoGo=setTimeout(function(){S.go=true;check()},4500)} /* 只缺一两张：提示一下就先进去，缺的图继续在后台重试 */
         return;
       }
@@ -424,7 +443,7 @@ function bgRetry(n){ /* 进入网站以后，首屏没加载成功的图片继�
   setTimeout(function(){f.forEach(function(t){if(t.state==='fail'){t.state='wait';t.tries=0;t.loaded=0;t.url=t.url0;enqueue(t)}});setTimeout(function(){bgRetry(n+1)},4000)},12000*(n+1));
 }
 function retryAll(){
-  clearTimeout(S.autoGo);S.autoGo=0;S.go=false;
+  S.err=0;clearTimeout(S.autoGo);S.autoGo=0;S.go=false;
   S.tasks.forEach(function(t){if(t.state==='fail'){t.state='wait';t.tries=0;t.loaded=0;if(t.kind==='lib'){var L=M.libs.filter(function(x){return x.id===t.key})[0];if(L)loadLib(t,L)}else enqueue(t)}});
   show(U.act,false);update();
 }
@@ -438,7 +457,6 @@ function start(){
   libs.forEach(function(x){loadLib(x.t,x.L)});
   if(!W.fetch){S.queue.forEach(function(t){t.state='ok';t.loaded=t.size});S.queue.length=0}
   pump();update();
-  if(slowNet){show(U.slow,true);if(U.slow)U.slow.textContent='当前网络较慢：已为你选用精简版图片，请稍等…'}
   setInterval(function(){
     var n=NOW();S.tasks.forEach(function(t){if(t.state==='run'&&t.ctrl&&n-t.last>STALL){try{t.ctrl.abort()}catch(e){}}}); /* 下载长时间没有新数据：中断后自动重试 */
     slowWatch();
@@ -1557,7 +1575,7 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
  [ASP,CARGO,PRINTJ].forEach((s,i)=>hang(s,.17+i*.09,1.16));
  /* ============ 衣柜门上的挂钩（挂在两扇门的外面，跟着门一起开合）：
     左门（衣柜正面左边那扇）挂包：一根竖着的黑色挂条，4 个粗钩子，挂着 斜挎小包 / 皮质单肩包 / 水桶包 / 帆布托特包；
-    右门挂帽子：一根竖着的钢色挂条，5 个小钩子，挂着 棒球帽 / 毛线帽 / 渔夫帽 / 草编宽檐帽 / 另一顶棒球帽（帽口朝着门，钩子从帽口伸进去，帽顶朝外）。
+    （右门原来挂帽子的那一列已经去掉了，现在是一扇干净的门。）
     先做成通用的样子，等你给了参考图再照着复刻得更像 ============ */
  {const blk=new THREE.MeshStandardMaterial({color:0x242427,roughness:.42,metalness:.6}),steel=new THREE.MeshStandardMaterial({color:0xcfcfd2,roughness:.28,metalness:.8,envMapIntensity:1}),brass=new THREE.MeshStandardMaterial({color:0xc9a35a,roughness:.32,metalness:.7});
   const gr=tex(128,128,(c,w,h)=>{c.fillStyle='#808080';c.fillRect(0,0,w,h);for(let i=0;i<2400;i++){c.fillStyle=Math.random()<.5?'rgba(255,255,255,.16)':'rgba(0,0,0,.16)';c.beginPath();c.arc(Math.random()*w,Math.random()*h,.5+Math.random()*1.3,0,6.3);c.fill()}});gr.encoding=THREE.LinearEncoding;gr.wrapS=gr.wrapT=THREE.RepeatWrapping;gr.repeat.set(3,3);
@@ -1693,45 +1711,11 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
      [-.006,-.02],[-.05,-.075],[-.1,-.13],[-.118,-.18],[-.1,-.24],[-.05,-.285],[0,-.295],[.05,-.285],[.1,-.24],[.118,-.18],[.1,-.13],[.05,-.075],[.006,-.02]]; /* 两侧是直的，底下只切掉一点点圆角，不再有多出来的一小块 */
    const g=garment({pts,base:'#161618',dep:.05,fab:'twill',fold:.85,nohanger:true,res:1024,decal:{src:MKTEXT,cx:0,cy:-.375,w:.375},draw:(c,K)=>{c.save();c.globalAlpha=1;for(let k=-K.h;k<K.w+K.h;k+=5){c.strokeStyle='rgba(255,255,255,.075)';c.lineWidth=1.6;c.beginPath();c.moveTo(k,0);c.lineTo(k+K.h*.9,K.h);c.stroke();c.strokeStyle='rgba(0,0,0,.28)';c.lineWidth=1.3;c.beginPath();c.moveTo(k+2.5,0);c.lineTo(k+2.5+K.h*.9,K.h);c.stroke()}c.restore()}}); /* 帆布的斜纹 */
    g.userData.h=.556;return g};
-  /* ——— 帽子 ——— */
-  const hatMat=(c,kind,rep)=>{const f=FAB[kind]||FAB.cotton,bm=fabBump(kind);bm.repeat.set(rep||4,3);return clothify(new THREE.MeshStandardMaterial({color:SC(c),roughness:1,bumpMap:bm,bumpScale:f.bs*1.4,side:THREE.DoubleSide}),SHEEN[kind]||.25)};
-  const dome=(r,sy,mat)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,28,16,0,Math.PI*2,0,Math.PI*.5),mat);m.scale.set(1,sy,1.03);m.castShadow=true;return m};
-  const capHat=(c1,c2)=>{const g=new THREE.Group(),r=.085,mat=hatMat(c1,'cotton',5);g.add(dome(r,.82,mat)); /* 棒球帽：帽顶 + 6 片接缝 + 帽扣 + 帽舌 + 后面的调节带 */
-   for(let k=0;k<6;k++){const ph=k*Math.PI/3,pts=[];for(let i=0;i<=12;i++){const th=i/12*Math.PI/2;pts.push(V(Math.sin(th)*Math.cos(ph)*r*1.004,Math.cos(th)*r*.82*1.004,Math.sin(th)*Math.sin(ph)*r*1.03*1.004))}
-    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),12,.0009,5),new THREE.MeshStandardMaterial({color:SC(c1).multiplyScalar(.62),roughness:1})))}
-   ad(g,new THREE.SphereGeometry(.0095,12,8),new THREE.MeshStandardMaterial({color:SC(c2),roughness:.7}),0,r*.82+.001,0);
-   const vg=new THREE.CircleGeometry(.092,28,0,Math.PI);vg.rotateX(Math.PI/2);vg.scale(1,1,1.22);{const P=vg.attributes.position;for(let i=0;i<P.count;i++){const x=P.getX(i),z=P.getZ(i);P.setY(i,-.014*(x/.092)*(x/.092)-.2*z)}vg.computeVertexNormals()}
-   const vs=new THREE.Mesh(vg,hatMat(c2,'cotton',2));vs.position.set(0,.004,r*.97);vs.castShadow=true;g.add(vs);
-   const bk=new THREE.Mesh(new THREE.TorusGeometry(r*.97,.007,6,18,Math.PI*.42),new THREE.MeshStandardMaterial({color:SC(c2),roughness:.8}));bk.rotation.x=Math.PI/2;bk.rotation.z=Math.PI*.5-Math.PI*.21+Math.PI;bk.position.y=.012;g.add(bk);ad(g,gB(.022,.014,.004),brass,0,.012,-r*.99);
-   g.userData.rc=r*.82;return g};
-  const beanie=(c,pc)=>{const g=new THREE.Group(),r=.088,m=hatMat(c,'knit',10);g.add(dome(r,.92,m)); /* 毛线帽：帽顶 + 卷边 + 毛球 */
-   const cuff=new THREE.Mesh(new THREE.CylinderGeometry(r*1.012,r*1.0,.05,34,1,true),hatMat(c,'knit',16));cuff.position.y=.025;cuff.castShadow=true;g.add(cuff);
-   ad(g,new THREE.TorusGeometry(r*1.006,.004,6,34),m,0,.05,0,Math.PI/2);
-   const pp=new THREE.Mesh(new THREE.SphereGeometry(.03,18,12),hatMat(pc,'fleece',3));pp.position.y=r*.92+.022;pp.castShadow=true;g.add(pp);g.userData.rc=r*.92;return g};
-  const bucketHat=c=>{const g=new THREE.Group(),m=hatMat(c,'twill',6); /* 渔夫帽：直筒帽顶 + 软软垂下来的帽檐，帽檐上几圈缝线 */
-   const pr=[[0,.092],[.062,.092],[.074,.078],[.08,.0],[.1,-.004],[.14,-.013],[.153,-.028]].map(p=>new THREE.Vector2(p[0],p[1]));
-   const b=new THREE.Mesh(new THREE.LatheGeometry(pr,40),m);b.castShadow=true;g.add(b);const sm=new THREE.MeshStandardMaterial({color:SC(c).multiplyScalar(.7),roughness:1});
-   [.115,.13,.145].forEach(rr=>ad(g,new THREE.TorusGeometry(rr,.0008,5,40),sm,0,-.004-(rr-.1)*.3,0,Math.PI/2));ad(g,new THREE.TorusGeometry(.0775,.0012,5,40),sm,0,.04,0,Math.PI/2);
-   g.userData.rc=.08;return g};
-  const strawHat=()=>{const g=new THREE.Group(); /* 草编宽檐帽：宽宽的帽檐、一圈深棕色缎带和蝴蝶结 */
-   const wt=tex(256,128,(c,w,h)=>{c.fillStyle='#d6bd82';c.fillRect(0,0,w,h);for(let y=0;y<h;y+=4)for(let x=0;x<w;x+=8){c.fillStyle=((x/8+y/4)%2)?'rgba(255,240,190,.5)':'rgba(120,90,40,.28)';c.fillRect(x+((y/4)%2?4:0),y,7,3)}});wt.wrapS=wt.wrapT=THREE.RepeatWrapping;wt.repeat.set(10,2);
-   const sm=new THREE.MeshStandardMaterial({map:wt,roughness:.95,side:THREE.DoubleSide});
-   const pr=[[0,.09],[.045,.088],[.065,.066],[.072,.0],[.12,-.003],[.17,-.015],[.18,-.02]].map(p=>new THREE.Vector2(p[0],p[1]));const sg=new THREE.LatheGeometry(pr,56);
-   {const P=sg.attributes.position;for(let i=0;i<P.count;i++){const x=P.getX(i),z=P.getZ(i),rr=Math.hypot(x,z);if(rr>.1)P.setY(i,P.getY(i)+Math.sin(Math.atan2(z,x)*5)*.006*((rr-.1)/.08))}sg.computeVertexNormals()} /* 帽檐微微起伏 */
-   const s=new THREE.Mesh(sg,sm);s.castShadow=true;g.add(s);
-   const band=new THREE.Mesh(new THREE.CylinderGeometry(.0745,.0775,.024,40,1,true),new THREE.MeshStandardMaterial({color:SC(0x4a3524),roughness:.6,side:THREE.DoubleSide}));band.position.y=.014;g.add(band);
-   [-1,1].forEach(k=>{const w=new THREE.Mesh(new THREE.SphereGeometry(.017,12,8),band.material);w.scale.set(1.2,.55,.5);w.position.set(.072,.016,k*.018);w.rotation.y=k*.5;g.add(w)});ad(g,new THREE.SphereGeometry(.007,10,8),band.material,.076,.016,0);
-   g.userData.rc=.072;return g};
-  /* 把一顶帽子挂到钩子上：帽口朝着门，钩子从帽口伸进去，帽顶朝外；帽檐所在的平面离门 3cm */
-  const hatOn=(rg,y,hat)=>{const o=new THREE.Group();o.add(hat);hat.rotation.x=1.45;hat.position.set(0,-hat.userData.rc*.9,0);o.position.z=-.02;return hangAt(rg,y,o)};
-  /* ——— 左门挂包，右门挂帽 ——— */
   /* ——— 左门挂包：四个包从上往下依次挂；包太大放不下时，整体按比例缩小一点 ——— */
   {const bags=[bagMoto(),bagSuede(),bagCrying(),bagTank()],GAP=.016,TOP=1.995,AV=TOP-.075;let tot=bags.reduce((a,b)=>a+b.userData.h,0)+GAP*(bags.length-1);const sc=Math.min(1,AV/tot);
    const ys=[];let y=TOP;bags.forEach(b=>{b.scale.setScalar(sc);ys.push(y);y-=b.userData.h*sc+GAP});
    const rb=rail(WD.l,.25,Math.max(.1,y+GAP-.03),2.02,ys,blk,LEN,HR);
    bags.forEach((b,i)=>hangAt(rb,ys[i],b))}
-  const rh=rail(WD.r,-.25,.76,1.99,[1.93,1.75,1.52,1.22,.86],steel,.075,.0055);
-  hatOn(rh,1.93,capHat(0x1f2a44,0xf1ece0));hatOn(rh,1.75,beanie(0xd9a441,0xf2ead8));hatOn(rh,1.52,bucketHat(0xcdbd9a));hatOn(rh,1.22,strawHat());hatOn(rh,.86,capHat(0xa8262b,0xf4efe6));
  }
 }
 
