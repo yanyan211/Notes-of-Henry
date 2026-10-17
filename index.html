@@ -9,7 +9,7 @@
 <meta property="og:description" content="装下Henry的万千宇宙 · Scents, Sounds, Stories">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" data-fonts href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap"></noscript>
+<link rel="preload" as="style" data-fonts href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap&family=Press+Start+2P&family=Special+Elite&family=Playfair+Display:ital,wght@0,500;1,500"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap&family=Press+Start+2P&family=Special+Elite&family=Playfair+Display:ital,wght@0,500;1,500"></noscript>
 <style>
 :root{--bg:#f3f1ee;--ink:#2b2926;--mute:#8a847c;box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif}
@@ -195,10 +195,383 @@ html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e111
 @media (max-height:520px){#pl .pl-t{font-size:clamp(34px,9vw,52px)}#pl .pl-bar{margin-top:24px}}
 @media (prefers-reduced-motion:reduce){#pl,#pl *{transition:none!important;animation:none!important}#pl .pl-e,#pl .pl-t,#pl .pl-s,#pl .pl-bar,#pl .pl-row{opacity:1}}
 </style>
+<style>/* ===== Happy Henry's Day · 开场动画（Mint Y2K Retro Desktop） =====
+   整套用 CSS 变量统一：薄荷绿底、冷白窗口、经典蓝标题栏、像素字体 + 打字机字体 + 复古衬线。 */
+#intro{position:fixed;inset:0;z-index:95;display:none;color:#12474f;transition:opacity 1.1s ease;
+ --ink:#12474f;--sh:#5f9496;--chrome:#e6f6f1;--blue1:#1f56d6;--blue2:#63a6ff;--pink:#ff9ec1;
+ --px:"Press Start 2P","Courier New",monospace;--tw:"Special Elite","American Typewriter","Courier New",monospace;
+ --serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","Noto Serif SC",serif;
+ --ui:Tahoma,"Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-family:var(--ui)}
+#intro.on{display:block}
+#intro *{box-sizing:border-box}
+#intro .in-stage{position:absolute;left:0;right:0;top:0;height:var(--ivh,100%);overflow:hidden;transition:transform 1.1s ease}
+#intro[data-state=exit]{opacity:0;pointer-events:none}
+#intro[data-state=exit] .in-stage{transform:scale(.965)}
+#intro i[data-px]{display:block}
+#intro svg{display:block;width:100%;height:100%;shape-rendering:crispEdges}
+/* —— 背景：薄荷渐变 + 网点 + 光晕 + CRT 扫描线 —— */
+#intro .in-bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 34%,#e6fbf4 0%,#c3f0e2 36%,#9ae0d1 68%,#86cde0 100%)}
+#intro .in-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.6) 1px,transparent 1.5px);background-size:6px 6px;opacity:.5}
+#intro .in-glow{position:absolute;inset:0;background:radial-gradient(55% 42% at 50% 50%,rgba(255,255,255,.7),rgba(255,255,255,0) 72%);opacity:0;transition:opacity 1.6s ease}
+#intro[data-state=speech] .in-glow,#intro[data-state=title] .in-glow{opacity:1}
+#intro .in-crt{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(18,71,79,.05) 0 1px,transparent 1px 3px),radial-gradient(125% 105% at 50% 50%,transparent 60%,rgba(18,71,79,.2) 100%);animation:crt 7s steps(1) infinite}
+@keyframes crt{0%,92%,100%{opacity:1}94%{opacity:.88}96%{opacity:1}98%{opacity:.93}}
+/* —— 窗口（Win98 / XP 风） —— */
+#intro .win{position:absolute;background:var(--chrome);border:2px solid;border-color:#fff var(--sh) var(--sh) #fff;box-shadow:3px 3px 0 rgba(18,71,79,.28),0 14px 34px rgba(30,110,120,.22)}
+#intro .tb{display:flex;align-items:center;justify-content:space-between;gap:8px;height:24px;padding:0 3px 0 8px;background:linear-gradient(90deg,var(--blue1),var(--blue2));color:#fff;font:700 12px/24px var(--ui);letter-spacing:.02em;text-shadow:1px 1px 0 rgba(0,0,50,.4)}
+#intro .tb span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#intro .tb em{display:flex;gap:3px;font-style:normal;flex:none}
+#intro .tb u{display:block;position:relative;width:17px;height:15px;background:var(--chrome);border:1px solid;border-color:#fff var(--sh) var(--sh) #fff;text-decoration:none}
+#intro .tb u::after{content:"";position:absolute;left:3px;right:3px;bottom:3px;height:2px;background:var(--ink)}
+#intro .tb u.x::after{inset:2px;height:auto;background:linear-gradient(45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%),linear-gradient(-45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%)}
+#intro .bd{padding:14px 14px 12px}
+/* —— 桌面上的装饰：小播放器 / 记事本 / 小猫 / 图标，都很小，只是氛围 —— */
+#intro .in-desk,#intro .tbar{opacity:0;transition:opacity .8s ease}
+#intro:not([data-state=wait]):not([data-state=boot]) .in-desk,#intro:not([data-state=wait]):not([data-state=boot]) .tbar{opacity:1}
+#intro .mini,#intro .ic{transition:transform 1s cubic-bezier(.6,0,.3,1),opacity .8s ease}
+#intro .mini .bd{padding:9px 10px;font:400 12px/1.5 var(--tw);color:var(--ink)}
+#intro .mp{left:5vw;top:9vh;width:210px}
+#intro .np{right:5vw;bottom:15vh;width:215px}
+#intro .pet{right:8vw;top:13vh;width:150px;text-align:center}
+#intro .pet .bd{font:400 15px/1.5 var(--tw)}#intro .pet small{display:block;margin-top:4px;font:400 10px/1 var(--px);color:#3f8c90}
+#intro .np .cur{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#intro .eq{display:flex;align-items:flex-end;gap:3px;height:34px;padding:4px;background:#0c3d44;border:2px solid;border-color:var(--sh) #fff #fff var(--sh)}
+#intro .eq s{flex:1;background:#7cf3d0;height:30%;animation:eq 1.1s ease-in-out infinite alternate}
+#intro .eq s:nth-child(2n){animation-duration:.8s;animation-delay:-.3s}#intro .eq s:nth-child(3n){animation-duration:1.4s;animation-delay:-.6s}
+@keyframes eq{to{height:96%}}
+#intro .trk{margin-top:8px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#intro .cl{display:flex;gap:6px;margin-top:8px}#intro .cl i{width:22px;height:16px;background:var(--chrome);border:1px solid;border-color:#fff var(--sh) var(--sh) #fff}
+#intro .ic{position:absolute;left:3vw;width:78px;text-align:center;font:12px/1.25 var(--ui);color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.85)}
+#intro .ic i{width:40px;height:40px;margin:0 auto 4px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.45))}
+#intro .ic-a{top:36vh}#intro .ic-b{top:52vh}#intro .ic-c{top:68vh}
+#intro[data-state=speech] .mp,#intro[data-state=title] .mp,#intro[data-state=exit] .mp{transform:translateX(-140%);opacity:0}
+#intro[data-state=speech] .np,#intro[data-state=title] .np,#intro[data-state=exit] .np,#intro[data-state=speech] .pet,#intro[data-state=title] .pet,#intro[data-state=exit] .pet{transform:translateX(140%);opacity:0}
+#intro[data-state=speech] .ic,#intro[data-state=title] .ic,#intro[data-state=exit] .ic{transform:translateX(-80px);opacity:0}
+/* —— 任务栏 —— */
+#intro .tbar{position:absolute;left:0;right:0;bottom:0;height:36px;display:flex;align-items:center;gap:8px;padding:0 6px calc(0px + env(safe-area-inset-bottom,0px));background:#cdeee5;border-top:2px solid #fff;box-shadow:0 -2px 0 rgba(95,148,150,.35);transition:opacity .8s ease,transform 1s cubic-bezier(.6,0,.3,1)}
+#intro .sb{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px 0 6px;font:700 13px var(--ui);color:var(--ink);background:linear-gradient(#bff2dc,#8fe3c4);border:2px solid;border-color:#fff var(--sh) var(--sh) #fff;border-radius:0 12px 12px 0;cursor:default}
+#intro .sb i{width:16px;height:16px}
+#intro .tk{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:12px var(--ui);padding:3px 10px;border:2px solid;border-color:var(--sh) #fff #fff var(--sh);max-width:240px}
+#intro .clk{margin-left:auto;padding:3px 10px;font:12px var(--ui);border:2px solid;border-color:var(--sh) #fff #fff var(--sh);background:#e9faf5}
+#intro[data-state=speech] .tbar,#intro[data-state=title] .tbar,#intro[data-state=exit] .tbar{transform:translateY(100%)}
+/* —— 启动画面（BIOS 风，约 1.2 秒） —— */
+#intro .in-boot{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px}
+#intro[data-state=boot] .in-boot{display:flex}
+#intro .in-boot pre{margin:0;width:min(92vw,520px);font:400 10px/2.1 var(--px);color:var(--ink);white-space:pre-wrap;text-shadow:0 0 8px rgba(255,255,255,.8)}
+#intro .in-boot pre::after{content:"█";margin-left:4px;animation:blink .8s steps(1) infinite}
+/* —— 密码窗口 —— */
+#intro .login{left:50%;top:44%;width:min(92vw,410px);transform:translate(-50%,-50%);visibility:hidden;opacity:0}
+#intro[data-state=login] .login,#intro[data-state=unlock] .login{visibility:visible;opacity:1}
+#intro[data-state=login] .login{animation:inPop .62s cubic-bezier(.2,.9,.3,1.2)}
+#intro[data-state=unlock] .login{animation:inClose .5s ease forwards}
+@keyframes inPop{0%{opacity:0;transform:translate(-50%,-46%) scale(.86)}60%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes inClose{to{opacity:0;transform:translate(-50%,-52%) scale(.9)}}
+#intro .login.shake{animation:inShake .46s ease}
+@keyframes inShake{0%,100%{transform:translate(-50%,-50%)}18%{transform:translate(calc(-50% - 10px),-50%)}36%{transform:translate(calc(-50% + 10px),-50%)}54%{transform:translate(calc(-50% - 7px),-50%)}72%{transform:translate(calc(-50% + 6px),-50%)}}
+#intro .lk{display:flex;gap:12px;align-items:center}
+#intro .lk i{flex:none;width:48px;height:48px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.4))}
+#intro .hint{margin:0;font:400 15px/1.5 var(--tw)}
+#intro .fm{margin-top:14px}
+#intro .lb{display:block;margin-bottom:9px;font:400 10px/1.2 var(--px);letter-spacing:.06em}
+#intro #inPw{display:block;width:100%;height:42px;padding:0 10px;border:2px solid;border-color:var(--sh) #fff #fff var(--sh);border-radius:0;background:#fff;color:var(--ink);font:400 22px/1 "Courier New",monospace;letter-spacing:.3em;outline:none;-webkit-appearance:none;appearance:none}
+#intro #inPw:focus{box-shadow:0 0 0 2px var(--blue2)}
+#intro .bt{display:flex;justify-content:flex-end;margin-top:12px}
+#intro .ok,#intro .ok2,#intro .mute,#intro .skip{font:700 13px var(--ui);color:var(--ink);background:var(--chrome);border:2px solid;border-color:#fff var(--sh) var(--sh) #fff;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:0}
+#intro .ok,#intro .ok2{min-width:92px;height:32px}
+#intro .ok:active,#intro .ok2:active,#intro .mute:active,#intro .skip:active{border-color:var(--sh) #fff #fff var(--sh);transform:translate(1px,1px)}
+#intro .st{margin:12px 0 0;font:400 9px/1 var(--px);letter-spacing:.08em;color:#3f8c90}
+#intro .st b{display:inline-block;width:7px;height:7px;margin-right:7px;background:#ff7a9a;animation:blink 1.2s steps(1) infinite}
+/* —— 错误提示（系统弹窗） —— */
+#intro .in-dim{position:absolute;inset:0;background:rgba(18,71,79,.18);opacity:0;pointer-events:none;transition:opacity .25s}
+#intro .in-dim.on{opacity:1;pointer-events:auto}
+#intro .err{left:50%;top:44%;width:min(86vw,340px);transform:translate(-50%,-50%);visibility:hidden;opacity:0;z-index:5}
+#intro .err.on{visibility:visible;opacity:1;animation:inPop .35s cubic-bezier(.2,.9,.3,1.2)}
+#intro .err .bd{display:grid;grid-template-columns:44px 1fr;gap:6px 12px;align-items:center}
+#intro .err .bd i{width:40px;height:40px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.4))}
+#intro .err .em{margin:0;font:400 14px/1.5 var(--tw)}
+#intro .err .ok2{grid-column:1/3;justify-self:center;margin-top:8px}
+/* —— 字幕：从下方升起，一句一句出现 —— */
+#intro .in-sub{position:absolute;left:0;right:0;top:48%;height:0;padding:0 6vw;pointer-events:none}
+#intro .ln{position:absolute;left:0;right:0;top:0;max-width:940px;margin:0 auto;text-align:center;opacity:0;transform:translateY(-50%) translateY(30px);filter:blur(4px);transition:opacity .6s ease,transform .95s cubic-bezier(.2,.7,.2,1),filter .6s ease}
+#intro .ln.on{opacity:1;transform:translateY(-50%);filter:none;transition-delay:.12s,.12s,.12s}
+#intro .ln.off{opacity:0;transform:translateY(-50%) translateY(-14px);filter:blur(3px);transition-duration:.45s;transition-delay:0s}
+#intro .ln .z{font:italic 500 clamp(26px,7.2vw,52px)/1.28 var(--serif);color:#0f4e57;text-wrap:balance;text-shadow:0 0 14px rgba(255,255,255,.95),0 0 30px rgba(160,240,225,.9),1px 1px 0 rgba(255,255,255,.7)}
+#intro .ln.long .z{font-size:clamp(21px,5.2vw,38px)}
+#intro .ln .e{margin-top:16px;font:400 clamp(13px,3.5vw,18px)/1.7 "Songti SC","Noto Serif SC","PingFang SC","Microsoft YaHei",var(--tw);letter-spacing:.14em;color:#2a747b;text-shadow:0 0 10px rgba(255,255,255,.9)}
+#intro .ln.on .z{animation:glw 1.8s ease-out}
+@keyframes glw{0%{text-shadow:0 0 4px #fff,0 0 8px rgba(160,240,225,.5)}35%{text-shadow:0 0 22px #fff,0 0 50px rgba(130,240,220,1),1px 1px 0 rgba(255,255,255,.7)}100%{text-shadow:0 0 14px rgba(255,255,255,.95),0 0 30px rgba(160,240,225,.9),1px 1px 0 rgba(255,255,255,.7)}}
+/* —— 最终标题 —— */
+#intro .in-ttl{position:absolute;left:0;right:0;top:48%;transform:translateY(-50%);padding:0 5vw;text-align:center;pointer-events:none;opacity:0}
+#intro .in-ttl h2{margin:0;font:italic 500 clamp(38px,11.6vw,104px)/1.08 var(--serif);color:#0e4f58;text-shadow:0 0 20px rgba(255,255,255,.9),0 0 46px rgba(150,240,225,.9)}
+#intro .in-ttl p{margin:20px 0 0;font:400 clamp(10px,2.6vw,14px)/1 var(--px);letter-spacing:.35em;color:#3a8a90;padding-left:.35em}
+#intro[data-state=title] .in-ttl{opacity:1}
+#intro[data-state=title] .in-ttl h2{animation:ttlIn 1.9s cubic-bezier(.2,.7,.2,1) both,ttlGlow 2.8s ease-in-out 1.5s 1}
+#intro[data-state=title] .in-ttl p{animation:ttlP 1.4s ease .9s both}
+@keyframes ttlIn{0%{opacity:0;filter:blur(14px);transform:translateY(48px) scale(.97)}100%{opacity:1;filter:blur(0);transform:none}}
+@keyframes ttlP{from{opacity:0}to{opacity:1}}
+@keyframes ttlGlow{0%,100%{text-shadow:0 0 20px rgba(255,255,255,.9),0 0 46px rgba(150,240,225,.9)}50%{text-shadow:0 0 34px #fff,0 0 80px rgba(120,240,215,1)}}
+/* —— 飘浮的像素爱心 / 星星 / 音符，和标题出现时的一小圈光点 —— */
+#intro .fl{display:none;position:absolute;left:var(--x);bottom:-40px;width:var(--s);height:var(--s);opacity:0;animation:flt var(--d) linear var(--dl) infinite;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+#intro[data-state=speech] .fl,#intro[data-state=title] .fl{display:block}
+@keyframes flt{0%{opacity:0;transform:translate(0,0) rotate(-8deg)}12%{opacity:.85}50%{transform:translate(var(--w),-55vh) rotate(8deg)}88%{opacity:.85}100%{opacity:0;transform:translate(0,-112vh) rotate(-6deg)}}
+#intro .bu{display:none;position:absolute;left:50%;top:48%;width:var(--s);height:var(--s);opacity:0;filter:drop-shadow(0 0 5px rgba(255,255,255,.95))}
+#intro[data-state=title] .bu{display:block;animation:bur 2.4s cubic-bezier(.2,.7,.2,1) var(--dl) both}
+@keyframes bur{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}22%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1)}}
+/* —— 声音 / 跳过 —— */
+#intro .in-ctl{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .6s ease}
+#intro[data-state=speech] .in-ctl,#intro[data-state=title] .in-ctl{opacity:1;pointer-events:auto}
+#intro .mute,#intro .skip{height:28px;padding:0 10px;font:400 9px/1 var(--px)}
+#intro .mute.off{opacity:.65}
+/* —— 手机 —— */
+@media (max-width:640px){
+ #intro .ic,#intro .np,#intro .pet{display:none}
+ #intro .mp{left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);width:min(74vw,230px);margin-left:calc(min(74vw,230px) / -2)}
+ #intro .login{top:46%}#intro .err{top:46%}
+ #intro .hint{font-size:14px}
+ #intro .tk{max-width:46vw}
+}
+@media (max-height:520px){#intro .mp,#intro .pet,#intro .np,#intro .ic{display:none}#intro .login{top:50%}}
+@media (prefers-reduced-motion:reduce){
+ #intro *{animation:none!important;transition-duration:.01s!important}
+ #intro .fl,#intro .bu{display:none!important}
+ #intro .ln{filter:none!important}
+ #intro .eq s{height:55%}
+}
+</style>
+<script id="intro-config" type="application/json">{"_说明":"这是开场动画的文案、语音和时间配置。想改字幕、换语音、调时间，只改这个文件就行，不用动网页代码。时间单位是「秒」，从语音开始播放的那一刻算起。英文是大字幕（en），中文是小字幕（zh）。语音 audio/intro-voice.mp3 是 5 句录音拼起来的：第 1 秒开始说话（带渐入），句与句之间留 0.65~1 秒，最后一句带渐出。","password":"1018","voice":"audio/intro-voice.mp3","window":{"title":"Henry's Private Space","hint":"A little secret is waiting for you...","label":"ENTER PASSWORD","ok":"OK","wrong":"Incorrect password. Please try again."},"title":"Happy Henry's Day","date":"10 · 18","lines":[{"en":"Love is boundless","zh":"爱是无边无际的","start":0.85,"end":2.74},{"en":"but I have yet to see its full form","zh":"我却尚未窥见它完整的模样","start":3.12,"end":6.34},{"en":"I keep searching, keep longing, and I share every fragment of love I have felt","zh":"我不停寻觅 满心期盼 分享每一份我所感知到的爱的碎片","start":6.92,"end":13.33},{"en":"To you","zh":"而献给你的","start":13.81,"end":15.0},{"en":"I offer all the love I have come to understand","zh":"是我所有领悟到的全部爱意","start":15.26,"end":19.6}],"pauseBeforeTitle":1.0,"titleHold":2.8,"fallbackLineSeconds":3.6,"hint2":"Hint: it's a very special date — month and day."}</script>
 <script>(function(){var h=new Date().getHours(),q=/[?&]night=(\d)/.exec(location.search),n=q?q[1]==='1':(h>=19||h<6);if(n){document.documentElement.classList.add('pl-night');document.documentElement.style.setProperty('--bg','#0e1118')}})()</script>
-<script id="__res" type="application/json">{"v":"57d8d348","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo-2.jpg":{"s":70580,"h":"09a0f861","w":"images/frame-photo-2.webp","ws":26958,"m":"images/m/frame-photo-2.webp","ms":17246,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
+<script id="__res" type="application/json">{"v":"ffb9f8a2","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo-2.jpg":{"s":70580,"h":"09a0f861","w":"images/frame-photo-2.webp","ws":26958,"m":"images/m/frame-photo-2.webp","ms":17246,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/intro-voice.mp3":{"s":316857,"h":"311d3a7d","t":3},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
 </head>
 <body>
+<div id="intro" data-state="wait" role="dialog" aria-label="Henry's Private Space">
+<div class="in-stage">
+ <div class="in-bg"></div><div class="in-dots"></div><div class="in-glow"></div>
+ <div class="in-desk">
+  <div class="ic ic-a"><i data-px="folder"></i><b>My Songs</b></div>
+  <div class="ic ic-b"><i data-px="heart"></i><b>Memories</b></div>
+  <div class="ic ic-c"><i data-px="note"></i><b>Voice.wav</b></div>
+  <div class="win mini mp"><div class="tb"><span>Henry Player</span><em><u></u><u></u></em></div><div class="bd"><div class="eq"><s></s><s></s><s></s><s></s><s></s><s></s><s></s></div><div class="trk">♪ Every Trace Tells a Story</div><div class="cl"><i></i><i></i><i></i></div></div></div>
+  <div class="win mini np"><div class="tb"><span>readme.txt - Notepad</span><em><u></u><u></u></em></div><div class="bd">dear henry,<br>something small is<br>waiting for you<span class="cur">_</span></div></div>
+  <div class="win mini pet"><div class="tb"><span>Pet.exe</span><em><u></u></em></div><div class="bd">(=^・ω・^=)<small>purring...</small></div></div>
+ </div>
+ <div class="in-boot"><pre></pre></div>
+ <div class="win login" role="dialog" aria-labelledby="inLt">
+  <div class="tb"><span id="inLt" class="lt">Henry's Private Space</span><em><u></u><u class="x"></u></em></div>
+  <div class="bd"><div class="lk"><i data-px="lock"></i><p class="hint">A little secret is waiting for you...</p></div>
+   <form class="fm" autocomplete="off" novalidate><label class="lb" for="inPw">ENTER PASSWORD</label>
+    <input id="inPw" type="password" inputmode="numeric" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="16" aria-label="Password">
+    <div class="bt"><button type="submit" class="ok">OK</button></div></form>
+   <p class="st"><b></b>SYSTEM LOCKED</p></div></div>
+ <div class="in-dim"></div>
+ <div class="win err" role="alertdialog" aria-live="assertive"><div class="tb"><span>System Message</span><em><u class="x"></u></em></div><div class="bd"><i data-px="warn"></i><p class="em">Incorrect password. Please try again.</p><button type="button" class="ok2">OK</button></div></div>
+ <div class="in-sub" aria-live="polite"></div>
+ <div class="in-ttl"><h2>Happy Henry's Day</h2><p>10 · 18</p></div>
+ <div class="in-fx"></div>
+ <div class="tbar"><button type="button" class="sb" tabindex="-1"><i data-px="star"></i>Start</button><span class="tk">Henry's Private Space</span><span class="clk">00:00</span></div>
+ <div class="in-ctl"><button type="button" class="mute" aria-label="Sound on / off">♪ ON</button><button type="button" class="skip">SKIP ▸▸</button></div>
+ <div class="in-crt"></div>
+</div></div>
+
+<script>/* ===== Happy Henry's Day · 开场动画（Intro） =====
+   和网站首页完全解耦：只在预加载页淡出的那一刻被叫起来（INTRO.start），结束时把自己从页面里拿掉，首页（3D 房间）一直在后面准备好了，不会再初始化第二次。
+   状态流程：wait →（boot）→ login →（输错：弹窗 + 抖动，留在 login）→ unlock → speech → title → exit → done
+   文案、语音文件、每句的时间都在 intro-config.json 里（网页里也内嵌了一份默认值，文件读不到就用内嵌的）。 */
+(function(){
+'use strict';
+var W=window,D=document,root=D.getElementById('intro');
+if(!root)return;
+var $=function(s){return root.querySelector(s)},$$=function(s){return Array.prototype.slice.call(root.querySelectorAll(s))};
+var reduce=false,coarse=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}try{coarse=matchMedia('(pointer:coarse)').matches}catch(e){}
+var NOW=function(){return(W.performance&&performance.now)?performance.now():Date.now()};
+
+/* —— 配置：内嵌的默认值 + intro-config.json 里的修改 —— */
+var cfg={password:'1018',voice:'',window:{},lines:[],pauseBeforeTitle:1.4,titleHold:2.8,fallbackLineSeconds:3.6,
+  boot:['HENRY-OS BIOS v1.018','(c) 1998-2026 Notes of Henry','Memory test ........ 640K OK','Loading memories ... OK',"Starting Henry's Day ..."]};
+function merge(o){
+  if(!o||typeof o!=='object')return;
+  ['password','voice','title','date','pauseBeforeTitle','titleHold','fallbackLineSeconds','hint2'].forEach(function(k){if(o[k]!==undefined)cfg[k]=o[k]});
+  if(o.window)for(var k in o.window)cfg.window[k]=o.window[k];
+  if(Array.isArray(o.boot))cfg.boot=o.boot;
+  if(Array.isArray(o.lines)){cfg.lines=o.lines}
+}
+try{merge(JSON.parse(D.getElementById('intro-config').textContent))}catch(e){}
+var qs='';try{qs=location.search||''}catch(e){}
+var DISABLED=/[?&]intro=0\b/.test(qs);
+
+/* —— 页面元素 —— */
+var ui={win:$('.login'),form:$('.fm'),inp:$('#inPw'),err:$('.err'),ok2:$('.ok2'),dim:$('.in-dim'),sub:$('.in-sub'),ttl:$('.in-ttl'),fx:$('.in-fx'),mute:$('.mute'),skip:$('.skip'),boot:$('.in-boot pre'),clk:$('.clk'),
+  lt:$('.lt'),hint:$('.hint'),lb:$('.lb'),ok:$('.ok'),em:$('.em'),h2:$('.in-ttl h2'),date:$('.in-ttl p')};
+var S={state:'wait',started:false,unlocked:false,err:false,tries:0,cur:-1,raf:0,clock:'pending',tt0:0,voiceEnded:false,muted:false};
+var TM={},voice=null,L=[],ln=[],clockIv=0;
+function after(n,ms,f){clearTimeout(TM[n]);TM[n]=setTimeout(function(){TM[n]=0;f()},ms)}
+function clearAll(){for(var k in TM)clearTimeout(TM[k]);TM={};if(S.raf&&W.cancelAnimationFrame)cancelAnimationFrame(S.raf);S.raf=0}
+function go(st){S.state=st;root.setAttribute('data-state',st)}
+
+/* —— 像素小图标（用字符画生成 SVG，不依赖任何图片） —— */
+var PX={
+ heart:{g:['.##.##.','#######','#######','#######','.#####.','..###..','...#...'],c:{'#':'#ff8fb8'}},
+ star:{g:['...#...','...#...','.#####.','#######','.#####.','.##.##.','.#...#.'],c:{'#':'#ffe27a'}},
+ note:{g:['..######','..#....#','..#....#','..#....#','.##...##','###..###','.##...##'],c:{'#':'#4a86e8'}},
+ folder:{g:['aaaaa.......','############','############','############','############','############','############'],c:{'#':'#ffd86b',a:'#e2a93c'}},
+ lock:{g:['..SSSS..','.S....S.','.S....S.','XXXXXXXX','XXXKKXXX','XXXKKXXX','XXXXXXXX','XXXXXXXX'],c:{X:'#f2c14e',S:'#9aaeb5',K:'#12474f'}},
+ warn:{g:['...XX...','..XXXX..','..XKKX..','.XXKKXX.','.XXKKXX.','XXXXXXXX','XXXKKXXX','XXXXXXXX'],c:{X:'#ffd34e',K:'#12474f'}}
+};
+function pix(name){
+  var d=PX[name];if(!d)return'';var h=d.g.length,w=d.g[0].length,r='';
+  for(var y=0;y<h;y++)for(var x=0;x<w;x++){var ch=d.g[y].charAt(x),c=d.c[ch];if(c)r+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+c+'"/>'}
+  return'<svg viewBox="0 0 '+w+' '+h+'" aria-hidden="true">'+r+'</svg>';
+}
+$$('[data-px]').forEach(function(el){el.innerHTML=pix(el.getAttribute('data-px'))});
+function rnd(a,b){return a+Math.random()*(b-a)}
+function box(name,cls,style){var d=D.createElement('i');d.className=cls;d.setAttribute('data-px',name);d.innerHTML=pix(name);d.style.cssText=style;return d}
+function buildDecor(){
+  var names=['heart','star','note','heart','star','note','heart'];
+  if(!ui.fx||ui.fx.__built)return;ui.fx.__built=1;
+  for(var i=0;i<14;i++){var s=Math.round(rnd(14,26)),d=rnd(9,16);
+    ui.fx.appendChild(box(names[i%names.length],'fl','--x:'+Math.round(rnd(4,94))+'%;--s:'+s+'px;--d:'+d.toFixed(1)+'s;--dl:-'+rnd(0,d).toFixed(1)+'s;--w:'+Math.round(rnd(-40,40))+'px'))}
+  for(var j=0;j<18;j++){var a=(j/18)*Math.PI*2+rnd(-.2,.2),r=rnd(120,300),sz=Math.round(rnd(10,20));
+    ui.fx.appendChild(box(names[j%names.length],'bu','--s:'+sz+'px;--dx:'+Math.round(Math.cos(a)*r)+'px;--dy:'+Math.round(Math.sin(a)*r*.62)+'px;--dl:'+(0.85+rnd(0,.7)).toFixed(2)+'s'))}
+}
+
+/* —— 把配置里的文字放到页面上 —— */
+function applyText(){
+  var w=cfg.window||{};
+  if(w.title){ui.lt.textContent=w.title;var tk=$('.tk');if(tk)tk.textContent=w.title}
+  if(w.hint)ui.hint.textContent=w.hint;if(w.label)ui.lb.textContent=w.label;if(w.ok)ui.ok.textContent=w.ok;if(w.wrong)ui.em.textContent=w.wrong;
+  if(cfg.title)ui.h2.textContent=cfg.title;if(cfg.date)ui.date.textContent=cfg.date;
+  /* 字幕：每句一个元素，时间从小到大排好；缺 end 就用默认时长，缺 start 就接在上一句后面 */
+  L=(cfg.lines||[]).map(function(l){return{zh:String(l.zh||''),en:String(l.en||''),start:Number(l.start),end:Number(l.end)}});
+  var t=0;L.forEach(function(l,i){if(!isFinite(l.start))l.start=i?L[i-1].end+.8:1;if(!isFinite(l.end))l.end=l.start+(cfg.fallbackLineSeconds||3.6)});
+  L.sort(function(a,b){return a.start-b.start});
+  ui.sub.innerHTML='';ln=L.map(function(l){var el=D.createElement('div');el.className='ln'+(l.en.length>44?' long':'');el.innerHTML='<div class="z"></div><div class="e"></div>';el.firstChild.textContent=l.en;el.lastChild.textContent=l.zh; /* 英文是大字幕，中文是小字幕 */ui.sub.appendChild(el);return el});
+}
+function loadFileConfig(){
+  try{if(!W.fetch)return;fetch('intro-config.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&!S.unlocked){merge(j);applyText()}}).catch(function(){})}catch(e){}
+}
+
+/* —— 声音：解锁成功的那一下才开始播放（浏览器要求用户操作之后才能放声音）；放不出来就用计时器顶上，字幕照样走 —— */
+function prepVoice(){
+  if(voice||!cfg.voice)return;
+  try{voice=new Audio();voice.preload='auto';
+    voice.addEventListener('playing',function(){if(S.clock==='pending')S.clock='audio'});
+    voice.addEventListener('ended',function(){S.voiceEnded=true;if(S.clock==='audio'){S.clock='timer';S.tt0=NOW()-(voice.currentTime||0)*1000}}); /* 语音比最后一句字幕短 / 刚好放完：时间接着往下走，不会卡住 */
+    voice.addEventListener('error',function(){S.voiceBad=true;if(S.clock==='pending')toTimer()}); /* 语音文件不存在 / 坏了：记下来，用计时器顶上 */
+    voice.src=cfg.voice;if(voice.load)voice.load()}catch(e){voice=null}
+}
+function toTimer(){S.clock='timer';S.tt0=NOW()}
+function startVoice(){
+  S.clock='pending';S.voiceEnded=false;S.tt0=NOW();
+  if(!voice||!cfg.voice||S.voiceBad){toTimer();return}
+  try{voice.currentTime=0}catch(e){}
+  voice.muted=S.muted;
+  var p=null;try{p=voice.play()}catch(e){}
+  if(p&&p.catch)p.catch(function(){if(S.clock==='pending')toTimer()});
+  after('vw',3000,function(){if(S.clock==='pending')toTimer()}); /* 3 秒还没开始放：当作没有声音，用计时器 */
+}
+function stopVoice(){if(voice){try{voice.pause()}catch(e){}}}
+function clockT(){
+  if(S.clock==='audio')return voice.currentTime||0;
+  if(S.clock==='timer')return(NOW()-S.tt0)/1000;
+  return 0; /* pending：等语音真的开始放，再开始算时间 */
+}
+
+/* —— 各个阶段 —— */
+function updateClock(){var d=new Date(),h=d.getHours(),m=d.getMinutes();if(ui.clk)ui.clk.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m}
+function boot(){
+  go('boot');var i=0,lines=cfg.boot||[];ui.boot.textContent='';
+  (function nx(){
+    if(S.state!=='boot')return;
+    if(i>=lines.length){after('b2',380,showLogin);return}
+    ui.boot.textContent+=(i?'\n':'')+lines[i++];after('b1',230,nx);
+  })();
+  root.addEventListener('pointerdown',function skipBoot(){if(S.state==='boot'){clearAll();showLogin()}root.removeEventListener('pointerdown',skipBoot)});
+}
+function showLogin(){
+  if(S.state==='login')return;go('login');prepVoice();ui.inp.value='';updateClock();
+  if(!coarse)after('f',700,function(){try{ui.inp.focus()}catch(e){}}); /* 手机上不自动弹键盘，等用户自己点输入框 */
+}
+function closeErr(){S.err=false;ui.err.classList.remove('on');ui.dim.classList.remove('on');try{ui.inp.focus()}catch(e){}}
+function wrong(){
+  S.err=true;S.tries++;
+  ui.win.classList.remove('shake');void ui.win.offsetWidth;ui.win.classList.add('shake');
+  ui.inp.value='';ui.err.classList.add('on');ui.dim.classList.add('on');
+  if(S.tries>=3&&cfg.hint2)ui.hint.textContent=cfg.hint2; /* 输错 3 次以后，换一句更明显的提示 */
+  try{ui.ok2.focus()}catch(e){}
+}
+function submit(){
+  if(S.state!=='login'||S.err)return;
+  var v=String(ui.inp.value||'').trim();
+  if(v===String(cfg.password))unlock();else wrong();
+}
+function unlock(){
+  go('unlock');S.unlocked=true;S.tries=0;
+  startVoice(); /* 要在用户这一次操作里直接调用 play()，否则手机浏览器会拦住 */
+  after('sp',850,beginSpeech);
+}
+function showLine(i){var e=ln[i];if(!e)return;e.classList.remove('off');e.classList.add('on')}
+function hideLine(i){var e=ln[i];if(!e)return;e.classList.remove('on');e.classList.add('off')}
+function beginSpeech(){
+  go('speech');S.cur=-1;buildDecor();
+  (function tick(){
+    if(S.state!=='speech')return;
+    var t=clockT(),idx=-1;
+    if(S.clock==='audio'){var n=NOW();if(t!==S.lastT){S.lastT=t;S.lastAt=n}else if(voice&&!voice.paused&&n-(S.lastAt||n)>6000){S.clock='timer';S.tt0=n-t*1000}}
+    for(var i=0;i<L.length;i++)if(t>=L[i].start&&t<L[i].end){idx=i;break}
+    if(idx!==S.cur){if(S.cur>=0)hideLine(S.cur);if(idx>=0)showLine(idx);S.cur=idx}
+    var endT=L.length?L[L.length-1].end:0;
+    if(S.clock!=='pending'&&t>=endT+cfg.pauseBeforeTitle&&(S.clock!=='audio'||S.voiceEnded||t>=endT+cfg.pauseBeforeTitle+3)){toTitle();return}
+    S.raf=W.requestAnimationFrame?requestAnimationFrame(tick):setTimeout(tick,16);
+  })();
+}
+function toTitle(){
+  if(S.cur>=0)hideLine(S.cur);S.cur=-1;
+  go('title');
+  after('ex',Math.round((cfg.titleHold||2.8)*1000)+1900,startExit); /* 标题升起约 1.9 秒，再停留 titleHold 秒 */
+}
+function startExit(){
+  if(S.state==='exit'||S.state==='done')return;
+  clearAll();go('exit');after('done',reduce?30:1150,finish);
+}
+function finish(){
+  clearAll();stopVoice();if(clockIv)clearInterval(clockIv);
+  if(S.state==='done')return;go('done');root.classList.remove('on');
+  try{D.documentElement.classList.add('intro-done')}catch(e){}
+  try{if(root.parentNode)root.parentNode.removeChild(root)}catch(e){}
+  try{D.dispatchEvent(new CustomEvent('intro:done'))}catch(e){}
+}
+function skip(){ /* 只有在密码验证通过以后才能跳过，不会绕过密码 */
+  if(!S.unlocked)return;
+  if(S.state==='unlock'||S.state==='speech'||S.state==='title'){stopVoice();startExit()}
+}
+function start(){
+  if(S.started)return;S.started=true;
+  if(DISABLED){finish();return}
+  try{
+    root.classList.add('on');updateClock();clockIv=setInterval(updateClock,20000);
+    if(reduce)showLogin();else boot();
+  }catch(e){finish()}
+}
+
+/* —— 事件 —— */
+ui.form.addEventListener('submit',function(e){e.preventDefault();submit()});
+ui.ok2.addEventListener('click',closeErr);
+ui.dim.addEventListener('click',function(){if(S.err)closeErr()});
+ui.skip.addEventListener('click',skip);
+ui.mute.addEventListener('click',function(){S.muted=!S.muted;if(voice)voice.muted=S.muted;ui.mute.textContent=S.muted?'♪ OFF':'♪ ON';ui.mute.classList.toggle('off',S.muted)});
+D.addEventListener('keydown',function(e){
+  if(S.state==='done'||S.state==='wait')return;
+  if(e.key==='Escape'){if(S.err)closeErr();else skip()}
+  else if(e.key==='Enter'&&S.err){e.preventDefault();closeErr()}
+});
+try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){root.style.setProperty('--ivh',Math.round(vv.height)+'px')};vv.addEventListener('resize',fit);fit()}}catch(e){} /* 手机弹出键盘时，窗口跟着可见区域走，不会被挡住 */
+/* 兜底：开场自己出了任何错，都直接放首页出来，不能把访客卡在这里 */
+W.addEventListener('error',function(e){if(S.started&&S.state!=='done'&&e.target===W&&/intro|Intro/.test(String(e.filename||'')+String(e.message||''))){finish()}});
+
+applyText();loadFileConfig();
+W.INTRO={start:start,skip:skip,state:S,cfg:cfg,ready:true};
+})();
+</script>
 <div id="pl" role="status" aria-live="polite"><div class="pl-box"><p class="pl-e">A Private Collection</p><h1 class="pl-t">Notes of Henry</h1><p class="pl-s">Every trace tells a story.</p><div class="pl-bar"><i id="plFill"></i></div><div class="pl-row"><span id="plMsg">Loading memories</span><span id="plPct">0%</span></div><p class="pl-slow" id="plSlow" hidden>网络有点慢，仍在加载，请稍等…</p><div class="pl-act" id="plAct" hidden><button type="button" id="plRetry">重试</button><button type="button" class="go" id="plGo">继续进入</button></div></div></div><noscript><p style="position:fixed;z-index:101;left:0;right:0;bottom:24px;text-align:center;font-size:12px">需要开启 JavaScript 才能打开这个网站</p></noscript>
 <script>/* ===== Notes of Henry · 首屏资源预加载系统 =====
    顺序：① 3D 引擎（three / gsap，多个镜像依次尝试）② 首屏图片（优先 WebP，手机用精简分辨率）③ 很小的音频 → 全部就绪后才开始搭建房间（主程序）
@@ -411,6 +784,7 @@ function finish(){
   if(S.fade)return;S.fade=true;update();
   (W.requestAnimationFrame||setTimeout)(function(){(W.requestAnimationFrame||setTimeout)(function(){
     if(U.pl)U.pl.classList.add('out');
+    try{if(W.INTRO&&W.INTRO.start)W.INTRO.start()}catch(e){} /* 加载页开始淡出的同时，叫起开场动画（它在加载页下面等着，淡出时刚好接上，首页不会闪一下） */
     H.classList.add('pl-done');
     setTimeout(function(){if(U.pl&&U.pl.parentNode)U.pl.parentNode.removeChild(U.pl);S.warm.length=0;bgStart();bgRetry(0)},reduce?30:700);
   })});
