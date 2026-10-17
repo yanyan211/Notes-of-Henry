@@ -1,0 +1,50 @@
+{
+  "_说明": "这是开场动画的文案、语音和时间配置。想改字幕、换语音、调时间，只改这个文件就行，不用动网页代码。时间单位是「秒」，从语音开始播放的那一刻算起。英文是大字幕（en），中文是小字幕（zh）。语音 audio/intro-voice.mp3 是 5 句录音拼起来的：第 1 秒开始说话（带渐入），句与句之间留 0.65~1 秒，最后一句带渐出。",
+  "password": "1018",
+  "voice": "audio/intro-voice.mp3",
+  "window": {
+    "title": "Henry's Private Space",
+    "hint": "A little secret is waiting for you...",
+    "label": "ENTER PASSWORD",
+    "ok": "OK",
+    "wrong": "Incorrect password. Please try again."
+  },
+  "title": "Happy Henry's Day",
+  "date": "10 · 18",
+  "lines": [
+    {
+      "en": "Love is boundless",
+      "zh": "爱是无边无际的",
+      "start": 0.85,
+      "end": 2.74
+    },
+    {
+      "en": "but I have yet to see its full form",
+      "zh": "我却尚未窥见它完整的模样",
+      "start": 3.12,
+      "end": 6.34
+    },
+    {
+      "en": "I keep searching, keep longing, and I share every fragment of love I have felt",
+      "zh": "我不停寻觅 满心期盼 分享每一份我所感知到的爱的碎片",
+      "start": 6.92,
+      "end": 13.33
+    },
+    {
+      "en": "To you",
+      "zh": "而献给你的",
+      "start": 13.81,
+      "end": 15.0
+    },
+    {
+      "en": "I offer all the love I have come to understand",
+      "zh": "是我所有领悟到的全部爱意",
+      "start": 15.26,
+      "end": 19.6
+    }
+  ],
+  "pauseBeforeTitle": 1.0,
+  "titleHold": 2.8,
+  "fallbackLineSeconds": 3.6,
+  "hint2": "Hint: it's a very special date — month and day."
+}
