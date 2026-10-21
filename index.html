@@ -245,12 +245,12 @@ button,[role=button],.mbtn,#ipbtn{touch-action:manipulation}
    没有窗口、没有像素字，只有安静的留白、一排小圆点和一行字。 */
 #intro{position:fixed;inset:0;z-index:95;display:none;color:var(--ink);transition:opacity 1.1s ease;overscroll-behavior:none;
  --ink:#2b2926;--mute:#8a847c;--soft:#6f6a63;--line:rgba(43,41,38,.16);--pill:rgba(255,255,255,.72);--err:#9a5b4f;
- --bgg:radial-gradient(120% 95% at 50% 38%,#f8f6f3 0%,#f3f1ee 58%,#ebe8e3 100%);
+ --bgg:radial-gradient(120% 95% at 50% 38%,#f8f6f3 0%,#f3f1ee 58%,#ebe8e3 100%);--bgc:#f7f5f1;--panel:rgba(255,255,255,.5);
  --serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC","SimSun",serif;
  --sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
  background:var(--bgg);font-family:var(--sans)}
 html.pl-night #intro{--ink:#ece8e0;--mute:#8d8a84;--soft:#a29e96;--line:rgba(236,232,224,.2);--pill:rgba(30,34,46,.72);--err:#d49a8c;
- --bgg:radial-gradient(120% 95% at 50% 38%,#151a24 0%,#0e1118 58%,#0a0d13 100%)}
+ --bgg:radial-gradient(120% 95% at 50% 38%,#151a24 0%,#0e1118 58%,#0a0d13 100%);--bgc:#121722;--panel:rgba(255,255,255,.03)}
 #intro.on{display:block}
 #intro *{box-sizing:border-box}
 #intro .in-stage{position:absolute;inset:0;overflow:hidden}
@@ -260,7 +260,7 @@ html.pl-night #intro{--ink:#ece8e0;--mute:#8d8a84;--soft:#a29e96;--line:rgba(236
 #intro .top,#intro .top *{pointer-events:none}
 #intro .in-glow{position:absolute;inset:0;background:radial-gradient(52% 40% at 50% 48%,rgba(255,255,255,.7),rgba(255,255,255,0) 72%);opacity:0;transition:opacity 1.8s ease}
 html.pl-night #intro .in-glow{background:radial-gradient(52% 40% at 50% 48%,rgba(90,110,140,.16),rgba(0,0,0,0) 72%)}
-#intro[data-state=speech] .in-glow,#intro[data-state=title] .in-glow{opacity:1}
+#intro[data-state=story] .in-glow,#intro[data-state=speech] .in-glow,#intro[data-state=title] .in-glow{opacity:1}
 /* —— 密码 —— */
 #intro .in-lock{position:absolute;left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.46));width:min(88vw,420px);transform:translate(-50%,-50%);text-align:center;visibility:hidden;opacity:0;transition:opacity .7s ease,transform .9s cubic-bezier(.4,0,.2,1)}
 #intro[data-state=login] .in-lock,#intro[data-state=unlock] .in-lock{visibility:visible;opacity:1}
@@ -283,6 +283,7 @@ html.pl-night #intro .in-glow{background:radial-gradient(52% 40% at 50% 48%,rgba
 #intro .go.rdy{opacity:1;border-color:var(--ink)}
 #intro .go.full{background:var(--ink);color:var(--bg,#f3f1ee)}
 html.pl-night #intro .go.full{color:#0e1118}
+html.pl-night #intro .art .pnl{box-shadow:0 22px 44px -22px rgba(0,0,0,.7)}
 #intro .go:active{transform:scale(.94)}
 #intro .em{margin:18px 0 0;min-height:44px;font:italic 400 15px/1.5 var(--serif);color:var(--err);opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
 #intro .em.show{opacity:1;transform:none}
@@ -295,6 +296,23 @@ html.pl-night #intro .go.full{color:#0e1118}
 #intro .in-ring{position:absolute;left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.46));width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:1px solid var(--ink);opacity:0;pointer-events:none}
 #intro[data-state=unlock] .in-ring{animation:ring 1.5s cubic-bezier(.2,.6,.3,1) both}
 @keyframes ring{0%{opacity:.5;transform:scale(.3)}100%{opacity:0;transform:scale(9)}}
+/* —— 故事插画：漫画分镜式的小画框，线条一笔一笔画出来 —— */
+#intro .in-art{position:absolute;left:50%;top:35%;width:min(80vw,520px,calc(46vh * 1.3333));aspect-ratio:4/3;transform:translate(-50%,-50%);pointer-events:none}
+#intro .art{position:absolute;inset:0;margin:0;opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+#intro .art.on{opacity:1;transform:none}
+#intro .art.off{opacity:0;transform:translateY(-10px);transition-duration:.3s;transition-delay:0s}
+#intro .art .pnl{position:absolute;inset:0;background:var(--panel);border:1px solid var(--line);border-radius:3px;box-shadow:0 22px 44px -22px rgba(43,41,38,.28)}
+#intro .art svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#intro .art figcaption{position:absolute;left:0;top:-26px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+#intro .art .s{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#intro .art .bgf{fill:var(--bgc)}#intro .art .lt{opacity:.45}#intro .art .f,#intro .art .dot{fill:var(--ink)}#intro .art .gs{stop-color:var(--ink)}
+#intro .art .w{stroke-width:2.4;stroke-linecap:butt}
+#intro .art .num{font:italic 400 24px var(--serif);fill:var(--ink)}
+#intro .art .dr{stroke-dasharray:1;stroke-dashoffset:1}
+#intro .art.on .dr{animation:draw 1s cubic-bezier(.4,0,.2,1) calc(var(--d,0s) * .5) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+#intro .in-sub{transition:top .6s cubic-bezier(.4,0,.2,1)}
+#intro.has-art .in-sub{top:72%}
 /* —— 字幕：英文是大字幕，中文是小字幕，从下方轻轻升起 —— */
 #intro .in-sub{position:absolute;left:0;right:0;top:48%;height:0;padding:0 6vw;pointer-events:none}
 #intro .ln{position:absolute;left:0;right:0;top:0;max-width:940px;margin:0 auto;text-align:center;opacity:0;transform:translateY(-50%) translateY(26px);filter:blur(4px);transition:opacity .7s ease,transform 1s cubic-bezier(.2,.7,.2,1),filter .7s ease}
@@ -319,7 +337,7 @@ html.pl-night #intro .go.full{color:#0e1118}
 @keyframes ring2{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(11)}}
 /* —— 缓缓上升的细小光点 —— */
 #intro .fl{display:none;position:absolute;left:var(--x);bottom:-20px;width:var(--s);height:var(--s);border-radius:50%;background:var(--ink);opacity:0;animation:flt var(--d) linear var(--dl) infinite}
-#intro[data-state=speech] .fl,#intro[data-state=title] .fl{display:block}
+#intro[data-state=story] .fl,#intro[data-state=speech] .fl,#intro[data-state=title] .fl{display:block}
 @keyframes flt{0%{opacity:0;transform:translate(0,0)}15%{opacity:.16}85%{opacity:.16}100%{opacity:0;transform:translate(var(--w),-108vh)}}
 /* —— 右上角：声音 / 跳过，和房间里的小胶囊同一个位置、同一个样子 —— */
 #intro .mute,#intro .skip{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));height:30px;border-radius:999px;border:1px solid rgba(43,41,38,.14);background:var(--pill);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 14px rgba(60,50,40,.1);color:var(--ink);cursor:pointer;padding:0;z-index:3;-webkit-tap-highlight-color:transparent;transition:opacity .6s ease,background .5s}
@@ -329,7 +347,7 @@ html.pl-night #intro .mute,html.pl-night #intro .skip{border-color:rgba(255,255,
 #intro .mute svg{grid-area:1/1;width:16px;height:16px;transition:opacity .25s,transform .35s}
 #intro .mute .off{opacity:0;transform:scale(.7)}#intro .mute.off .on{opacity:0;transform:scale(.7)}#intro .mute.off .off{opacity:1;transform:none}
 #intro .skip{right:16px;min-width:56px;padding:0 16px;font:400 10px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;opacity:0;pointer-events:none}
-#intro[data-state=speech] .skip,#intro[data-state=title] .skip{opacity:1;pointer-events:auto}
+#intro[data-state=story] .skip,#intro[data-state=speech] .skip{opacity:1;pointer-events:auto}
 #intro .mute::after,#intro .skip::after{content:"";position:absolute;inset:-8px}
 #intro button{touch-action:manipulation}
 /* —— 手机 —— */
@@ -340,12 +358,29 @@ html.pl-night #intro .mute,html.pl-night #intro .skip{border-color:rgba(255,255,
 @media (prefers-reduced-motion:reduce){
  #intro *{animation:none!important;transition-duration:.01s!important}
  #intro .fl,#intro .in-ring{display:none!important}
+ #intro .art .dr{stroke-dashoffset:0!important;animation:none!important}
  #intro .ln{filter:none!important}#intro .in-ttl .rule{transform:none}
 }
+
+/* —— 故事章节的字：比配音字幕更快出现；点一下立刻到位 —— */
+#intro .ln.ch{transition:opacity .4s ease,transform .55s cubic-bezier(.2,.7,.2,1),filter .4s ease}
+#intro .ln.ch.on{transition-delay:.35s,.35s,.35s}
+#intro .ln.ch.off{transition-duration:.25s;transition-delay:0s}
+#intro .snap,#intro .snap *{transition:none!important}
+#intro .art.snap{opacity:1!important;transform:none!important}
+#intro .ln.ch.snap{opacity:1!important;transform:translateY(-50%)!important;filter:none!important}
+#intro .art.done .dr{animation:none!important;stroke-dashoffset:0!important}
+/* —— 「点一下继续」的小提示：每一章画完以后才轻轻浮出来 —— */
+#intro .in-next{position:absolute;left:0;right:0;bottom:calc(5vh + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:10px;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--mute);padding-left:.34em;opacity:0;transition:opacity .4s;pointer-events:none}
+#intro .in-next.show{opacity:1}
+#intro .in-next i{display:block;width:1px;height:22px;background:linear-gradient(var(--mute),transparent);animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0);opacity:.8}50%{transform:translateY(6px);opacity:.3}}
+#intro[data-state=story]{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (prefers-reduced-motion:reduce){#intro .in-next i{animation:none}}
 </style>
-<script id="intro-config" type="application/json">{"_说明":"这是开场动画的文案、语音和时间配置。想改字幕、换语音、调时间，只改这个文件就行，不用动网页代码。时间单位是「秒」，从语音开始播放的那一刻算起。英文是大字幕（en），中文是小字幕（zh）。语音 audio/intro-voice.mp3 是 5 句录音拼起来的：第 1 秒开始说话（带渐入），句与句之间留 0.65~1 秒，最后一句带渐出。","password":"1018","voice":"audio/intro-voice.mp3","window":{"title":"Henry's Private Space","hint":"A little secret is waiting for you...","label":"ENTER PASSWORD","ok":"OK","wrong":"Not quite. Please try again."},"title":"Happy Henry's Day","date":"10 · 18","lines":[{"en":"Love is boundless","zh":"爱是无边无际的","start":0.85,"end":2.74},{"en":"but I have yet to see its full form","zh":"我却尚未窥见它完整的模样","start":3.12,"end":6.34},{"en":"I keep searching, keep longing, and I share every fragment of love I have felt","zh":"我不停寻觅 满心期盼 分享每一份我所感知到的爱的碎片","start":6.92,"end":13.33},{"en":"To you","zh":"而献给你的","start":13.81,"end":15.0},{"en":"I offer all the love I have come to understand","zh":"是我所有领悟到的全部爱意","start":15.26,"end":19.6}],"pauseBeforeTitle":1.0,"titleHold":2.8,"fallbackLineSeconds":3.6,"hint2":"Hint: it’s a date — month, then day."}</script>
+<script id="intro-config" type="application/json">{"_说明":"这是开场动画的全部文案、章节、音频和时间配置。想改字幕、换章节、调时间，只改这个文件就行，不用动网页代码。chapters 是前面的 5 章故事：每章一幅插画（art 可选 city / trophy / practice / songs / plane）+ 一小段字，观众点一下把动画画完、再点一下翻到下一章；一直没人点，过 autoAdvanceSeconds 秒自动翻页（设成 0 就一直等）。lines 是后面的 5 句配音字幕，时间单位是「秒」，从 audio/intro-voice.mp3 开始播放的那一刻算起。audio/intro-bgm.mp3 是故事部分循环播放的背景音乐。","password":"1018","voice":"audio/intro-voice.mp3","window":{"title":"Henry's Private Space","hint":"A little secret is waiting for you...","label":"ENTER PASSWORD","ok":"OK","wrong":"Not quite. Please try again.","next":"Tap to continue"},"title":"Happy Henry's Day","date":"10 · 18","lines":[{"en":"Love is boundless","zh":"爱是无边无际的","start":0.85,"end":2.74},{"en":"but I have yet to see its full form","zh":"我却尚未窥见它完整的模样","start":3.12,"end":6.34},{"en":"I keep searching, keep longing, and I share every fragment of love I have felt","zh":"我不停寻觅 满心期盼 分享每一份我所感知到的爱的碎片","start":6.92,"end":13.33},{"en":"To you","zh":"而献给你的","start":13.81,"end":15.0},{"en":"I offer all the love I have come to understand","zh":"是我所有领悟到的全部爱意","start":15.26,"end":19.6}],"pauseBeforeTitle":1.0,"titleHold":2.8,"fallbackLineSeconds":3.6,"hint2":"Hint: it’s a date — month, then day.","bgm":"audio/intro-bgm.mp3","chapters":[{"art":"city","cap":"01 · Chongqing","en":"Chongqing, a city of hills and river mist. On the 18th of October, a boy was born.","zh":"重庆，一座有山、有雾、有江的城市。十月十八日，一个男孩出生了。"},{"art":"trophy","cap":"02 · The first trophy","en":"He loved to sing. His first trophy is still the one he treasures most.","zh":"他从小爱唱歌。第一座奖杯，至今仍是他最珍惜的。"},{"art":"practice","cap":"03 · The practice room","en":"In 2022 he walked into the practice room — and kept showing up, day after day.","zh":"2022 年，他走进练习室，然后日复一日，从未缺席。"},{"art":"songs","cap":"04 · The songs","en":"On stage, and in the songs he makes, his voice found its way to people.","zh":"在舞台上，在他做的歌里，他的声音一点一点，走到了很多人的心里。"},{"art":"plane","cap":"05 · Come with me","en":"Now he is seventeen. Come with me — I’ll take you to his space.","zh":"如今，他十七岁了。来，跟我走，我带你去他的空间。"}],"autoAdvanceSeconds":14,"chapterMs":1700}</script>
 <script>(function(){var h=new Date().getHours(),q=/[?&]night=(\d)/.exec(location.search),n=q?q[1]==='1':(h>=19||h<6);if(n){document.documentElement.classList.add('pl-night');document.documentElement.style.setProperty('--bg','#0e1118')}})()</script>
-<script id="__res" type="application/json">{"v":"87c973f1","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo-2.jpg":{"s":70580,"h":"09a0f861","w":"images/frame-photo-2.webp","ws":26958,"m":"images/m/frame-photo-2.webp","ms":17246,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/ambient.mp3":{"s":646647,"h":"0b939fcc","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/intro-voice.mp3":{"s":322659,"h":"69bcc4f0","t":3},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
+<script id="__res" type="application/json">{"v":"d2526b9a","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo-2.jpg":{"s":70580,"h":"09a0f861","w":"images/frame-photo-2.webp","ws":26958,"m":"images/m/frame-photo-2.webp","ms":17246,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/ambient.mp3":{"s":646647,"h":"0b939fcc","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/intro-bgm.mp3":{"s":582630,"h":"cfd42f6e","t":3},"audio/intro-voice.mp3":{"s":322659,"h":"832ae87c","t":3},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
 </head>
 <body>
 <script>/* ===== 声音系统：背景音 + 点击反馈音 =====
@@ -446,6 +481,8 @@ var SFX=W.SFX={
   cloth:function(){go(function(t){swish(t,.16,.1,600,260,.6);mode(120,.12,.12,t);mode(210,.09,.05,t)})},
   /* 台灯：机械开关，清脆的「嗒—嗒」 */
   sw:function(){go(function(t){click(t,.22,3800,3,.006);mode(2100,.025,.05,t);mode(140,.05,.1,t);click(t+.085,.17,3000,3,.006);mode(1700,.02,.035,t+.085)})},
+  /* 故事翻页：纸张轻轻翻过去 */
+  page:function(){go(function(t){swish(t,.16,.07,2600,5200,.8);click(t+.13,.05,3400,1,.006)})},
   /* 点空白处返回：一阵很轻的气流往回收 */
   back:function(){go(function(t){swish(t,.14,.05,2000,600,.8)})},
   /* 密码错了：两下很轻的敲击，像在说「不对哦」 */
@@ -572,17 +609,109 @@ paint();D.body.appendChild(btn);
    <p class="em" role="alert"></p>
   </form>
  </div>
+ <div class="in-art" aria-hidden="true"></div>
  <div class="in-sub" aria-live="polite"></div>
+ <div class="in-next" aria-hidden="true"><span>Tap to continue</span><i></i></div>
  <div class="in-ttl"><span class="rule"></span><h2>Happy Henry's Day</h2><p>10 · 18</p></div>
  <div class="in-fx"></div>
  <button type="button" class="mute" aria-label="Sound on / off"><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.4a8 8 0 0 1 0 11.2"/></svg><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
  <button type="button" class="skip">Skip</button>
 </div></div>
 
-<script>/* ===== Happy Henry's Day · 开场动画（Intro） =====
+<script>/* ===== 开场故事的 5 幅插画：极简细线插画（SVG），全部用代码画，不依赖任何图片 =====
+   原则：每幅只留一个主体 + 两三个陪衬，线条粗细统一，大面积留白，半调网点只用在一两处（漫画分镜的一点点味道）。
+   线条会像被一笔一笔画出来那样出现（.dr = 描线动画），点一下可以立刻画完。 */
+var __ART=(function(){
+var ART={};
+function pat(id,sz,r){return '<pattern id="'+id+'" width="'+sz+'" height="'+sz+'" patternUnits="userSpaceOnUse"><circle cx="'+sz/2+'" cy="'+sz/2+'" r="'+r+'" class="dot"/></pattern>'}
+function dr(d,delay,cls){return '<path class="s dr'+(cls?' '+cls:'')+'" pathLength="1" style="--d:'+delay+'s" d="'+d+'"/>'}
+function sp(cx,cy,r){return '<path class="s" d="M'+cx+' '+(cy-r)+'V'+(cy+r)+'M'+(cx-r)+' '+cy+'H'+(cx+r)+'"/>'}
+
+/* 1 · 山城重庆：一排顺着山坡一级一级降下来的楼，一轮太阳，一条江，两缕雾 */
+ART.city=function(){
+  var o='<defs>'+pat('hc1',5,1.05)+'</defs>',P=[[40,198],[120,200],[220,220],[330,244]];
+  /* 山坡线（三次贝塞尔）上，某个 x 对应的 y：让每栋楼的脚都踩在坡上 */
+  function hillY(x){var lo=0,hi=1,t=0,b=function(t,k){var u=1-t;return u*u*u*P[0][k]+3*u*u*t*P[1][k]+3*u*t*t*P[2][k]+t*t*t*P[3][k]};for(var n=0;n<30;n++){t=(lo+hi)/2;if(b(t,0)<x)lo=t;else hi=t}return b(t,1)}
+  o+='<circle class="s dr" pathLength="1" style="--d:.1s" cx="314" cy="70" r="20"/><circle cx="314" cy="70" r="20" fill="url(#hc1)" opacity=".5"/>';
+  var B=[[58,26,108],[90,24,76],[120,28,132],[152,24,70],[182,26,96],[214,24,58],[244,28,80],[276,24,44]];   /* x, 宽, 高（顶部从左到右一级一级降下来） */
+  B.forEach(function(b,k){
+    var x=b[0],w=b[1],h=b[2],yl=hillY(x),yr=hillY(x+w),top=Math.min(yl,yr)-h;
+    o+='<path class="s dr" pathLength="1" style="--d:'+(.15+k*.05).toFixed(2)+'s" d="M'+x+' '+yl.toFixed(1)+' V'+top.toFixed(1)+' H'+(x+w)+' V'+yr.toFixed(1)+'"/>';
+    if(k===2||k===4){o+='<path class="s lt" d="M'+(x+7)+' '+(top+14).toFixed(1)+' h2 M'+(x+w-9)+' '+(top+14).toFixed(1)+' h2 M'+(x+7)+' '+(top+24).toFixed(1)+' h2 M'+(x+w-9)+' '+(top+24).toFixed(1)+' h2" stroke-width="2.2" stroke-linecap="butt"/>'}
+    if(k===2)o+='<path class="s" d="M'+(x+w/2)+' '+top.toFixed(1)+' v-14"/>';
+  });
+  o+=dr('M40 198 C120 200 220 220 330 244',.5);
+  o+='<path class="s" d="M44 264 q14 -6 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0"/><path class="s lt" d="M96 280 q14 -6 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0"/>';
+  return o;
+};
+
+/* 2 · 第一座奖杯：只画一座奖杯，杯子里一颗星，旁边三点光 */
+ART.trophy=function(){
+  var o='<defs>'+pat('ht1',5,1.1)+'<clipPath id="tc"><path d="M152 78 H248 V130 C248 166 226 188 200 190 C174 188 152 166 152 130 Z"/></clipPath></defs>';
+  o+='<rect x="152" y="70" width="30" height="126" fill="url(#ht1)" opacity=".38" clip-path="url(#tc)"/>';
+  o+=dr('M152 78 H248 V130 C248 166 226 188 200 190 C174 188 152 166 152 130 Z',.15);
+  o+='<ellipse class="s" cx="200" cy="78" rx="48" ry="7"/>';
+  o+=dr('M152 96 C118 94 116 146 154 152',.4)+dr('M248 96 C282 94 284 146 246 152',.4);
+  o+=dr('M200 190 V224 M174 224 H226 L238 244 H162 Z',.6);
+  o+='<path class="s dr" pathLength="1" style="--d:.9s" d="M200 106 L207 123 L225 124 L211 135 L216 152 L200 142 L184 152 L189 135 L175 124 L193 123 Z"/>';
+  o+=sp(96,82,7)+sp(310,64,8)+sp(318,168,5);
+  o+='<path class="s lt" d="M120 262 H280"/>';
+  return o;
+};
+
+/* 3 · 练习室：一面镜子、一支立麦、一排琴键 */
+ART.practice=function(){
+  var o='<defs>'+pat('hp1',5,1)+'</defs>',k;
+  o+=dr('M70 40 H330 V190 H70 Z',.15);
+  o+='<path class="s lt" d="M244 190 L288 40 M268 190 L312 40"/>';
+  o+=dr('M40 206 H360',.4);
+  o+=dr('M116 206 V128 q0 -22 22 -22 h12',.6);
+  o+='<ellipse class="s" cx="160" cy="106" rx="10" ry="14" transform="rotate(70 160 106)"/><ellipse cx="160" cy="106" rx="10" ry="14" transform="rotate(70 160 106)" fill="url(#hp1)" opacity=".5"/>';
+  var x0=112,kw=22;
+  for(k=0;k<8;k++)o+='<rect class="s bgf" x="'+(x0+k*kw)+'" y="228" width="'+kw+'" height="50"/>';
+  [0,1,3,4,5].forEach(function(j){o+='<rect class="f" x="'+(x0+(j+1)*kw-6)+'" y="228" width="12" height="30" rx="1.5"/>'});
+  return o;
+};
+
+/* 4 · 他的歌：一副耳机、几个音符、两道声波、九个小圆点（九首歌，其中一颗亮着） */
+ART.songs=function(){
+  var o='<defs>'+pat('hs1',5,1.05)+'</defs>',i;
+  o+=dr('M122 176 C118 72 282 72 278 176',.15);
+  o+=dr('M98 170 h24 a8 8 0 0 1 8 8 v50 a8 8 0 0 1 -8 8 h-24 a10 10 0 0 1 -10 -10 v-46 a10 10 0 0 1 10 -10 Z',.4);
+  o+=dr('M302 170 h-24 a8 8 0 0 0 -8 8 v50 a8 8 0 0 0 8 8 h24 a10 10 0 0 0 10 -10 v-46 a10 10 0 0 0 -10 -10 Z',.4);
+  o+='<path d="M104 174 h18 a4 4 0 0 1 4 4 v46 a4 4 0 0 1 -4 4 h-18 a6 6 0 0 1 -6 -6 v-42 a6 6 0 0 1 6 -6Z" fill="url(#hs1)" opacity=".4"/>';
+  o+='<path class="s lt" d="M72 186 q-12 20 0 40 M58 174 q-20 32 0 64 M328 186 q12 20 0 40 M342 174 q20 32 0 64"/>';
+  function note(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><ellipse class="f" cx="0" cy="0" rx="6.4" ry="4.6" transform="rotate(-20)"/><path class="s" d="M5.4 -2 V-30 q9 3 11 13"/></g>'}
+  o+=note(318,92,1)+note(344,64,.8)+note(70,84,.8);
+  for(i=0;i<9;i++){var cx=140+i*15;o+=(i===3?'<circle class="f" cx="'+cx+'" cy="270" r="4"/>':'<circle class="s" cx="'+cx+'" cy="270" r="3.4"/>')}
+  return o;
+};
+
+/* 5 · 带你去他的空间：一架纸飞机，一条虚线，一间亮着灯的小屋，窗里是「17」 */
+ART.plane=function(){
+  var o='<defs>'+pat('hl1',5,1.05)+'</defs>';
+  o+='<path class="s dr" pathLength="1" style="--d:.1s" d="M62 46 A18 18 0 1 0 80 68 A14 14 0 1 1 62 46 Z"/>'+sp(150,46,5)+sp(250,36,4)+sp(352,76,5);
+  /* 纸飞机：经典折纸飞机的样子（机头 N、上翼尾 A、折缝 M、下翼尾 B），机头朝着小屋飞 */
+  o+='<path class="s lt" stroke-dasharray="3 7" d="M22 214 C56 214 76 186 94 148"/>';
+  o+='<g transform="translate(88 126) rotate(13)">';
+  o+='<path d="M130 0 L30 -2 L0 47 Z" fill="url(#hl1)" opacity=".42"/>';
+  o+=dr('M130 0 L4 -56 L30 -2 L0 47 Z',.35);
+  o+='<path class="s dr" pathLength="1" style="--d:.7s" d="M130 0 L30 -2"/>';
+  o+='</g>';
+  /* 小屋 */
+  o+=dr('M246 244 V184 L304 142 L362 184 V244',.6)+dr('M226 244 H382',.8);
+  o+='<rect class="s dr" pathLength="1" style="--d:1s" x="284" y="188" width="40" height="34"/><rect x="284" y="188" width="40" height="34" fill="url(#hl1)" opacity=".22"/>';
+  o+='<text x="304" y="214" text-anchor="middle" class="num">17</text>';
+  o+='<path class="s" d="M260 244 V222 q0 -8 8 -8 q8 0 8 8 V244"/>';
+  return o;
+};
+return ART;
+})();
+
+/* ===== Happy Henry's Day · 开场动画（Intro） =====
    和网站首页完全解耦：只在预加载页淡出的那一刻被叫起来（INTRO.start），结束时把自己从页面里拿掉，首页（3D 房间）一直在后面准备好了，不会再初始化第二次。
-   状态流程：wait → login →（输错：小圆点抖一下，留在 login）→ unlock → speech → title → exit → done
-   文案、语音文件、每句的时间都在 intro-config.json 里（网页里也内嵌了一份默认值，文件读不到就用内嵌的）。 */
+   状态流程：wait → login →（输错：小圆点抖一下，留在 login）→ unlock → story（5 章，点一下翻一页）→ speech（配音 + 字幕）→ title → exit → done
+   文案、章节、插画、音频、时间都在 intro-config.json 里（网页里也内嵌了一份默认值，文件读不到就用内嵌的）。 */
 (function(){
 'use strict';
 var W=window,D=document,root=D.getElementById('intro');
@@ -592,22 +721,23 @@ var reduce=false,coarse=false;try{reduce=matchMedia('(prefers-reduced-motion: re
 var NOW=function(){return(W.performance&&performance.now)?performance.now():Date.now()};
 
 /* —— 配置：内嵌的默认值 + intro-config.json 里的修改 —— */
-var cfg={password:'1018',voice:'',window:{},lines:[],pauseBeforeTitle:1.4,titleHold:2.8,fallbackLineSeconds:3.6};
+var cfg={password:'1018',voice:'',bgm:'',window:{},lines:[],chapters:[],pauseBeforeTitle:1.4,titleHold:2.8,fallbackLineSeconds:3.6,autoAdvanceSeconds:14,chapterMs:1700};
 function merge(o){
   if(!o||typeof o!=='object')return;
-  ['password','voice','title','date','pauseBeforeTitle','titleHold','fallbackLineSeconds','hint2'].forEach(function(k){if(o[k]!==undefined)cfg[k]=o[k]});
+  ['password','voice','bgm','title','date','pauseBeforeTitle','titleHold','fallbackLineSeconds','hint2','autoAdvanceSeconds','chapterMs'].forEach(function(k){if(o[k]!==undefined)cfg[k]=o[k]});
   if(o.window)for(var k in o.window)cfg.window[k]=o.window[k];
   if(Array.isArray(o.lines))cfg.lines=o.lines;
+  if(Array.isArray(o.chapters))cfg.chapters=o.chapters;
 }
 try{merge(JSON.parse(D.getElementById('intro-config').textContent))}catch(e){}
 var qs='';try{qs=location.search||''}catch(e){}
 var DISABLED=/[?&]intro=0\b/.test(qs);
 
 /* —— 页面元素 —— */
-var ui={form:$('.fm'),inp:$('#inPw'),pin:$('.pin'),dots:[],go:$('.go'),em:$('.em'),sub:$('.in-sub'),ttl:$('.in-ttl'),fx:$('.in-fx'),mute:$('.mute'),skip:$('.skip'),
+var ui={form:$('.fm'),inp:$('#inPw'),pin:$('.pin'),dots:[],go:$('.go'),em:$('.em'),art:$('.in-art'),sub:$('.in-sub'),ttl:$('.in-ttl'),fx:$('.in-fx'),mute:$('.mute'),skip:$('.skip'),next:$('.in-next'),
   eye:$('.in-eye'),hint:$('.in-hint'),lb:$('.lb'),h2:$('.in-ttl h2'),date:$('.in-ttl p')};
-var S={state:'wait',started:false,unlocked:false,tries:0,cur:-1,raf:0,clock:'pending',tt0:0,voiceEnded:false,muted:false};
-var TM={},voice=null,L=[],ln=[];
+var S={state:'wait',started:false,unlocked:false,tries:0,cur:-1,raf:0,clock:'pending',tt0:0,voiceEnded:false,muted:false,ch:-1,phase:'',priming:false};
+var TM={},voice=null,bgm=null,bgmV=0,bgmIv=0,L=[],ln=[],CH=[],chArt=[],chTxt=[];
 function snd(n){try{if(W.SFX&&W.SFX[n])W.SFX[n]()}catch(e){}}
 function amb(n){try{if(W.AMB&&W.AMB[n])W.AMB[n]()}catch(e){}}
 function sndOn(){return!(W.SND&&W.SND.on===false)}
@@ -615,6 +745,7 @@ function after(n,ms,f){clearTimeout(TM[n]);TM[n]=setTimeout(function(){TM[n]=0;f
 function clearAll(){for(var k in TM)clearTimeout(TM[k]);TM={};if(S.raf&&W.cancelAnimationFrame)cancelAnimationFrame(S.raf);S.raf=0}
 function go(st){S.state=st;root.setAttribute('data-state',st)}
 function rnd(a,b){return a+Math.random()*(b-a)}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 
 /* —— 小圆点：有几位密码就几个点，输一位亮一个 —— */
 function buildPins(){
@@ -627,36 +758,69 @@ function paint(){
   ui.dots.forEach(function(d,i){d.classList.toggle('on',i<len);d.classList.toggle('cur',i===len)});
   ui.go.classList.toggle('rdy',len>0);ui.go.classList.toggle('full',len>=n&&len>0);
 }
-/* —— 缓缓上升的细小光点（字幕和标题阶段才显示） —— */
+/* —— 缓缓上升的细小光点 —— */
 function buildDecor(){
   if(!ui.fx||ui.fx.__built)return;ui.fx.__built=1;
   for(var i=0;i<16;i++){var d=D.createElement('i'),s=Math.round(rnd(2,5)),du=rnd(12,22);
     d.className='fl';d.style.cssText='--x:'+Math.round(rnd(3,97))+'%;--s:'+s+'px;--d:'+du.toFixed(1)+'s;--dl:-'+rnd(0,du).toFixed(1)+'s;--w:'+Math.round(rnd(-30,30))+'px';ui.fx.appendChild(d)}
 }
 
-/* —— 把配置里的文字放到页面上 —— */
+/* —— 把配置里的文字、章节放到页面上 —— */
 function applyText(){
   var w=cfg.window||{};
-  if(w.title)ui.eye.textContent=w.title;if(w.hint)ui.hint.textContent=w.hint;if(w.label)ui.lb.textContent=w.label;
+  if(w.title)ui.eye.textContent=w.title;if(w.hint)ui.hint.textContent=w.hint;if(w.label)ui.lb.textContent=w.label;if(w.next)ui.next.firstChild&&(ui.next.firstChild.textContent=w.next);
   if(cfg.title)ui.h2.textContent=cfg.title;if(cfg.date)ui.date.textContent=cfg.date;
   buildPins();
+  /* 配音阶段的字幕（时间是相对「配音文件」开始播放的那一刻） */
   L=(cfg.lines||[]).map(function(l){return{zh:String(l.zh||''),en:String(l.en||''),start:Number(l.start),end:Number(l.end)}});
   L.forEach(function(l,i){if(!isFinite(l.start))l.start=i?L[i-1].end+.8:1;if(!isFinite(l.end))l.end=l.start+(cfg.fallbackLineSeconds||3.6)});
   L.sort(function(a,b){return a.start-b.start});
-  ui.sub.innerHTML='';ln=L.map(function(l){var el=D.createElement('div');el.className='ln'+(l.en.length>44?' long':'');el.innerHTML='<div class="z"></div><div class="e"></div>';el.firstChild.textContent=l.en;el.lastChild.textContent=l.zh;ui.sub.appendChild(el);return el}); /* 英文是大字幕，中文是小字幕 */
+  ui.sub.innerHTML='';
+  ln=L.map(function(l){var el=D.createElement('div');el.className='ln'+(l.en.length>44?' long':'');el.innerHTML='<div class="z"></div><div class="e"></div>';el.firstChild.textContent=l.en;el.lastChild.textContent=l.zh;ui.sub.appendChild(el);return el}); /* 英文是大字幕，中文是小字幕 */
+  /* 故事章节：每章一幅插画 + 一小段字，点一下翻一页 */
+  var A=W.__ART||(typeof __ART!=='undefined'?__ART:null);
+  CH=(cfg.chapters||[]).map(function(c){return{art:String(c.art||''),cap:String(c.cap||''),en:String(c.en||''),zh:String(c.zh||'')}}).filter(function(c){return c.en||c.zh||(A&&A[c.art])});
+  ui.art.innerHTML='';
+  chArt=CH.map(function(c){var el=D.createElement('figure');el.className='art';
+    try{el.innerHTML='<div class="pnl"><svg viewBox="0 0 400 300" aria-hidden="true">'+(A&&A[c.art]?A[c.art]():'')+'</svg></div><figcaption>'+esc(c.cap)+'</figcaption>'}catch(e){el.innerHTML=''}
+    ui.art.appendChild(el);return el});
+  chTxt=CH.map(function(c){var el=D.createElement('div');el.className='ln ch'+(c.en.length>56?' long':'');el.innerHTML='<div class="z"></div><div class="e"></div>';el.firstChild.textContent=c.en;el.lastChild.textContent=c.zh;ui.sub.appendChild(el);return el});
 }
 function loadFileConfig(){
   try{if(!W.fetch)return;fetch('intro-config.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&!S.unlocked){merge(j);applyText()}}).catch(function(){})}catch(e){}
 }
 
-/* —— 声音：解锁成功的那一下才开始播放（浏览器要求用户操作之后才能放声音）；放不出来就用计时器顶上，字幕照样走 —— */
-function prepVoice(){
-  if(voice||!cfg.voice)return;
-  try{voice=new Audio();voice.preload='auto';
-    voice.addEventListener('playing',function(){if(S.clock==='pending')S.clock='audio'});
-    voice.addEventListener('ended',function(){S.voiceEnded=true;if(S.clock==='audio'){S.clock='timer';S.tt0=NOW()-(voice.currentTime||0)*1000}}); /* 语音比最后一句字幕短 / 刚好放完：时间接着往下走，不会卡住 */
-    voice.addEventListener('error',function(){S.voiceBad=true;if(S.clock==='pending')toTimer()}); /* 语音文件不存在 / 坏了：记下来，用计时器顶上 */
-    voice.src=cfg.voice;if(voice.load)voice.load()}catch(e){voice=null}
+/* —— 声音：配音和背景音乐。解锁那一下（用户点击）就把两个播放权限都拿到手，后面不管是点击还是自动翻页，都能出声 —— */
+function prepAudio(){
+  if(!voice&&cfg.voice){
+    try{voice=new Audio();voice.preload='auto';
+      voice.addEventListener('playing',function(){if(S.clock==='pending'&&!S.priming)S.clock='audio'});
+      voice.addEventListener('ended',function(){S.voiceEnded=true;if(S.clock==='audio'){S.clock='timer';S.tt0=NOW()-(voice.currentTime||0)*1000}}); /* 配音比最后一句字幕短 / 刚好放完：时间接着往下走，不会卡住 */
+      voice.addEventListener('error',function(){S.voiceBad=true;if(S.clock==='pending')toTimer()}); /* 文件不存在 / 坏了：记下来，用计时器顶上 */
+      voice.src=cfg.voice;if(voice.load)voice.load()}catch(e){voice=null}
+  }
+  if(!bgm&&cfg.bgm){
+    try{bgm=new Audio();bgm.loop=true;bgm.preload='auto';bgm.addEventListener('error',function(){S.bgmBad=true});bgm.src=cfg.bgm;if(bgm.load)bgm.load()}catch(e){bgm=null}
+  }
+}
+function canVol(){return!(W.AMB&&W.AMB.canVol===false)}
+function bgmTo(v,sec){ /* 背景音乐渐变到某个音量；iOS 不能调音量，只能到 0 时暂停 */
+  if(!bgm)return;clearInterval(bgmIv);bgmIv=0;
+  if(!canVol()){if(v<=0)try{bgm.pause()}catch(e){}return}
+  var st=Math.max(.02,Math.abs(v-bgmV)/Math.max(.2,sec||1)*.05);
+  bgmIv=setInterval(function(){var d=v-bgmV;if(Math.abs(d)<=st){bgmV=v;clearInterval(bgmIv);bgmIv=0;if(v<=0)try{bgm.pause()}catch(e){}}else bgmV+=d>0?st:-st;try{bgm.volume=Math.max(0,Math.min(1,bgmV))}catch(e){}},50);
+}
+function startBgm(){
+  if(!bgm||S.bgmBad)return;
+  try{bgmV=0;if(canVol())bgm.volume=0;bgm.muted=S.muted;var p=bgm.play();if(p&&p.catch)p.catch(function(){})}catch(e){}
+  bgmTo(1,2.5);
+}
+function stopBgm(){clearInterval(bgmIv);bgmIv=0;if(bgm){try{bgm.pause()}catch(e){}}}
+function primeVoice(){ /* 先在点击里「预热」一下配音：悄悄播一下马上停，手机浏览器之后才允许自动开始播放 */
+  if(!voice||S.voiceBad)return;
+  try{S.priming=true;voice.muted=true;var p=voice.play();
+    var done=function(){try{voice.pause();voice.currentTime=0}catch(e){}voice.muted=S.muted;S.priming=false};
+    if(p&&p.then)p.then(done).catch(function(){S.priming=false});else done()}catch(e){S.priming=false}
 }
 function toTimer(){S.clock='timer';S.tt0=NOW()}
 function startVoice(){
@@ -672,19 +836,19 @@ function stopVoice(){if(voice){try{voice.pause()}catch(e){}}}
 function clockT(){
   if(S.clock==='audio')return voice.currentTime||0;
   if(S.clock==='timer')return(NOW()-S.tt0)/1000;
-  return 0; /* pending：等语音真的开始放，再开始算时间 */
+  return 0;
 }
 
-/* —— 各个阶段 —— */
+/* —— 密码 —— */
 function showLogin(){
-  if(S.state==='login')return;go('login');prepVoice();ui.inp.value='';paint();
-  if(!coarse)after('f',900,function(){try{ui.inp.focus()}catch(e){}}); /* 手机上不自动弹键盘，等用户自己点小圆点 */
+  if(S.state==='login')return;go('login');prepAudio();ui.inp.value='';paint();
+  if(!coarse)after('f',900,function(){try{ui.inp.focus()}catch(e){}});
 }
 function wrong(){
   S.tries++;snd('err');
   ui.pin.classList.remove('shake');void ui.pin.offsetWidth;ui.pin.classList.add('shake');
   ui.inp.value='';paint();
-  ui.em.textContent=(S.tries>=3&&cfg.hint2)?cfg.hint2:(cfg.window.wrong||'Not quite. Try again.'); /* 输错 3 次以后，换一句更明显的提示 */
+  ui.em.textContent=(S.tries>=3&&cfg.hint2)?cfg.hint2:(cfg.window.wrong||'Not quite. Please try again.');
   ui.em.classList.add('show');
 }
 function submit(){
@@ -697,9 +861,46 @@ function unlock(){
   go('unlock');S.unlocked=true;S.tries=0;S.muted=!sndOn();snd('unlock');amb('prime');
   try{ui.inp.blur()}catch(e){}
   ui.em.classList.remove('show');
-  startVoice(); /* 要在用户这一次操作里直接调用 play()，否则手机浏览器会拦住 */
-  after('sp',1050,beginSpeech);
+  primeVoice();startBgm(); /* 这些都要在用户这一次点击里直接调用，否则手机浏览器会拦住 */
+  after('sp',1050,beginStory);
 }
+
+/* —— 故事：每章一幅插画 + 一小段字。点一下 = 把动画立刻画完；再点一下 = 下一章 —— */
+function chShow(i,on){var a=chArt[i],t=chTxt[i];[a,t].forEach(function(e){if(!e)return;e.classList.remove(on?'off':'on');e.classList.add(on?'on':'off');if(!on)e.classList.remove('snap')})}
+function hintShow(on){if(ui.next)ui.next.classList.toggle('show',!!on)}
+function beginStory(){
+  go('story');buildDecor();S.ch=-1;S.phase='';
+  if(!CH.length){beginSpeech();return}
+  nextChapter();
+}
+function chapterReady(){
+  S.phase='ready';clearTimeout(TM.full);hintShow(true);
+  if(cfg.autoAdvanceSeconds>0)after('auto',cfg.autoAdvanceSeconds*1000,function(){nextChapter()}); /* 一直没人点：过一会儿自动翻页，不会卡在这里 */
+}
+function chapterComplete(){ /* 第一次点：把这一章的动画立刻画完、字立刻出齐 */
+  var a=chArt[S.ch],t=chTxt[S.ch];[a,t].forEach(function(e){if(e)e.classList.add('snap')});
+  if(a)a.classList.add('done');chapterReady();
+}
+function nextChapter(){
+  if(S.state!=='story')return;
+  clearTimeout(TM.full);clearTimeout(TM.auto);hintShow(false);
+  if(S.ch>=0)chShow(S.ch,false);
+  S.ch++;
+  if(S.ch>=CH.length){endStory();return}
+  root.classList.add('has-art');chShow(S.ch,true);S.phase='play';
+  after('full',reduce?60:(cfg.chapterMs||1700),chapterReady); /* 动画自己播完以后，也会进入「等你点一下」 */
+}
+function endStory(){ /* 最后一章翻过去：插画收起，配音开始，字幕回到中间 */
+  root.classList.remove('has-art');S.ch=-1;S.phase='';
+  bgmTo(.45,1.2);
+  startVoice();beginSpeech();
+}
+function advance(){
+  if(S.state!=='story')return;
+  if(S.phase==='play')chapterComplete();else nextChapter();
+}
+
+/* —— 配音阶段 —— */
 function showLine(i){var e=ln[i];if(!e)return;e.classList.remove('off');e.classList.add('on')}
 function hideLine(i){var e=ln[i];if(!e)return;e.classList.remove('on');e.classList.add('off')}
 function beginSpeech(){
@@ -707,35 +908,39 @@ function beginSpeech(){
   (function tick(){
     if(S.state!=='speech')return;
     var t=clockT(),idx=-1;
-    if(S.clock==='audio'){var n=NOW();if(t!==S.lastT){S.lastT=t;S.lastAt=n}else if(voice&&!voice.paused&&n-(S.lastAt||n)>6000){S.clock='timer';S.tt0=n-t*1000}} /* 语音卡住（缓冲不动）超过 6 秒：改用计时器，从当前时间接着走 */
+    if(S.clock==='audio'){var n=NOW();if(t!==S.lastT){S.lastT=t;S.lastAt=n}else if(voice&&!voice.paused&&n-(S.lastAt||n)>6000){S.clock='timer';S.tt0=n-t*1000}} /* 配音卡住（缓冲不动）超过 6 秒：改用计时器，从当前时间接着走 */
     for(var i=0;i<L.length;i++)if(t>=L[i].start&&t<L[i].end){idx=i;break}
     if(idx!==S.cur){if(S.cur>=0)hideLine(S.cur);if(idx>=0)showLine(idx);S.cur=idx}
     var endT=L.length?L[L.length-1].end:0;
-    if(S.clock!=='pending'&&t>=endT+cfg.pauseBeforeTitle&&(S.clock!=='audio'||S.voiceEnded||t>=endT+cfg.pauseBeforeTitle+3)){toTitle();return}
+    if(S.clock!=='pending'&&t>=endT+cfg.pauseBeforeTitle){toTitle();return}
     S.raf=W.requestAnimationFrame?requestAnimationFrame(tick):setTimeout(tick,16);
   })();
 }
 function toTitle(){
   if(S.cur>=0)hideLine(S.cur);S.cur=-1;
-  go('title');snd('sparkle');amb('start');
-  after('ex',Math.round((cfg.titleHold||2.8)*1000)+1900,startExit); /* 标题升起约 2 秒，再停留 titleHold 秒 */
+  go('title');snd('sparkle');amb('start');bgmTo(0,3.5); /* 故事音乐慢慢退下去，房间里的背景音接上 */
+  after('ex',Math.round((cfg.titleHold||2.8)*1000)+1900,startExit);
 }
 function startExit(){
   if(S.state==='exit'||S.state==='done')return;
-  clearAll();go('exit');amb('start');
+  clearAll();go('exit');amb('start');bgmTo(0,1);
   try{D.body.classList.add('intro-reveal');D.dispatchEvent(new CustomEvent('intro:exit'))}catch(e){}
   after('done',reduce?30:1150,finish);
 }
 function finish(){
-  clearAll();stopVoice();
+  clearAll();stopVoice();stopBgm();
   if(S.state==='done')return;go('done');root.classList.remove('on');
   try{D.documentElement.classList.add('intro-done')}catch(e){}
   try{if(root.parentNode)root.parentNode.removeChild(root)}catch(e){}
   try{D.dispatchEvent(new CustomEvent('intro:done'))}catch(e){}
 }
-function skip(){ /* 只有在密码验证通过以后才能跳过，不会绕过密码 */
-  if(!S.unlocked)return;snd('tick');
-  if(S.state==='unlock'||S.state==='speech'||S.state==='title'){stopVoice();startExit()}
+function skip(){ /* 只有在密码验证通过以后才能跳过，不会绕过密码；跳过的是「故事和配音」，会直接到 Happy Henry's Day 这一页，标题页不跳过，再自然进入首页 */
+  if(!S.unlocked)return;
+  if(S.state==='unlock'||S.state==='story'||S.state==='speech'){
+    snd('tick');clearAll();stopVoice();hintShow(false);
+    if(S.ch>=0)chShow(S.ch,false);S.ch=-1;S.phase='';root.classList.remove('has-art');
+    toTitle();
+  }
 }
 function start(){
   if(S.started)return;S.started=true;
@@ -747,13 +952,20 @@ function start(){
 ui.form.addEventListener('submit',function(e){e.preventDefault();submit()});
 ui.inp.addEventListener('input',function(){snd('key');ui.em.classList.remove('show');paint()});
 ui.skip.addEventListener('click',skip);
-function paintMute(){if(W.SND)S.muted=!sndOn();if(voice)voice.muted=S.muted;ui.mute.classList.toggle('off',S.muted)}
-ui.mute.addEventListener('click',function(){if(W.SND&&W.SND.toggle)W.SND.toggle();else{S.muted=!S.muted;if(voice)voice.muted=S.muted;ui.mute.classList.toggle('off',S.muted)}paintMute()});
+/* 故事阶段：点屏幕任意位置（或按 空格 / 回车 / →）翻页 */
+root.addEventListener('click',function(e){
+  if(S.state!=='story')return;
+  var t=e&&e.target;try{if(t&&t.closest&&t.closest('.skip,.mute'))return}catch(x){}
+  snd('page');advance();
+});
+function paintMute(){if(W.SND)S.muted=!sndOn();if(voice)voice.muted=S.muted;if(bgm)bgm.muted=S.muted;ui.mute.classList.toggle('off',S.muted)}
+ui.mute.addEventListener('click',function(){if(W.SND&&W.SND.toggle)W.SND.toggle();else{S.muted=!S.muted;if(voice)voice.muted=S.muted;if(bgm)bgm.muted=S.muted;ui.mute.classList.toggle('off',S.muted)}paintMute()});
 try{if(W.SND&&W.SND.subs)W.SND.subs.push(paintMute)}catch(e){}
 paintMute();
 D.addEventListener('keydown',function(e){
   if(S.state==='done'||S.state==='wait')return;
   if(e.key==='Escape')skip();
+  else if(S.state==='story'&&(e.key===' '||e.key==='Enter'||e.key==='ArrowRight'||e.key==='ArrowDown')){try{e.preventDefault()}catch(x){}snd('page');advance()}
 });
 try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){ /* 手机弹出键盘：内容跟着「看得见的那一块」居中，背景始终铺满，不会露出后面的首页 */
   root.style.setProperty('--vvh',Math.round(vv.height)+'px');root.style.setProperty('--vvt',Math.round(vv.offsetTop)+'px');
@@ -764,7 +976,7 @@ try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){ /* 手机弹出
 W.addEventListener('error',function(e){if(S.started&&S.state!=='done'&&e.target===W&&/intro|Intro/.test(String(e.filename||'')+String(e.message||''))){finish()}});
 
 applyText();loadFileConfig();
-W.INTRO={start:start,skip:skip,state:S,cfg:cfg,ready:true};
+W.INTRO={start:start,skip:skip,advance:advance,state:S,cfg:cfg,ready:true};
 })();
 </script>
 <div id="pl" role="status" aria-live="polite"><div class="pl-box"><p class="pl-e">A Private Collection</p><h1 class="pl-t">Notes of Henry</h1><p class="pl-s">Every trace tells a story.</p><div class="pl-bar"><i id="plFill"></i></div><div class="pl-row"><span id="plMsg">Loading memories</span><span id="plPct">0%</span></div><p class="pl-slow" id="plSlow" hidden>网络有点慢，仍在加载，请稍等…</p><div class="pl-act" id="plAct" hidden><button type="button" id="plRetry">重试</button><button type="button" class="go" id="plGo">继续进入</button></div></div></div><noscript><p style="position:fixed;z-index:101;left:0;right:0;bottom:24px;text-align:center;font-size:12px">需要开启 JavaScript 才能打开这个网站</p></noscript>
