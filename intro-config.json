@@ -7,7 +7,7 @@
     "hint": "A little secret is waiting for you...",
     "label": "ENTER PASSWORD",
     "ok": "OK",
-    "wrong": "Incorrect password. Please try again."
+    "wrong": "Not quite. Please try again."
   },
   "title": "Happy Henry's Day",
   "date": "10 · 18",
@@ -46,5 +46,5 @@
   "pauseBeforeTitle": 1.0,
   "titleHold": 2.8,
   "fallbackLineSeconds": 3.6,
-  "hint2": "Hint: it's a very special date — month and day."
+  "hint2": "Hint: it’s a date — month, then day."
 }

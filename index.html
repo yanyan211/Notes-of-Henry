@@ -9,7 +9,7 @@
 <meta property="og:description" content="装下Henry的万千宇宙 · Scents, Sounds, Stories">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" data-fonts href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap&family=Press+Start+2P&family=Special+Elite&family=Playfair+Display:ital,wght@0,500;1,500"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=ZCOOL+KuaiLe&display=swap&family=Press+Start+2P&family=Special+Elite&family=Playfair+Display:ital,wght@0,500;1,500"></noscript>
+<link rel="preload" as="style" data-fonts href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=ZCOOL+KuaiLe&display=swap"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=ZCOOL+KuaiLe&display=swap"></noscript>
 <style>
 :root{--bg:#f3f1ee;--ink:#2b2926;--mute:#8a847c;box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif}
@@ -153,232 +153,435 @@ body.night #songs .sbar.mini,body.night #songs .sbar .mini{background:rgba(30,31
 body.night #songs .sbar .abar .atr::before{background:rgba(236,232,224,.22)}
 </style>
 <script>addEventListener('error',function(e){var t=e.target;if(t&&t!==window&&t.tagName)return;var m=document.getElementById('plMsg');if(m){m.textContent='载入出错了：'+(e.message||'脚本出错')+' · 刷新试试';m.classList.add('err');var a=document.getElementById('plAct');if(a){a.hidden=false;var g=document.getElementById('plGo');if(g)g.hidden=true;var r=document.getElementById('plRetry');if(r){r.hidden=false;r.textContent='刷新'}}}},true);</script>
-<style>/* ===== 首屏预加载页（Preloader）：米色底、细字、一条很细的进度线 ===== */
+<style>/* ===== 首屏预加载页（Preloader）：和开场动画、房间同一个底色和同一套字体（衬线斜体 + 细线） ===== */
 #boot{display:none!important}
 #pl{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;box-sizing:border-box;
  padding:calc(env(safe-area-inset-top,0px) + 20px) 24px calc(env(safe-area-inset-bottom,0px) + 20px);
- background:radial-gradient(130% 95% at 50% 40%,#f5f2ed 0%,#efebe4 58%,#e6e1d8 100%);color:#2f2b27;
+ background:radial-gradient(120% 95% at 50% 38%,#f8f6f3 0%,#f3f1ee 58%,#ebe8e3 100%);color:#2b2926;
  font-family:"Avenir Next","Helvetica Neue","SF Pro Display","PingFang SC","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
  transition:opacity .65s ease,visibility 0s linear .65s}
 #pl.out{opacity:0;visibility:hidden;pointer-events:none}
-#pl .pl-box{width:min(520px,86vw);text-align:center}
-#pl .pl-e{margin:0;font-size:clamp(10px,2.9vw,12.5px);font-weight:400;letter-spacing:.34em;text-transform:uppercase;color:#85796d;padding-left:.34em}
-#pl .pl-t{margin:clamp(14px,3.4vh,26px) 0 0;font-size:clamp(40px,12.6vw,68px);font-weight:300;letter-spacing:-.012em;line-height:1.06;color:#2a2622}
-#pl .pl-s{margin:clamp(14px,3vh,22px) 0 0;font-size:clamp(14px,4vw,18px);font-style:italic;font-weight:300;letter-spacing:.015em;color:#8c8176}
-#pl .pl-bar{margin:clamp(34px,7.5vh,56px) 0 0;height:2px;background:rgba(85,72,58,.16);overflow:hidden}
-#pl .pl-bar i{display:block;height:100%;background:#5d554c;transform-origin:0 50%;transform:scaleX(0);transition:transform .3s ease-out}
-#pl .pl-row{margin-top:11px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:#8c8176;font-variant-numeric:tabular-nums;text-align:left}
+#pl .pl-box{position:relative;width:min(520px,86vw);text-align:center}
+#pl .pl-e{margin:0;font-size:clamp(10px,2.9vw,12.5px);font-weight:400;letter-spacing:.34em;text-transform:uppercase;color:#8a847c;padding-left:.34em}
+#pl .pl-t{margin:clamp(14px,3.4vh,26px) 0 0;font-family:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","Noto Serif SC",serif;font-style:italic;font-size:clamp(40px,12.6vw,68px);font-weight:400;letter-spacing:-.005em;line-height:1.08;color:#2b2926;text-shadow:none}
+#pl .pl-s{margin:clamp(14px,3vh,22px) 0 0;font-family:"Playfair Display","Iowan Old Style",Georgia,serif;font-size:clamp(14px,4vw,18px);font-style:italic;font-weight:400;letter-spacing:.02em;color:#8a847c}
+#pl .pl-bar{margin:clamp(34px,7.5vh,56px) 0 0;height:2px;background:rgba(43,41,38,.14);overflow:hidden}
+#pl .pl-bar i{display:block;height:100%;background:#2b2926;transform-origin:0 50%;transform:scaleX(0);transition:transform .3s ease-out}
+#pl .pl-row{margin-top:11px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:#8a847c;font-variant-numeric:tabular-nums;text-align:left}
 #pl .pl-row span:last-child{letter-spacing:.06em;text-align:right;flex:none}
-#pl #plMsg.err{text-transform:none;letter-spacing:.04em;font-size:12px;line-height:1.5;color:#6f655a}
-#pl .pl-slow{margin:16px 0 0;font-size:12px;line-height:1.7;font-style:italic;color:#8c8176}
+#pl #plMsg.err{text-transform:none;letter-spacing:.04em;font-size:12px;line-height:1.5;color:#6f6a63}
+#pl .pl-slow{margin:16px 0 0;font-size:12px;line-height:1.7;font-style:italic;color:#8a847c}
 #pl .pl-act{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-#pl button{font:inherit;font-size:12px;letter-spacing:.12em;padding:9px 22px;border-radius:999px;border:1px solid #5d554c;background:transparent;color:#5d554c;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#pl button.go{background:#2f2b27;border-color:#2f2b27;color:#f5f2ed}
+#pl button{font:inherit;font-size:12px;letter-spacing:.12em;padding:9px 22px;border-radius:999px;border:1px solid #2b2926;background:transparent;color:#2b2926;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#pl button.go{background:#2b2926;border-color:#2b2926;color:#f3f1ee}
 #pl [hidden]{display:none!important}
 /* 进场：几行字依次轻轻浮出来（只有透明度和一点点位移，不耗性能） */
 #pl .pl-e,#pl .pl-t,#pl .pl-s,#pl .pl-bar,#pl .pl-row{opacity:0;animation:plIn .9s cubic-bezier(.2,.7,.2,1) forwards}
 #pl .pl-e{animation-delay:.05s}#pl .pl-t{animation-delay:.16s}#pl .pl-s{animation-delay:.3s}#pl .pl-bar{animation-delay:.46s}#pl .pl-row{animation-delay:.5s}
 @keyframes plIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-/* 夜间 */
-html.pl-night #pl{background:radial-gradient(130% 95% at 50% 40%,#171c27 0%,#0f131b 58%,#0a0d13 100%);color:#ece8e0}
-html.pl-night #pl .pl-e{color:#8f8a82}
-html.pl-night #pl .pl-t{color:#efebe3}
-html.pl-night #pl .pl-s{color:#9a948a}
-html.pl-night #pl .pl-bar{background:rgba(236,232,224,.14)}
-html.pl-night #pl .pl-bar i{background:#d9d4ca}
-html.pl-night #pl .pl-row{color:#8f8a82}
-html.pl-night #pl #plMsg.err{color:#b4aea4}
-html.pl-night #pl .pl-slow{color:#8f8a82}
-html.pl-night #pl button{border-color:#a9a39a;color:#d9d4ca}
+/* 夜间：和夜间的开场动画、夜间房间同一个底色 */
+html.pl-night #pl{background:radial-gradient(120% 95% at 50% 38%,#151a24 0%,#0e1118 58%,#0a0d13 100%);color:#ece8e0}
+html.pl-night #pl .pl-e{color:#8d8a84}
+html.pl-night #pl .pl-t{color:#ece8e0}
+html.pl-night #pl .pl-s{color:#a29e96}
+html.pl-night #pl .pl-bar{background:rgba(236,232,224,.16)}
+html.pl-night #pl .pl-bar i{background:#ece8e0}
+html.pl-night #pl .pl-row{color:#8d8a84}
+html.pl-night #pl #plMsg.err{color:#c9c4ba}
+html.pl-night #pl .pl-slow{color:#8d8a84}
+html.pl-night #pl button{border-color:#a29e96;color:#ece8e0}
 html.pl-night #pl button.go{background:#ece8e0;border-color:#ece8e0;color:#0e1118}
 @media (max-width:380px){#pl .pl-e{letter-spacing:.26em}#pl .pl-row{letter-spacing:.12em}}
 @media (max-height:520px){#pl .pl-t{font-size:clamp(34px,9vw,52px)}#pl .pl-bar{margin-top:24px}}
 @media (prefers-reduced-motion:reduce){#pl,#pl *{transition:none!important;animation:none!important}#pl .pl-e,#pl .pl-t,#pl .pl-s,#pl .pl-bar,#pl .pl-row{opacity:1}}
 </style>
-<style>/* ===== Happy Henry's Day · 开场动画（Mint Y2K Retro Desktop） =====
-   整套用 CSS 变量统一：薄荷绿底、冷白窗口、经典蓝标题栏、像素字体 + 打字机字体 + 复古衬线。 */
-#intro{position:fixed;inset:0;z-index:95;display:none;color:#12474f;transition:opacity 1.1s ease;overscroll-behavior:none;background:radial-gradient(120% 90% at 50% 34%,#e6fbf4 0%,#c3f0e2 36%,#9ae0d1 68%,#86cde0 100%);
- --ink:#12474f;--sh:#5f9496;--chrome:#e6f6f1;--blue1:#1f56d6;--blue2:#63a6ff;--pink:#ff9ec1;
- --px:"Press Start 2P","Courier New",monospace;--tw:"Special Elite","American Typewriter","Courier New",monospace;
- --serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","Noto Serif SC",serif;
- --ui:Tahoma,"Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-family:var(--ui)}
+<style>/* ===== 统一的视觉语言：房间原有的暖纸白 + 墨色，标题和弹窗用衬线斜体 + 宋体 =====
+   加载页、开场动画、房间里的界面，用同一套颜色和字体，一路接下来。 */
+:root{--teal:#2b2926;
+ --serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC","SimSun","NSimSun",serif}
+/* —— 房间里的标题 —— */
+.top h1{font:italic 500 26px/1.1 var(--serif);letter-spacing:.005em;text-transform:none;color:var(--teal)}
+.top p.en{font-family:"Helvetica Neue",Arial,sans-serif;font-size:9.5px;letter-spacing:.3em}
+.top p:not(.en){font-family:var(--serif);font-size:13px;letter-spacing:.2em;margin-top:6px}
+body.night .top h1{color:#ece8e0}
+.hint{font-family:var(--serif);font-size:12px;letter-spacing:.14em}
+#boot{font-family:var(--serif);letter-spacing:.2em}
+#tip{font-family:var(--serif);font-size:13px;letter-spacing:.08em}
+/* —— 语音 / 互动弹窗：宋体 + 衬线，安静一点、有叙事感 —— */
+.sndTip,#drTip{font-family:var(--serif);font-size:14px;letter-spacing:.1em;padding:8px 16px;background:rgba(255,253,248,.92);border:1px solid rgba(45,74,71,.1)}
+.typeBox{font-family:var(--serif);font-size:clamp(15px,2.1vw,19px);line-height:1.85;letter-spacing:.06em;padding:12px 20px;border-radius:14px;background:rgba(255,253,248,.92);border:1px solid rgba(45,74,71,.1);color:var(--teal)}
+.typeBox .cur{background:var(--teal)}
+.mkc{font-family:var(--serif)}
+.mkc h3{font-weight:500;letter-spacing:.04em}
+#certw .chint{font-family:var(--serif);letter-spacing:.14em}
+.mini{font-family:var(--serif);font-variant-numeric:tabular-nums}
+#pcard h2,#panel h2{font-family:var(--serif);font-weight:500;letter-spacing:.02em}
+#pcard p,#panel p{font-family:var(--serif)}
+#songs .stitle,#certw .ctitle{font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:0}
+body.night .typeBox,body.night .sndTip,body.night #drTip{background:rgba(30,34,40,.9);color:#ece8e0;border-color:rgba(255,255,255,.12)}
+body.night .typeBox .cur{background:#ece8e0}
+/* —— 声音开关 —— */
+#snd{position:fixed;right:82px;top:calc(14px + env(safe-area-inset-top,0px));width:36px;height:30px;border-radius:999px;border:1px solid rgba(43,41,38,.14);background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer;padding:0;z-index:9;box-shadow:0 4px 14px rgba(60,50,40,.1);display:grid;place-items:center;color:var(--teal);transition:background .5s,border-color .5s,color .5s;-webkit-tap-highlight-color:transparent}
+#snd svg{grid-area:1/1;width:16px;height:16px;transition:opacity .25s,transform .35s}
+#snd .off{opacity:0;transform:scale(.7)}#snd.off .on{opacity:0;transform:scale(.7)}#snd.off .off{opacity:1;transform:none}
+#snd:focus-visible{outline:2px solid #8aa0d8;outline-offset:2px}
+body.night #snd{background:rgba(30,34,46,.72);border-color:rgba(255,255,255,.16);color:#ece8e0}
+/* —— 点中物件时的一圈涟漪 —— */
+.rip{position:fixed;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:1.5px solid rgba(43,41,38,.38);background:radial-gradient(circle,rgba(43,41,38,.07),rgba(43,41,38,0) 70%);pointer-events:none;z-index:15;animation:rip .65s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes rip{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+body.night .rip{border-color:rgba(236,232,224,.5);background:radial-gradient(circle,rgba(236,232,224,.1),rgba(236,232,224,0) 70%)}
+@media (prefers-reduced-motion:reduce){.rip{display:none}}
+/* —— 开场动画结束、进入房间：标题 / 提示 / 开关依次轻轻浮出来 —— */
+body.intro-reveal .top,body.intro-reveal .hint,body.intro-reveal #nsw,body.intro-reveal #snd{animation:uiIn 1.3s cubic-bezier(.2,.7,.2,1) .5s both}
+@keyframes uiIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){body.intro-reveal .top,body.intro-reveal .hint,body.intro-reveal #nsw,body.intro-reveal #snd{animation:none}}
+
+/* —— 手机上更好点：小按钮的可点击区域比看到的大一圈，并去掉浏览器的双击缩放等待 —— */
+button,[role=button],.mbtn,#ipbtn{touch-action:manipulation}
+#nsw::after,#snd::after,#pcard .px::after{content:"";position:absolute;inset:-8px}
+</style>
+<style>/* ===== Happy Henry's Day · 开场动画 =====
+   和房间同一套语言：同一个底色（#f3f1ee / 夜间 #0e1118）、同一个标题位置、同样的细线与圆角小胶囊、衬线斜体 + 宋体。
+   没有窗口、没有像素字，只有安静的留白、一排小圆点和一行字。 */
+#intro{position:fixed;inset:0;z-index:95;display:none;color:var(--ink);transition:opacity 1.1s ease;overscroll-behavior:none;
+ --ink:#2b2926;--mute:#8a847c;--soft:#6f6a63;--line:rgba(43,41,38,.16);--pill:rgba(255,255,255,.72);--err:#9a5b4f;
+ --bgg:radial-gradient(120% 95% at 50% 38%,#f8f6f3 0%,#f3f1ee 58%,#ebe8e3 100%);
+ --serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC","SimSun",serif;
+ --sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+ background:var(--bgg);font-family:var(--sans)}
+html.pl-night #intro{--ink:#ece8e0;--mute:#8d8a84;--soft:#a29e96;--line:rgba(236,232,224,.2);--pill:rgba(30,34,46,.72);--err:#d49a8c;
+ --bgg:radial-gradient(120% 95% at 50% 38%,#151a24 0%,#0e1118 58%,#0a0d13 100%)}
 #intro.on{display:block}
 #intro *{box-sizing:border-box}
-#intro .in-stage{position:absolute;inset:0;overflow:hidden;transition:transform 1.1s ease}
+#intro .in-stage{position:absolute;inset:0;overflow:hidden}
 #intro[data-state=exit]{opacity:0;pointer-events:none}
-#intro[data-state=exit] .in-stage{transform:scale(.965)}
-#intro i[data-px]{display:block}
-#intro svg{display:block;width:100%;height:100%;shape-rendering:crispEdges}
-/* —— 背景：薄荷渐变 + 网点 + 光晕 + CRT 扫描线 —— */
-#intro .in-bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 34%,#e6fbf4 0%,#c3f0e2 36%,#9ae0d1 68%,#86cde0 100%)}
-#intro .in-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.6) 1px,transparent 1.5px);background-size:6px 6px;opacity:.5}
-#intro .in-glow{position:absolute;inset:0;background:radial-gradient(55% 42% at 50% 50%,rgba(255,255,255,.7),rgba(255,255,255,0) 72%);opacity:0;transition:opacity 1.6s ease}
+/* 左上角的标题：直接用房间里同一个 .top，位置、字体、颜色一模一样，淡出的时候像是它一直在那里 */
+#intro .top{z-index:2}
+#intro .top,#intro .top *{pointer-events:none}
+#intro .in-glow{position:absolute;inset:0;background:radial-gradient(52% 40% at 50% 48%,rgba(255,255,255,.7),rgba(255,255,255,0) 72%);opacity:0;transition:opacity 1.8s ease}
+html.pl-night #intro .in-glow{background:radial-gradient(52% 40% at 50% 48%,rgba(90,110,140,.16),rgba(0,0,0,0) 72%)}
 #intro[data-state=speech] .in-glow,#intro[data-state=title] .in-glow{opacity:1}
-#intro .in-crt{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(18,71,79,.05) 0 1px,transparent 1px 3px),radial-gradient(125% 105% at 50% 50%,transparent 60%,rgba(18,71,79,.2) 100%);animation:crt 7s steps(1) infinite}
-@keyframes crt{0%,92%,100%{opacity:1}94%{opacity:.88}96%{opacity:1}98%{opacity:.93}}
-/* —— 窗口（Win98 / XP 风） —— */
-#intro .win{position:absolute;background:var(--chrome);border:2px solid;border-color:#fff var(--sh) var(--sh) #fff;box-shadow:3px 3px 0 rgba(18,71,79,.28),0 14px 34px rgba(30,110,120,.22)}
-#intro .tb{display:flex;align-items:center;justify-content:space-between;gap:8px;height:24px;padding:0 3px 0 8px;background:linear-gradient(90deg,var(--blue1),var(--blue2));color:#fff;font:700 12px/24px var(--ui);letter-spacing:.02em;text-shadow:1px 1px 0 rgba(0,0,50,.4)}
-#intro .tb span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-#intro .tb em{display:flex;gap:3px;font-style:normal;flex:none}
-#intro .tb u{display:block;position:relative;width:17px;height:15px;background:var(--chrome);border:1px solid;border-color:#fff var(--sh) var(--sh) #fff;text-decoration:none}
-#intro .tb u::after{content:"";position:absolute;left:3px;right:3px;bottom:3px;height:2px;background:var(--ink)}
-#intro .tb u.x::after{inset:2px;height:auto;background:linear-gradient(45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%),linear-gradient(-45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%)}
-#intro .bd{padding:14px 14px 12px}
-/* —— 桌面上的装饰：小播放器 / 记事本 / 小猫 / 图标，都很小，只是氛围 —— */
-#intro .in-desk,#intro .tbar{opacity:0;transition:opacity .8s ease}
-#intro:not([data-state=wait]):not([data-state=boot]) .in-desk,#intro:not([data-state=wait]):not([data-state=boot]) .tbar{opacity:1}
-#intro .mini,#intro .ic{transition:transform 1s cubic-bezier(.6,0,.3,1),opacity .8s ease}
-#intro .mini .bd{padding:9px 10px;font:400 12px/1.5 var(--tw);color:var(--ink)}
-#intro .mp{left:5vw;top:9vh;width:210px}
-#intro .np{right:5vw;bottom:15vh;width:215px}
-#intro .pet{right:8vw;top:13vh;width:150px;text-align:center}
-#intro .pet .bd{font:400 15px/1.5 var(--tw)}#intro .pet small{display:block;margin-top:4px;font:400 10px/1 var(--px);color:#3f8c90}
-#intro .np .cur{animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-#intro .eq{display:flex;align-items:flex-end;gap:3px;height:34px;padding:4px;background:#0c3d44;border:2px solid;border-color:var(--sh) #fff #fff var(--sh)}
-#intro .eq s{flex:1;background:#7cf3d0;height:30%;animation:eq 1.1s ease-in-out infinite alternate}
-#intro .eq s:nth-child(2n){animation-duration:.8s;animation-delay:-.3s}#intro .eq s:nth-child(3n){animation-duration:1.4s;animation-delay:-.6s}
-@keyframes eq{to{height:96%}}
-#intro .trk{margin-top:8px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#intro .cl{display:flex;gap:6px;margin-top:8px}#intro .cl i{width:22px;height:16px;background:var(--chrome);border:1px solid;border-color:#fff var(--sh) var(--sh) #fff}
-#intro .ic{position:absolute;left:3vw;width:78px;text-align:center;font:12px/1.25 var(--ui);color:var(--ink);text-shadow:0 1px 0 rgba(255,255,255,.85)}
-#intro .ic i{width:40px;height:40px;margin:0 auto 4px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.45))}
-#intro .ic-a{top:36vh}#intro .ic-b{top:52vh}#intro .ic-c{top:68vh}
-#intro[data-state=speech] .mp,#intro[data-state=title] .mp,#intro[data-state=exit] .mp{transform:translateX(-140%);opacity:0}
-#intro[data-state=speech] .np,#intro[data-state=title] .np,#intro[data-state=exit] .np,#intro[data-state=speech] .pet,#intro[data-state=title] .pet,#intro[data-state=exit] .pet{transform:translateX(140%);opacity:0}
-#intro[data-state=speech] .ic,#intro[data-state=title] .ic,#intro[data-state=exit] .ic{transform:translateX(-80px);opacity:0}
-/* —— 任务栏 —— */
-#intro .tbar{position:absolute;left:0;right:0;bottom:0;height:36px;display:flex;align-items:center;gap:8px;padding:0 6px calc(0px + env(safe-area-inset-bottom,0px));background:#cdeee5;border-top:2px solid #fff;box-shadow:0 -2px 0 rgba(95,148,150,.35);transition:opacity .8s ease,transform 1s cubic-bezier(.6,0,.3,1)}
-#intro .sb{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px 0 6px;font:700 13px var(--ui);color:var(--ink);background:linear-gradient(#bff2dc,#8fe3c4);border:2px solid;border-color:#fff var(--sh) var(--sh) #fff;border-radius:0 12px 12px 0;cursor:default}
-#intro .sb i{width:16px;height:16px}
-#intro .tk{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:12px var(--ui);padding:3px 10px;border:2px solid;border-color:var(--sh) #fff #fff var(--sh);max-width:240px}
-#intro .clk{margin-left:auto;padding:3px 10px;font:12px var(--ui);border:2px solid;border-color:var(--sh) #fff #fff var(--sh);background:#e9faf5}
-#intro[data-state=speech] .tbar,#intro[data-state=title] .tbar,#intro[data-state=exit] .tbar{transform:translateY(100%)}
-/* —— 启动画面（BIOS 风，约 1.2 秒） —— */
-#intro .in-boot{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px}
-#intro[data-state=boot] .in-boot{display:flex}
-#intro .in-boot pre{margin:0;width:min(92vw,520px);font:400 10px/2.1 var(--px);color:var(--ink);white-space:pre-wrap;text-shadow:0 0 8px rgba(255,255,255,.8)}
-#intro .in-boot pre::after{content:"█";margin-left:4px;animation:blink .8s steps(1) infinite}
-/* —— 密码窗口 —— */
-#intro .login{left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.44));width:min(92vw,410px);transform:translate(-50%,-50%);visibility:hidden;opacity:0}
-#intro[data-state=login] .login,#intro[data-state=unlock] .login{visibility:visible;opacity:1}
-#intro[data-state=login] .login{animation:inPop .62s cubic-bezier(.2,.9,.3,1.2)}
-#intro[data-state=unlock] .login{animation:inClose .5s ease forwards}
-@keyframes inPop{0%{opacity:0;transform:translate(-50%,-46%) scale(.86)}60%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@keyframes inClose{to{opacity:0;transform:translate(-50%,-52%) scale(.9)}}
-#intro .login.shake{animation:inShake .46s ease}
-@keyframes inShake{0%,100%{transform:translate(-50%,-50%)}18%{transform:translate(calc(-50% - 10px),-50%)}36%{transform:translate(calc(-50% + 10px),-50%)}54%{transform:translate(calc(-50% - 7px),-50%)}72%{transform:translate(calc(-50% + 6px),-50%)}}
-#intro .lk{display:flex;gap:12px;align-items:center}
-#intro .lk i{flex:none;width:48px;height:48px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.4))}
-#intro .hint{margin:0;font:400 15px/1.5 var(--tw)}
-#intro .fm{margin-top:14px}
-#intro .lb{display:block;margin-bottom:9px;font:400 10px/1.2 var(--px);letter-spacing:.06em}
-#intro #inPw{display:block;width:100%;height:42px;padding:0 10px;border:2px solid;border-color:var(--sh) #fff #fff var(--sh);border-radius:0;background:#fff;color:var(--ink);font:400 22px/1 "Courier New",monospace;letter-spacing:.3em;outline:none;-webkit-appearance:none;appearance:none}
-#intro #inPw:focus{box-shadow:0 0 0 2px var(--blue2)}
-#intro .bt{display:flex;justify-content:flex-end;margin-top:12px}
-#intro .ok,#intro .ok2,#intro .mute,#intro .skip{font:700 13px var(--ui);color:var(--ink);background:var(--chrome);border:2px solid;border-color:#fff var(--sh) var(--sh) #fff;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:0}
-#intro .ok,#intro .ok2{min-width:92px;height:32px}
-#intro .ok:active,#intro .ok2:active,#intro .mute:active,#intro .skip:active{border-color:var(--sh) #fff #fff var(--sh);transform:translate(1px,1px)}
-#intro .st{margin:12px 0 0;font:400 9px/1 var(--px);letter-spacing:.08em;color:#3f8c90}
-#intro .st b{display:inline-block;width:7px;height:7px;margin-right:7px;background:#ff7a9a;animation:blink 1.2s steps(1) infinite}
-/* —— 错误提示（系统弹窗） —— */
-#intro .in-dim{position:absolute;inset:0;background:rgba(18,71,79,.18);opacity:0;pointer-events:none;transition:opacity .25s}
-#intro .in-dim.on{opacity:1;pointer-events:auto}
-#intro .err{left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.44));width:min(86vw,340px);transform:translate(-50%,-50%);visibility:hidden;opacity:0;z-index:5}
-#intro .err.on{visibility:visible;opacity:1;animation:inPop .35s cubic-bezier(.2,.9,.3,1.2)}
-#intro .err .bd{display:grid;grid-template-columns:44px 1fr;gap:6px 12px;align-items:center}
-#intro .err .bd i{width:40px;height:40px;filter:drop-shadow(1px 1px 0 rgba(18,71,79,.4))}
-#intro .err .em{margin:0;font:400 14px/1.5 var(--tw)}
-#intro .err .ok2{grid-column:1/3;justify-self:center;margin-top:8px}
-/* —— 字幕：从下方升起，一句一句出现 —— */
+/* —— 密码 —— */
+#intro .in-lock{position:absolute;left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.46));width:min(88vw,420px);transform:translate(-50%,-50%);text-align:center;visibility:hidden;opacity:0;transition:opacity .7s ease,transform .9s cubic-bezier(.4,0,.2,1)}
+#intro[data-state=login] .in-lock,#intro[data-state=unlock] .in-lock{visibility:visible;opacity:1}
+#intro[data-state=unlock] .in-lock{opacity:0;transform:translate(-50%,-58%);transition-duration:.6s,.9s;transition-delay:.35s,.35s}
+#intro .in-eye{margin:0;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--mute);padding-left:.34em}
+#intro .in-hint{margin:18px 0 0;font:italic 400 clamp(24px,6.2vw,34px)/1.3 var(--serif);color:var(--ink);letter-spacing:.005em}
+#intro .fm{margin:0}
+#intro .lb{display:block;margin:42px 0 0;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);padding-left:.3em}
+#intro .pinw{position:relative;margin:18px auto 0;width:max-content;max-width:100%}
+#intro .pin{display:flex;gap:20px;justify-content:center;padding:10px 6px}
+#intro .pin i{display:block;width:13px;height:13px;border-radius:50%;border:1px solid var(--mute);background:transparent;transition:background .2s,border-color .2s,transform .25s cubic-bezier(.3,1.6,.5,1)}
+#intro .pin i.cur{border-color:var(--ink);animation:pulse 1.6s ease-in-out infinite}
+#intro .pin i.on{background:var(--ink);border-color:var(--ink);transform:scale(1.12);animation:none}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(138,132,124,.16)}}
+#intro .pin.shake{animation:shake .46s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}18%{transform:translateX(-9px)}36%{transform:translateX(9px)}54%{transform:translateX(-6px)}72%{transform:translateX(5px)}}
+#intro #inPw{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;padding:0;background:transparent;color:transparent;font-size:16px;caret-color:transparent;-webkit-appearance:none;appearance:none;cursor:text}
+#intro .go{display:grid;place-items:center;width:42px;height:42px;margin:22px auto 0;padding:0;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;opacity:.4;transition:opacity .3s,background .3s,color .3s,border-color .3s,transform .2s;-webkit-tap-highlight-color:transparent}
+#intro .go svg{width:18px;height:18px}
+#intro .go.rdy{opacity:1;border-color:var(--ink)}
+#intro .go.full{background:var(--ink);color:var(--bg,#f3f1ee)}
+html.pl-night #intro .go.full{color:#0e1118}
+#intro .go:active{transform:scale(.94)}
+#intro .em{margin:18px 0 0;min-height:44px;font:italic 400 15px/1.5 var(--serif);color:var(--err);opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
+#intro .em.show{opacity:1;transform:none}
+#intro[data-state=login] .in-eye,#intro[data-state=login] .in-hint,#intro[data-state=login] .lb,#intro[data-state=login] .pinw,#intro[data-state=login] .go{animation:inUp 1s cubic-bezier(.2,.7,.2,1) both}
+#intro[data-state=login] .in-hint{animation-delay:.12s}#intro[data-state=login] .lb{animation-delay:.3s}#intro[data-state=login] .pinw{animation-delay:.38s}#intro[data-state=login] .go{animation-delay:.46s}
+@keyframes inUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#intro .top{opacity:0;transition:opacity .9s ease .1s}
+#intro:not([data-state=wait]) .top{opacity:1}
+/* 解锁瞬间：一圈细线从中心荡开 */
+#intro .in-ring{position:absolute;left:50%;top:calc(var(--vvt,0px) + var(--vvh,100%) * var(--lt,.46));width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:1px solid var(--ink);opacity:0;pointer-events:none}
+#intro[data-state=unlock] .in-ring{animation:ring 1.5s cubic-bezier(.2,.6,.3,1) both}
+@keyframes ring{0%{opacity:.5;transform:scale(.3)}100%{opacity:0;transform:scale(9)}}
+/* —— 字幕：英文是大字幕，中文是小字幕，从下方轻轻升起 —— */
 #intro .in-sub{position:absolute;left:0;right:0;top:48%;height:0;padding:0 6vw;pointer-events:none}
-#intro .ln{position:absolute;left:0;right:0;top:0;max-width:940px;margin:0 auto;text-align:center;opacity:0;transform:translateY(-50%) translateY(30px);filter:blur(4px);transition:opacity .6s ease,transform .95s cubic-bezier(.2,.7,.2,1),filter .6s ease}
+#intro .ln{position:absolute;left:0;right:0;top:0;max-width:940px;margin:0 auto;text-align:center;opacity:0;transform:translateY(-50%) translateY(26px);filter:blur(4px);transition:opacity .7s ease,transform 1s cubic-bezier(.2,.7,.2,1),filter .7s ease}
 #intro .ln.on{opacity:1;transform:translateY(-50%);filter:none;transition-delay:.12s,.12s,.12s}
-#intro .ln.off{opacity:0;transform:translateY(-50%) translateY(-14px);filter:blur(3px);transition-duration:.45s;transition-delay:0s}
-#intro .ln .z{font:italic 500 clamp(26px,7.2vw,52px)/1.28 var(--serif);color:#0f4e57;text-wrap:balance;text-shadow:0 0 14px rgba(255,255,255,.95),0 0 30px rgba(160,240,225,.9),1px 1px 0 rgba(255,255,255,.7)}
-#intro .ln.long .z{font-size:clamp(21px,5.2vw,38px)}
-#intro .ln .e{margin-top:16px;font:400 clamp(13px,3.5vw,18px)/1.7 "Songti SC","Noto Serif SC","PingFang SC","Microsoft YaHei",var(--tw);letter-spacing:.14em;color:#2a747b;text-shadow:0 0 10px rgba(255,255,255,.9)}
-#intro .ln.on .z{animation:glw 1.8s ease-out}
-@keyframes glw{0%{text-shadow:0 0 4px #fff,0 0 8px rgba(160,240,225,.5)}35%{text-shadow:0 0 22px #fff,0 0 50px rgba(130,240,220,1),1px 1px 0 rgba(255,255,255,.7)}100%{text-shadow:0 0 14px rgba(255,255,255,.95),0 0 30px rgba(160,240,225,.9),1px 1px 0 rgba(255,255,255,.7)}}
+#intro .ln.off{opacity:0;transform:translateY(-50%) translateY(-12px);filter:blur(3px);transition-duration:.5s;transition-delay:0s}
+#intro .ln .z{font:italic 400 clamp(26px,7vw,52px)/1.28 var(--serif);color:var(--ink);text-wrap:balance}
+#intro .ln.long .z{font-size:clamp(21px,5.1vw,38px)}
+#intro .ln .e{margin-top:18px;font:400 clamp(13px,3.4vw,17px)/1.8 "Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","Noto Serif SC","SimSun",serif;letter-spacing:.16em;color:var(--soft)}
 /* —— 最终标题 —— */
 #intro .in-ttl{position:absolute;left:0;right:0;top:48%;transform:translateY(-50%);padding:0 5vw;text-align:center;pointer-events:none;opacity:0}
-#intro .in-ttl h2{margin:0;font:italic 500 clamp(38px,11.6vw,104px)/1.08 var(--serif);color:#0e4f58;text-shadow:0 0 20px rgba(255,255,255,.9),0 0 46px rgba(150,240,225,.9)}
-#intro .in-ttl p{margin:20px 0 0;font:400 clamp(10px,2.6vw,14px)/1 var(--px);letter-spacing:.35em;color:#3a8a90;padding-left:.35em}
+#intro .in-ttl h2{margin:0;font:italic 400 clamp(40px,11vw,96px)/1.08 var(--serif);color:var(--ink);letter-spacing:-.005em}
+#intro .in-ttl p{margin:22px 0 0;font-size:11px;letter-spacing:.42em;color:var(--mute);padding-left:.42em}
+#intro .in-ttl .rule{display:block;width:46px;height:1px;margin:0 auto 26px;background:var(--ink);opacity:.4;transform:scaleX(0)}
 #intro[data-state=title] .in-ttl{opacity:1}
-#intro[data-state=title] .in-ttl h2{animation:ttlIn 1.9s cubic-bezier(.2,.7,.2,1) both,ttlGlow 2.8s ease-in-out 1.5s 1}
+#intro[data-state=title] .in-ttl h2{animation:ttlIn 2s cubic-bezier(.2,.7,.2,1) both}
 #intro[data-state=title] .in-ttl p{animation:ttlP 1.4s ease .9s both}
-@keyframes ttlIn{0%{opacity:0;filter:blur(14px);transform:translateY(48px) scale(.97)}100%{opacity:1;filter:blur(0);transform:none}}
+#intro[data-state=title] .in-ttl .rule{animation:rule 1.4s cubic-bezier(.3,.7,.2,1) .5s both}
+@keyframes ttlIn{0%{opacity:0;filter:blur(14px);transform:translateY(44px)}100%{opacity:1;filter:blur(0);transform:none}}
 @keyframes ttlP{from{opacity:0}to{opacity:1}}
-@keyframes ttlGlow{0%,100%{text-shadow:0 0 20px rgba(255,255,255,.9),0 0 46px rgba(150,240,225,.9)}50%{text-shadow:0 0 34px #fff,0 0 80px rgba(120,240,215,1)}}
-/* —— 飘浮的像素爱心 / 星星 / 音符，和标题出现时的一小圈光点 —— */
-#intro .fl{display:none;position:absolute;left:var(--x);bottom:-40px;width:var(--s);height:var(--s);opacity:0;animation:flt var(--d) linear var(--dl) infinite;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+@keyframes rule{to{transform:scaleX(1)}}
+#intro[data-state=title] .in-ring{animation:ring2 3s cubic-bezier(.2,.6,.3,1) .9s both;top:48%}
+@keyframes ring2{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(11)}}
+/* —— 缓缓上升的细小光点 —— */
+#intro .fl{display:none;position:absolute;left:var(--x);bottom:-20px;width:var(--s);height:var(--s);border-radius:50%;background:var(--ink);opacity:0;animation:flt var(--d) linear var(--dl) infinite}
 #intro[data-state=speech] .fl,#intro[data-state=title] .fl{display:block}
-@keyframes flt{0%{opacity:0;transform:translate(0,0) rotate(-8deg)}12%{opacity:.85}50%{transform:translate(var(--w),-55vh) rotate(8deg)}88%{opacity:.85}100%{opacity:0;transform:translate(0,-112vh) rotate(-6deg)}}
-#intro .bu{display:none;position:absolute;left:50%;top:48%;width:var(--s);height:var(--s);opacity:0;filter:drop-shadow(0 0 5px rgba(255,255,255,.95))}
-#intro[data-state=title] .bu{display:block;animation:bur 2.4s cubic-bezier(.2,.7,.2,1) var(--dl) both}
-@keyframes bur{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}22%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1)}}
-/* —— 声音 / 跳过 —— */
-#intro .in-ctl{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .6s ease}
-#intro[data-state=speech] .in-ctl,#intro[data-state=title] .in-ctl{opacity:1;pointer-events:auto}
-#intro .mute,#intro .skip{height:28px;padding:0 10px;font:400 9px/1 var(--px)}
-#intro .mute.off{opacity:.65}
+@keyframes flt{0%{opacity:0;transform:translate(0,0)}15%{opacity:.16}85%{opacity:.16}100%{opacity:0;transform:translate(var(--w),-108vh)}}
+/* —— 右上角：声音 / 跳过，和房间里的小胶囊同一个位置、同一个样子 —— */
+#intro .mute,#intro .skip{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));height:30px;border-radius:999px;border:1px solid rgba(43,41,38,.14);background:var(--pill);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 14px rgba(60,50,40,.1);color:var(--ink);cursor:pointer;padding:0;z-index:3;-webkit-tap-highlight-color:transparent;transition:opacity .6s ease,background .5s}
+html.pl-night #intro .mute,html.pl-night #intro .skip{border-color:rgba(255,255,255,.16);box-shadow:none}
+#intro .mute{right:82px;width:36px;display:grid;place-items:center;opacity:0}
+#intro:not([data-state=wait]) .mute{opacity:1}
+#intro .mute svg{grid-area:1/1;width:16px;height:16px;transition:opacity .25s,transform .35s}
+#intro .mute .off{opacity:0;transform:scale(.7)}#intro .mute.off .on{opacity:0;transform:scale(.7)}#intro .mute.off .off{opacity:1;transform:none}
+#intro .skip{right:16px;min-width:56px;padding:0 16px;font:400 10px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;opacity:0;pointer-events:none}
+#intro[data-state=speech] .skip,#intro[data-state=title] .skip{opacity:1;pointer-events:auto}
+#intro .mute::after,#intro .skip::after{content:"";position:absolute;inset:-8px}
+#intro button{touch-action:manipulation}
 /* —— 手机 —— */
-@media (max-width:640px){
- #intro .ic,#intro .np,#intro .pet{display:none}
- #intro .mp{left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);width:min(74vw,230px);margin-left:calc(min(74vw,230px) / -2)}
- #intro{--lt:.46}
- #intro .hint{font-size:14px}
- #intro .tk{max-width:46vw}
-}
-@media (max-height:520px){#intro .mp,#intro .pet,#intro .np,#intro .ic{display:none}#intro{--lt:.5}}
-/* 键盘弹出、可见区域很矮的时候，把窗口收紧，保证输入框和按钮都在屏幕里 */
-#intro.kb{--lt:.5}#intro.kb .mp,#intro.kb .pet,#intro.kb .np,#intro.kb .ic{display:none}
-#intro.kb .login .st{display:none}#intro.kb .login .bd{padding:10px 12px}#intro.kb .lk i{width:34px;height:34px}#intro.kb .hint{font-size:13px}#intro.kb .fm{margin-top:9px}#intro.kb #inPw{height:38px}#intro.kb .bt{margin-top:9px}
+@media (max-width:640px){#intro{--lt:.44}#intro .in-hint{margin-top:14px}#intro .lb{margin-top:34px}}
+@media (max-height:520px){#intro{--lt:.5}#intro .lb{margin-top:20px}#intro .go{margin-top:14px}#intro .em{min-height:30px;margin-top:10px}}
+/* 键盘弹出、可见区域很矮：收紧间距，保证输入框和按钮都在屏幕里 */
+#intro.kb{--lt:.5}#intro.kb .in-eye{display:none}#intro.kb .in-hint{margin-top:0;font-size:22px}#intro.kb .lb{margin-top:16px}#intro.kb .pinw{margin-top:8px}#intro.kb .go{margin-top:12px;width:38px;height:38px}#intro.kb .em{margin-top:8px;min-height:22px}
 @media (prefers-reduced-motion:reduce){
  #intro *{animation:none!important;transition-duration:.01s!important}
- #intro .fl,#intro .bu{display:none!important}
- #intro .ln{filter:none!important}
- #intro .eq s{height:55%}
+ #intro .fl,#intro .in-ring{display:none!important}
+ #intro .ln{filter:none!important}#intro .in-ttl .rule{transform:none}
 }
 </style>
-<script id="intro-config" type="application/json">{"_说明":"这是开场动画的文案、语音和时间配置。想改字幕、换语音、调时间，只改这个文件就行，不用动网页代码。时间单位是「秒」，从语音开始播放的那一刻算起。英文是大字幕（en），中文是小字幕（zh）。语音 audio/intro-voice.mp3 是 5 句录音拼起来的：第 1 秒开始说话（带渐入），句与句之间留 0.65~1 秒，最后一句带渐出。","password":"1018","voice":"audio/intro-voice.mp3","window":{"title":"Henry's Private Space","hint":"A little secret is waiting for you...","label":"ENTER PASSWORD","ok":"OK","wrong":"Incorrect password. Please try again."},"title":"Happy Henry's Day","date":"10 · 18","lines":[{"en":"Love is boundless","zh":"爱是无边无际的","start":0.85,"end":2.74},{"en":"but I have yet to see its full form","zh":"我却尚未窥见它完整的模样","start":3.12,"end":6.34},{"en":"I keep searching, keep longing, and I share every fragment of love I have felt","zh":"我不停寻觅 满心期盼 分享每一份我所感知到的爱的碎片","start":6.92,"end":13.33},{"en":"To you","zh":"而献给你的","start":13.81,"end":15.0},{"en":"I offer all the love I have come to understand","zh":"是我所有领悟到的全部爱意","start":15.26,"end":19.6}],"pauseBeforeTitle":1.0,"titleHold":2.8,"fallbackLineSeconds":3.6,"hint2":"Hint: it's a very special date — month and day."}</script>
+<script id="intro-config" type="application/json">{"_说明":"这是开场动画的文案、语音和时间配置。想改字幕、换语音、调时间，只改这个文件就行，不用动网页代码。时间单位是「秒」，从语音开始播放的那一刻算起。英文是大字幕（en），中文是小字幕（zh）。语音 audio/intro-voice.mp3 是 5 句录音拼起来的：第 1 秒开始说话（带渐入），句与句之间留 0.65~1 秒，最后一句带渐出。","password":"1018","voice":"audio/intro-voice.mp3","window":{"title":"Henry's Private Space","hint":"A little secret is waiting for you...","label":"ENTER PASSWORD","ok":"OK","wrong":"Not quite. Please try again."},"title":"Happy Henry's Day","date":"10 · 18","lines":[{"en":"Love is boundless","zh":"爱是无边无际的","start":0.85,"end":2.74},{"en":"but I have yet to see its full form","zh":"我却尚未窥见它完整的模样","start":3.12,"end":6.34},{"en":"I keep searching, keep longing, and I share every fragment of love I have felt","zh":"我不停寻觅 满心期盼 分享每一份我所感知到的爱的碎片","start":6.92,"end":13.33},{"en":"To you","zh":"而献给你的","start":13.81,"end":15.0},{"en":"I offer all the love I have come to understand","zh":"是我所有领悟到的全部爱意","start":15.26,"end":19.6}],"pauseBeforeTitle":1.0,"titleHold":2.8,"fallbackLineSeconds":3.6,"hint2":"Hint: it’s a date — month, then day."}</script>
 <script>(function(){var h=new Date().getHours(),q=/[?&]night=(\d)/.exec(location.search),n=q?q[1]==='1':(h>=19||h<6);if(n){document.documentElement.classList.add('pl-night');document.documentElement.style.setProperty('--bg','#0e1118')}})()</script>
-<script id="__res" type="application/json">{"v":"1fe45c70","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo-2.jpg":{"s":70580,"h":"09a0f861","w":"images/frame-photo-2.webp","ws":26958,"m":"images/m/frame-photo-2.webp","ms":17246,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/intro-voice.mp3":{"s":322659,"h":"69bcc4f0","t":3},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
+<script id="__res" type="application/json">{"v":"87c973f1","img":{"images/calendar-01.jpg":{"s":291605,"h":"48884d2f","w":"images/calendar-01.webp","ws":111396,"m":"images/m/calendar-01.webp","ms":68506,"g":"cal"},"images/calendar-02.jpg":{"s":223697,"h":"4239c74f","w":"images/calendar-02.webp","ws":88932,"m":"images/m/calendar-02.webp","ms":54218,"g":"cal"},"images/calendar-03.jpg":{"s":302454,"h":"240e9298","w":"images/calendar-03.webp","ws":128178,"m":"images/m/calendar-03.webp","ms":78326,"g":"cal"},"images/calendar-04.jpg":{"s":237415,"h":"65c671f1","w":"images/calendar-04.webp","ws":94240,"m":"images/m/calendar-04.webp","ms":58912,"g":"cal"},"images/calendar-05.jpg":{"s":239630,"h":"8c66e5a1","w":"images/calendar-05.webp","ws":90972,"m":"images/m/calendar-05.webp","ms":56660,"g":"cal"},"images/calendar-06.jpg":{"s":259929,"h":"282cb581","w":"images/calendar-06.webp","ws":103872,"m":"images/m/calendar-06.webp","ms":63312,"g":"cal"},"images/calendar-07.jpg":{"s":218433,"h":"cc354902","w":"images/calendar-07.webp","ws":79090,"m":"images/m/calendar-07.webp","ms":50376,"g":"cal"},"images/calendar-08.jpg":{"s":288050,"h":"3392b2b8","w":"images/calendar-08.webp","ws":115758,"m":"images/m/calendar-08.webp","ms":68898,"g":"cal"},"images/calendar-09.jpg":{"s":327965,"h":"930237ea","w":"images/calendar-09.webp","ws":141240,"m":"images/m/calendar-09.webp","ms":87288,"g":"cal"},"images/calendar-10.jpg":{"s":363221,"h":"80507f13","w":"images/calendar-10.webp","ws":159328,"m":"images/m/calendar-10.webp","ms":107816,"g":"cal"},"images/calendar-11.jpg":{"s":348997,"h":"82fc9e2d","w":"images/calendar-11.webp","ws":161094,"m":"images/m/calendar-11.webp","ms":104260,"g":"cal"},"images/calendar-12.jpg":{"s":354481,"h":"5e5f6b91","w":"images/calendar-12.webp","ws":159746,"m":"images/m/calendar-12.webp","ms":97548,"g":"cal"},"images/cap-sticker.png":{"s":141923,"h":"13e245aa","w":"images/cap-sticker.webp","ws":8256,"c":1},"images/cert-1.jpg":{"s":141985,"h":"8be61378","w":"images/cert-1.webp","ws":83566,"m":"images/m/cert-1.webp","ms":52828,"g":"cert"},"images/cert-2.jpg":{"s":95260,"h":"6c3696b4","w":"images/cert-2.webp","ws":50560,"m":"images/m/cert-2.webp","ms":31536,"g":"cert"},"images/cert-3.jpg":{"s":157405,"h":"724ae0c3","w":"images/cert-3.webp","ws":89638,"m":"images/m/cert-3.webp","ms":54838,"g":"cert"},"images/cert-4.jpg":{"s":121365,"h":"35e99629","w":"images/cert-4.webp","ws":67134,"m":"images/m/cert-4.webp","ms":42600,"g":"cert"},"images/cover-01.jpg":{"s":59247,"h":"de4bf427","w":"images/cover-01.webp","ws":25948,"m":"images/m/cover-01.webp","ms":18612,"g":"cover"},"images/cover-02.jpg":{"s":22781,"h":"0d8ebca0","w":"images/cover-02.webp","ws":8722,"m":"images/m/cover-02.webp","ms":6326,"g":"cover"},"images/cover-03.jpg":{"s":49557,"h":"c224da72","w":"images/cover-03.webp","ws":26184,"m":"images/m/cover-03.webp","ms":20038,"g":"cover"},"images/cover-04.jpg":{"s":27740,"h":"46b424cd","w":"images/cover-04.webp","ws":11012,"m":"images/m/cover-04.webp","ms":7998,"g":"cover"},"images/cover-05.jpg":{"s":108068,"h":"bbec1307","w":"images/cover-05.webp","ws":66434,"m":"images/m/cover-05.webp","ms":49336,"g":"cover"},"images/cover-06.jpg":{"s":49828,"h":"5e31e6c7","w":"images/cover-06.webp","ws":20112,"m":"images/m/cover-06.webp","ms":14914,"g":"cover"},"images/cover-07.jpg":{"s":57669,"h":"2a14a643","w":"images/cover-07.webp","ws":26730,"m":"images/m/cover-07.webp","ms":20050,"g":"cover"},"images/cover-08.jpg":{"s":25802,"h":"51adb06c","w":"images/cover-08.webp","ws":9948,"m":"images/m/cover-08.webp","ms":7452,"g":"cover"},"images/cover-09.jpg":{"s":50857,"h":"458ad471","w":"images/cover-09.webp","ws":21434,"m":"images/m/cover-09.webp","ms":15436,"g":"cover"},"images/cup-logo.png":{"s":54335,"h":"db1f03f0","w":"images/cup-logo.webp","ws":28798,"c":1},"images/frame-photo-2.jpg":{"s":70580,"h":"09a0f861","w":"images/frame-photo-2.webp","ws":26958,"m":"images/m/frame-photo-2.webp","ms":17246,"c":1},"images/frame-photo.jpg":{"s":79957,"h":"fa019005","w":"images/frame-photo.webp","ws":35488,"c":1},"images/heart-01.jpg":{"s":31303,"h":"47bd0677","w":"images/heart-01.webp","ws":13116,"c":1},"images/heart-02.jpg":{"s":29124,"h":"f6ea6c1c","w":"images/heart-02.webp","ws":11770,"c":1},"images/heart-03.jpg":{"s":30372,"h":"74a5bd6e","w":"images/heart-03.webp","ws":12692,"c":1},"images/heart-04.jpg":{"s":32284,"h":"dd905e69","w":"images/heart-04.webp","ws":13548,"c":1},"images/heart-05.jpg":{"s":29355,"h":"31c1d540","w":"images/heart-05.webp","ws":11784,"c":1},"images/heart-06.jpg":{"s":32355,"h":"a612c96b","w":"images/heart-06.webp","ws":13676,"c":1},"images/heart-07.jpg":{"s":30771,"h":"4d80acd9","w":"images/heart-07.webp","ws":12568,"c":1},"images/heart-08.jpg":{"s":31041,"h":"d03ffed5","w":"images/heart-08.webp","ws":12944,"c":1},"images/heart-09.jpg":{"s":31016,"h":"df52be73","w":"images/heart-09.webp","ws":12824,"c":1},"images/heart-10.jpg":{"s":31906,"h":"9a50630e","w":"images/heart-10.webp","ws":13054,"c":1},"images/heart-11.jpg":{"s":31351,"h":"41f2ce5a","w":"images/heart-11.webp","ws":13018,"c":1},"images/heart-12.jpg":{"s":30498,"h":"ff9bf2d1","w":"images/heart-12.webp","ws":12398,"c":1},"images/ipad-screen.jpg":{"s":24387,"h":"a535d192","w":"images/ipad-screen.webp","ws":9020,"m":"images/m/ipad-screen.webp","ms":6082,"c":1},"images/leave-icon.png":{"s":263898,"h":"d9dbfa36","w":"images/leave-icon.webp","ws":11944,"c":1},"images/migu-texture-1.png":{"s":33915,"h":"4b1ae4e3","w":"images/migu-texture-1.webp","ws":16278,"m":"images/m/migu-texture-1.webp","ms":11636,"c":1},"images/migu-texture-2.png":{"s":35601,"h":"e1382217","w":"images/migu-texture-2.webp","ws":12270,"m":"images/m/migu-texture-2.webp","ms":9090,"c":1},"images/mk-text.png":{"s":58110,"h":"75d38e79","w":"images/mk-text.webp","ws":33856,"m":"images/m/mk-text.webp","ms":23966,"c":1},"images/note-ink-1.png":{"s":71570,"h":"7eeb2f0e","w":"images/note-ink-1.webp","ws":38964,"c":1},"images/note-ink-2.png":{"s":84609,"h":"155c2208","w":"images/note-ink-2.webp","ws":49410,"c":1},"images/note-ink-3.png":{"s":60304,"h":"82a61721","w":"images/note-ink-3.webp","ws":31462,"c":1},"images/note-ink-4.png":{"s":44220,"h":"95c7667f","w":"images/note-ink-4.webp","ws":24762,"c":1},"images/note-ink-5.png":{"s":68824,"h":"9dc92e12","w":"images/note-ink-5.webp","ws":37410,"c":1},"images/note-ink-6.png":{"s":43582,"h":"ebdbe735","w":"images/note-ink-6.webp","ws":23426,"c":1},"images/note-ink-7.png":{"s":64279,"h":"dd222d59","w":"images/note-ink-7.webp","ws":35540,"c":1},"images/painting-1.jpg":{"s":59978,"h":"4010fac5","w":"images/painting-1.webp","ws":22322,"m":"images/m/painting-1.webp","ms":16374,"c":1},"images/painting-2.jpg":{"s":76989,"h":"df5234fd","w":"images/painting-2.webp","ws":28042,"m":"images/m/painting-2.webp","ms":19194,"c":1},"images/painting-3.jpg":{"s":31372,"h":"42eabf8b","w":"images/painting-3.webp","ws":9404,"m":"images/m/painting-3.webp","ms":6646,"c":1},"images/perfume-01.jpg":{"s":21819,"h":"4d4fd8b0","w":"images/perfume-01.webp","ws":11532,"g":"perf"},"images/perfume-02.jpg":{"s":13327,"h":"53fa1345","w":"images/perfume-02.webp","ws":6030,"g":"perf"},"images/perfume-03.jpg":{"s":19803,"h":"0cdae729","w":"images/perfume-03.webp","ws":11796,"g":"perf"},"images/perfume-04.jpg":{"s":25391,"h":"7b138bab","w":"images/perfume-04.webp","ws":15590,"g":"perf"},"images/perfume-05.jpg":{"s":23974,"h":"ecbf0827","w":"images/perfume-05.webp","ws":8380,"g":"perf"},"images/perfume-06.jpg":{"s":10321,"h":"9e21cf99","w":"images/perfume-06.webp","ws":5284,"g":"perf"},"images/perfume-07.jpg":{"s":25663,"h":"3a6eeac7","w":"images/perfume-07.webp","ws":18486,"g":"perf"},"images/perfume-08.jpg":{"s":15058,"h":"e83bd20e","w":"images/perfume-08.webp","ws":8574,"g":"perf"},"images/perfume-09.jpg":{"s":15447,"h":"f77ad222","w":"images/perfume-09.webp","ws":8038,"g":"perf"},"images/perfume-10.jpg":{"s":15906,"h":"c5949fc8","w":"images/perfume-10.webp","ws":8424,"g":"perf"},"images/perfume-11.jpg":{"s":40172,"h":"3829b2ed","w":"images/perfume-11.webp","ws":28624,"g":"perf"},"images/perfume-12.jpg":{"s":14758,"h":"1cd0493b","w":"images/perfume-12.webp","ws":8644,"g":"perf"},"images/perfume-13.jpg":{"s":20859,"h":"14e5535d","w":"images/perfume-13.webp","ws":12870,"g":"perf"},"images/perfume-14.jpg":{"s":18203,"h":"0c4ec19c","w":"images/perfume-14.webp","ws":11598,"g":"perf"},"images/perfume-15.jpg":{"s":14236,"h":"001dfafd","w":"images/perfume-15.webp","ws":6742,"g":"perf"},"images/polaroid-1.jpg":{"s":50581,"h":"ff5800d4","w":"images/polaroid-1.webp","ws":27668,"c":1},"images/polaroid-2.jpg":{"s":32503,"h":"99835bdf","w":"images/polaroid-2.webp","ws":14006,"c":1},"images/polaroid-3.jpg":{"s":49992,"h":"ec98a1f1","w":"images/polaroid-3.webp","ws":27776,"c":1},"images/polaroid-4.jpg":{"s":32353,"h":"e4579b14","w":"images/polaroid-4.webp","ws":13112,"c":1},"images/rug.jpg":{"s":219006,"h":"53923e7d","w":"images/rug.webp","ws":130198,"m":"images/m/rug.webp","ms":83068,"c":1},"images/trophy-1.jpg":{"s":180018,"h":"5466769c","w":"images/trophy-1.webp","ws":106394,"m":"images/m/trophy-1.webp","ms":63536,"g":"trophy"},"images/trophy-2.jpg":{"s":63776,"h":"866432b2","w":"images/trophy-2.webp","ws":23098,"m":"images/m/trophy-2.webp","ms":14534,"g":"trophy"}},"aud":{"audio/01.mp3":{"s":4615099,"h":"6babaf70","t":3},"audio/02.mp3":{"s":3796317,"h":"40572139","t":3},"audio/03.mp3":{"s":4304765,"h":"ea3e4d70","t":3},"audio/04.mp3":{"s":3084742,"h":"97d6f62d","t":3},"audio/05.mp3":{"s":3801333,"h":"7433369b","t":3},"audio/06.mp3":{"s":3488491,"h":"7540e29b","t":3},"audio/07.mp3":{"s":504262,"h":"2125bda4","t":3},"audio/08.mp3":{"s":3595697,"h":"55fee15d","t":3},"audio/09.mp3":{"s":4244579,"h":"9cd1b42a","t":3},"audio/ambient.mp3":{"s":646647,"h":"0b939fcc","t":3},"audio/drink.mp3":{"s":206466,"h":"68ec6739","t":1},"audio/intro-voice.mp3":{"s":322659,"h":"69bcc4f0","t":3},"audio/ipad.mp3":{"s":2711713,"h":"e9f40a34","t":2},"audio/laptop.mp3":{"s":162580,"h":"f085b9d9","t":1},"audio/lianming.mp3":{"s":6489019,"h":"869b9935","t":3},"audio/mic.mp3":{"s":1476644,"h":"59e964f7","t":2}},"libs":[{"id":"three","g":"THREE","s":603000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js","https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js","https://unpkg.com/three@0.128.0/build/three.min.js"]},{"id":"gsap","g":"gsap","s":72000,"urls":["https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js","https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js","https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"]}]}</script>
 </head>
 <body>
+<script>/* ===== 声音系统：背景音 + 点击反馈音 =====
+   · 点击音全部用 WebAudio 现场合成，模拟真实物体被轻轻碰到的声音（几十毫秒，不需要额外的音效文件）
+   · 背景音是一段 64 秒、首尾无缝的房间底噪（audio/ambient.mp3），进入房间后淡入；别的音频（歌、语音、杯子…）一响，它自动退到后面，停了再回来
+   · 右上角有一个喇叭按钮，一键开关全部声音，记在这个浏览器里 */
+(function(){
+'use strict';
+var W=window,D=document,KEY='noh_sound';
+var SND=W.SND={on:true,subs:[]};
+try{SND.on=localStorage.getItem(KEY)!=='off'}catch(e){}
+
+/* ---------- 点击音 ----------
+   设计思路：不用「叮」「哔」这类音乐性的合成音，改成模拟真实物体被轻轻碰到的声音（敲击 = 一粒很短的接触声 + 几个很快衰减的共振），
+   再加一点点很短的空间感。每一种材质一种声音，都很轻、很干、很短。 */
+var ac=null,master=null,bus=null,nb=null,LP={x:innerWidth/2,y:innerHeight/2};
+function wake(){ /* 在手指按下去的那一刻就把声音引擎叫醒（不出声），松手时才不会有一点点延迟 */
+  if(!SND.on&&ac===null)return null;
+  if(!ac){
+    var C=W.AudioContext||W.webkitAudioContext;if(!C)return null;
+    try{ac=new C({latencyHint:'interactive'})}catch(e){try{ac=new C()}catch(e2){ac=null;return null}}
+    try{
+      var comp=ac.createDynamicsCompressor();comp.threshold.value=-18;comp.ratio.value=3;comp.attack.value=.003;comp.release.value=.12;
+      var lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=11000;
+      master=ac.createGain();master.gain.value=.9;master.connect(comp);comp.connect(lp);lp.connect(ac.destination);
+      bus=ac.createGain();bus.gain.value=1;bus.connect(master);
+      var cv=ac.createConvolver(),n=(ac.sampleRate*1.1)|0,ir=ac.createBuffer(2,n,ac.sampleRate);
+      for(var c=0;c<2;c++){var d=ir.getChannelData(c),y=0;for(var i=0;i<n;i++){var w=Math.random()*2-1;y+=(w-y)*.35;d[i]=y*Math.pow(1-i/n,3.2)}}
+      cv.buffer=ir;var wet=ac.createGain();wet.gain.value=.16;bus.connect(cv);cv.connect(wet);wet.connect(master);
+    }catch(e){}
+  }
+  if(ac.state!=='running'){try{var rp=ac.resume();if(rp&&rp.catch)rp.catch(function(){})}catch(e){}}
+  return ac;
+}
+function ctx(){return SND.on?wake():null}
+function noiseBuf(){if(nb)return nb;var n=(ac.sampleRate*.6)|0,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=Math.random()*2-1;nb=b;return b}
+/* 一粒很短的噪声：物体接触的那一下「嗒」 */
+function click(t,peak,fc,q,dur){
+  var s=ac.createBufferSource();s.buffer=noiseBuf();var f=ac.createBiquadFilter();f.type='bandpass';f.frequency.value=fc;f.Q.value=q;
+  var g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+.0008);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  s.connect(f);f.connect(g);g.connect(bus);s.start(t,Math.random()*.4);s.stop(t+dur+.02);
+}
+/* 一个会很快衰减的共振：物体被敲到以后「振动」的那一小段 */
+function mode(f,decay,peak,t,type){
+  var o=ac.createOscillator(),g=ac.createGain();o.type=type||'sine';o.frequency.value=f;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+.0012);g.gain.exponentialRampToValueAtTime(.0001,t+decay);
+  o.connect(g);g.connect(bus);o.start(t);o.stop(t+decay+.02);
+}
+/* 一阵沙沙的气流：纸、布料、转身的声音（噪声 + 滑动的滤波） */
+function swish(t,dur,peak,f0,f1,q){
+  var s=ac.createBufferSource();s.buffer=noiseBuf();var f=ac.createBiquadFilter();f.type='bandpass';f.Q.value=q||.7;
+  f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur);
+  var g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+dur*.3);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  s.connect(f);f.connect(g);g.connect(bus);s.start(t,Math.random()*.3);s.stop(t+dur+.02);
+}
+/* 一个柔和的长音（解锁、标题出现时用）：起音慢一点、尾巴长一点 */
+function soft(f,dur,peak,t,att){
+  var o=ac.createOscillator(),o2=ac.createOscillator(),g=ac.createGain(),lp=ac.createBiquadFilter();o.type='sine';o2.type='sine';o.frequency.value=f;o2.frequency.value=f*2.003;
+  lp.type='lowpass';lp.frequency.value=3200;var g2=ac.createGain();g2.gain.value=.22;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+(att||.04));g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g);o2.connect(g2);g2.connect(g);g.connect(lp);lp.connect(bus);o.start(t);o2.start(t);o.stop(t+dur+.05);o2.stop(t+dur+.05);
+}
+function go(fn){var c=ctx();if(!c)return;try{fn(c.currentTime+.002)}catch(e){}}
+var R=Math.random;
+var KIND={lamp:'sw',dp:'cabinet',wd:'wood',frame:'frame',cal:'cal',note:'note',pol:'pol',certs:'paper',trophy1:'metal',trophy2:'metal',drink:'ice',doll:'cloth',seal:'cloth',hp:'tech',kb:'kb',mic:'tech',laptop:'tech',pad:'tech',leave:'shutter'};
+var SFX=W.SFX={
+  /* 界面按钮：像手指轻点一下玻璃屏幕 */
+  tick:function(){go(function(t){click(t,.16,3200,1.2,.006);mode(1850,.03,.04,t)})},
+  /* 输密码：每敲一下，像很轻的键帽 */
+  key:function(){go(function(t){var r=R();click(t,.11,2300+r*900,1.5,.005);mode(820+r*220,.024,.035,t)})},
+  /* 衣柜门：木头被指节轻敲，闷闷的「笃」 + 一点门锁的轻响 */
+  wood:function(){go(function(t){click(t,.2,700,.9,.012);mode(190,.09,.2,t);mode(410,.06,.09,t);mode(780,.035,.035,t);click(t+.03,.06,2600,2,.004)})},
+  /* 相框：更轻、更脆的木头声 */
+  frame:function(){go(function(t){click(t,.16,1500,1.1,.008);mode(520,.07,.12,t);mode(1130,.04,.04,t)})},
+  /* 香水柜：玻璃门被碰了一下——干干的「嗒」+ 柜体很轻的一声低响，没有长长的回音 */
+  cabinet:function(){go(function(t){click(t,.14,5200,2.5,.005);mode(3100,.07,.04,t);mode(4650,.04,.022,t);mode(210,.06,.09,t);click(t+.01,.08,900,1,.012)})},
+  /* 单个香水瓶 */
+  bottle:function(){go(function(t){click(t,.13,4400,2.5,.005);mode(2480,.1,.045,t);mode(3790,.06,.025,t);mode(320,.04,.05,t)})},
+  /* 奖杯：金属的一下轻敲，尾巴很短 */
+  metal:function(){go(function(t){click(t,.11,4200,3,.006);mode(1230,.2,.06,t);mode(2180,.14,.04,t);mode(3560,.08,.02,t);mode(260,.05,.06,t)})},
+  /* 杯子：塑料杯壁 + 冰块轻碰 */
+  ice:function(){go(function(t){mode(250,.05,.09,t);click(t,.08,900,1,.01);for(var i=0;i<3;i++){var d=t+.008+i*(.02+R()*.025);click(d,.1,3500+R()*2500,3,.006);mode(2800+R()*1400,.03,.028,d)}})},
+  /* 纸：证书 */
+  paper:function(){go(function(t){swish(t,.14,.07,4800,2400,.7);swish(t+.07,.1,.05,5600,3000,.7);click(t,.05,3800,.7,.01)})},
+  /* 台历：翻页 */
+  cal:function(){go(function(t){swish(t,.2,.08,2200,5600,.8);swish(t+.12,.12,.05,5200,2600,.8);click(t+.2,.06,3000,1,.008)})},
+  /* 便利贴：撕下来 */
+  note:function(){go(function(t){swish(t,.17,.07,2000,5200,.9);click(t+.15,.05,3600,1,.006)})},
+  /* 拍立得相纸：滑出来 */
+  pol:function(){go(function(t){swish(t,.18,.06,3000,1800,.7);click(t,.05,2400,.8,.01)})},
+  /* 电子设备：笔记本 / iPad / 耳机 / 麦克风 —— 像苹果那种很轻的触感点击 */
+  tech:function(){go(function(t){click(t,.14,2600,1.4,.006);mode(1320,.035,.04,t);mode(2640,.02,.018,t+.004)})},
+  /* 键盘：毡头琴键轻轻落下 */
+  kb:function(){go(function(t){mode(165,.08,.1,t);mode(330,.05,.04,t);click(t,.1,1400,1,.01)})},
+  /* 相机：快门的两下 */
+  shutter:function(){go(function(t){click(t,.2,2200,1.4,.008);mode(900,.03,.05,t);click(t+.055,.15,1800,1.4,.01);mode(640,.04,.05,t+.055)})},
+  /* 玩偶 / 海豹：布面被轻轻按下去，「噗」 */
+  cloth:function(){go(function(t){swish(t,.16,.1,600,260,.6);mode(120,.12,.12,t);mode(210,.09,.05,t)})},
+  /* 台灯：机械开关，清脆的「嗒—嗒」 */
+  sw:function(){go(function(t){click(t,.22,3800,3,.006);mode(2100,.025,.05,t);mode(140,.05,.1,t);click(t+.085,.17,3000,3,.006);mode(1700,.02,.035,t+.085)})},
+  /* 点空白处返回：一阵很轻的气流往回收 */
+  back:function(){go(function(t){swish(t,.14,.05,2000,600,.8)})},
+  /* 密码错了：两下很轻的敲击，像在说「不对哦」 */
+  err:function(){go(function(t){mode(150,.08,.15,t);click(t,.11,500,1,.01);mode(120,.1,.15,t+.12);click(t+.12,.09,420,1,.01)})},
+  /* 解锁：锁舌「咔哒」两下，一阵轻轻的气流，再落下两个温暖的长音 */
+  unlock:function(){go(function(t){click(t,.17,2800,2.5,.005);mode(1900,.03,.045,t);click(t+.07,.2,1600,2,.007);mode(260,.08,.13,t+.07);swish(t+.14,.9,.045,500,2400,.5);soft(329.63,1.7,.065,t+.22,.05);soft(493.88,1.9,.05,t+.4,.06)})},
+  /* 标题出现：几颗很轻的光点，疏疏落落，带一点空间感 */
+  sparkle:function(){go(function(t){[[0,1318.5],[.3,1568],[.58,1975.5],[1.0,2349.3]].forEach(function(p){soft(p[1],1.3,.028,t+p[0],.012)})})},
+  obj:function(id){SFX[KIND[id]||'tick']();ripple()}                                                     /* 点到房间里的物件：声音 + 一圈涟漪 */
+};
+function ripple(){
+  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
+  var r=D.createElement('div');r.className='rip';r.style.left=LP.x+'px';r.style.top=LP.y+'px';D.body.appendChild(r);setTimeout(function(){if(r.parentNode)r.parentNode.removeChild(r)},760);
+}
+/* 手机的静音拨片：iPhone 上 WebAudio 会被静音拨片直接关掉（歌曲、语音不受影响，所以会出现「歌有声音、点击没声音」）。
+   第一次触摸 / 点击时，把声音通道切成「播放」模式；老一点的 iOS 再放一段听不见的循环音来达到同样的效果 */
+var IOS=false,SILX=null;try{IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)}catch(e){}
+function unmute(){
+  try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(e){}
+  if(!IOS||SILX)return;
+  try{
+    var n=4000,b=new ArrayBuffer(44+n),v=new DataView(b),w=function(o,t){for(var i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i))};
+    w(0,'RIFF');v.setUint32(4,36+n,true);w(8,'WAVEfmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,8000,true);v.setUint32(28,8000,true);v.setUint16(32,1,true);v.setUint16(34,8,true);w(36,'data');v.setUint32(40,n,true);new Uint8Array(b).fill(128,44);
+    SILX=new Audio(URL.createObjectURL(new Blob([b],{type:'audio/wav'})));SILX.loop=true;SILX.setAttribute('playsinline','');
+    var p=SILX.play();if(p&&p.catch)p.catch(function(){SILX=null});
+  }catch(e){SILX=null}
+}
+(function(){var f=function(){unmute();if(!IOS||SILX){['pointerup','touchend','click','keydown'].forEach(function(ev){removeEventListener(ev,f,true)})}};['pointerup','touchend','click','keydown'].forEach(function(ev){addEventListener(ev,f,true)})})();
+/* 切回这个页面时，声音引擎如果被系统挂起了就叫醒 */
+D.addEventListener('visibilitychange',function(){if(!D.hidden&&SND.on&&ac&&ac.state!=='running'){try{var q=ac.resume();if(q&&q.catch)q.catch(function(){})}catch(e){}}});
+/* 手指一按下去就记位置、叫醒声音引擎；松手 / 点击时直接出声，不再有「微微的延迟」 */
+addEventListener('pointerdown',function(e){LP.x=e.clientX;LP.y=e.clientY;if(SND.on)wake()},true);
+addEventListener('pointerup',function(e){LP.x=e.clientX;LP.y=e.clientY},true);
+addEventListener('keydown',function(){if(SND.on)wake()},true);
+/* 房间里所有的按钮（播放键、前一个 / 后一个、关闭…）：按下去的瞬间就有一声轻响；开场动画里的按钮自己管自己的 */
+D.addEventListener('pointerdown',function(e){
+  if(e.button>0)return;
+  var t=e.target&&e.target.closest?e.target.closest('button,[role=button],.mbtn,#ipbtn'):null;
+  if(!t||t.id==='snd'||t.closest('#intro')||t.closest('#pl'))return;
+  SFX.tick();
+},true);
+
+/* ---------- 背景音 ---------- */
+var AMB=W.AMB={src:'audio/ambient.mp3',el:null,on:false,vol:0,tgt:0,iv:0,bad:false,canVol:true,TR:[]};
+try{var _a=new Audio();_a.volume=.5;AMB.canVol=(_a.volume===.5)}catch(e){} /* iOS 不允许用代码调音量：那里改成「别的声音响起时暂停、结束后继续」 */
+function busy(){
+  for(var i=0;i<AMB.TR.length;i++){var a=AMB.TR[i];if(a===AMB.el)continue;if(!a.paused&&!a.ended&&!a.loop&&!a.muted&&a.volume>0)return true}
+  return false;
+}
+function calc(){
+  var b=busy(),want=AMB.on&&SND.on&&!D.hidden;
+  AMB.tgt=!want?0:(b?(AMB.canVol?.1:0):1);
+  if(AMB.tgt>0&&AMB.el&&AMB.el.paused)kick();
+  if(!AMB.iv)AMB.iv=setInterval(step,40);
+}
+function step(){
+  var a=AMB.el;if(!a){clearInterval(AMB.iv);AMB.iv=0;return}
+  var d=AMB.tgt-AMB.vol,r=d>0?.04/3.2:.04/1.1; /* 上升约 3 秒，下降约 1 秒：淡入淡出，不突兀 */
+  AMB.vol=Math.abs(d)<=r?AMB.tgt:AMB.vol+(d>0?r:-r);
+  if(AMB.canVol){try{a.volume=Math.max(0,Math.min(1,AMB.vol))}catch(e){}}
+  if(AMB.vol<=0&&AMB.tgt<=0){try{a.pause()}catch(e){}clearInterval(AMB.iv);AMB.iv=0}
+  else if(AMB.vol===AMB.tgt&&AMB.tgt>0){clearInterval(AMB.iv);AMB.iv=0}
+}
+function ensure(){
+  if(AMB.el)return;
+  var a=new Audio();a.loop=true;a.preload='auto';a.src=AMB.src;a.volume=0;
+  a.addEventListener('error',function(){AMB.bad=true});AMB.el=a;
+  ['play','playing','pause','ended'].forEach(function(ev){a.addEventListener(ev,function(){})});
+}
+function kick(){
+  if(!AMB.el||AMB.bad)return;
+  if(!AMB.canVol){AMB.vol=AMB.tgt}
+  var p;try{p=AMB.el.play()}catch(e){return}
+  if(p&&p.catch)p.catch(function(){arm()});
+}
+function arm(){ /* 浏览器拦住了自动播放：等用户下一次点击 / 按键再放 */
+  if(AMB.armed)return;AMB.armed=true;
+  var f=function(){AMB.armed=false;['pointerdown','keydown','touchend'].forEach(function(ev){removeEventListener(ev,f,true)});calc();kick()};
+  ['pointerdown','keydown','touchend'].forEach(function(ev){addEventListener(ev,f,true)});
+}
+AMB.prime=function(){ /* 在用户点击的那一下就把播放权限拿到手（手机浏览器需要），声音先不出 */
+  ensure();var a=AMB.el;if(!a||AMB.bad)return;
+  try{a.volume=0;var p=a.play();if(p&&p.then)p.then(function(){if(!AMB.on&&!AMB.canVol)a.pause()}).catch(function(){})}catch(e){}
+};
+AMB.start=function(){AMB.on=true;ensure();calc()};
+AMB.stop=function(){AMB.on=false;calc()};
+/* 记录所有正在被页面使用的音频元素，用来判断「现在是不是有别的声音在响」 */
+try{
+  var _play=HTMLMediaElement.prototype.play;
+  HTMLMediaElement.prototype.play=function(){
+    var el=this;
+    if(!el.__amb){el.__amb=1;AMB.TR.push(el);['play','pause','ended','emptied','error'].forEach(function(ev){el.addEventListener(ev,calc)})}
+    var r=_play.apply(el,arguments);setTimeout(calc,0);return r;
+  };
+}catch(e){}
+D.addEventListener('visibilitychange',function(){if(D.hidden){if(AMB.el)try{AMB.el.pause()}catch(e){}}calc()});
+
+/* ---------- 右上角的喇叭按钮 ---------- */
+var btn=D.createElement('button');btn.id='snd';btn.type='button';btn.setAttribute('aria-label','声音 开 / 关');
+btn.innerHTML='<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.4a8 8 0 0 1 0 11.2"/></svg><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>';
+function paint(){btn.classList.toggle('off',!SND.on);btn.setAttribute('aria-pressed',SND.on?'false':'true')}
+SND.set=function(v){
+  v=!!v;if(v===SND.on)return;SND.on=v;try{localStorage.setItem(KEY,v?'on':'off')}catch(e){}
+  paint();SND.subs.forEach(function(f){try{f(v)}catch(e){}});calc();if(v)SFX.tick();
+};
+SND.toggle=function(){SND.set(!SND.on)};
+btn.addEventListener('click',function(){SND.toggle()});
+paint();D.body.appendChild(btn);
+})();
+</script>
 <div id="intro" data-state="wait" role="dialog" aria-label="Henry's Private Space">
 <div class="in-stage">
- <div class="in-bg"></div><div class="in-dots"></div><div class="in-glow"></div>
- <div class="in-desk">
-  <div class="ic ic-a"><i data-px="folder"></i><b>My Songs</b></div>
-  <div class="ic ic-b"><i data-px="heart"></i><b>Memories</b></div>
-  <div class="ic ic-c"><i data-px="note"></i><b>Voice.wav</b></div>
-  <div class="win mini mp"><div class="tb"><span>Henry Player</span><em><u></u><u></u></em></div><div class="bd"><div class="eq"><s></s><s></s><s></s><s></s><s></s><s></s><s></s></div><div class="trk">♪ Every Trace Tells a Story</div><div class="cl"><i></i><i></i><i></i></div></div></div>
-  <div class="win mini np"><div class="tb"><span>readme.txt - Notepad</span><em><u></u><u></u></em></div><div class="bd">dear henry,<br>something small is<br>waiting for you<span class="cur">_</span></div></div>
-  <div class="win mini pet"><div class="tb"><span>Pet.exe</span><em><u></u></em></div><div class="bd">(=^・ω・^=)<small>purring...</small></div></div>
+ <div class="in-glow"></div>
+ <div class="top"><h1>Notes of Henry</h1><p class="en">Scents · Sounds · Stories</p><p>装下Henry的万千宇宙</p></div>
+ <div class="in-ring"></div>
+ <div class="in-lock">
+  <p class="in-eye">Henry's Private Space</p>
+  <p class="in-hint">A little secret is waiting for you…</p>
+  <form class="fm" autocomplete="off" novalidate>
+   <label class="lb" for="inPw">Enter password</label>
+   <div class="pinw"><div class="pin" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <input id="inPw" type="password" inputmode="numeric" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="16" aria-label="Password"></div>
+   <button type="submit" class="go" aria-label="Unlock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+   <p class="em" role="alert"></p>
+  </form>
  </div>
- <div class="in-boot"><pre></pre></div>
- <div class="win login" role="dialog" aria-labelledby="inLt">
-  <div class="tb"><span id="inLt" class="lt">Henry's Private Space</span><em><u></u><u class="x"></u></em></div>
-  <div class="bd"><div class="lk"><i data-px="lock"></i><p class="hint">A little secret is waiting for you...</p></div>
-   <form class="fm" autocomplete="off" novalidate><label class="lb" for="inPw">ENTER PASSWORD</label>
-    <input id="inPw" type="password" inputmode="numeric" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="16" aria-label="Password">
-    <div class="bt"><button type="submit" class="ok">OK</button></div></form>
-   <p class="st"><b></b>SYSTEM LOCKED</p></div></div>
- <div class="in-dim"></div>
- <div class="win err" role="alertdialog" aria-live="assertive"><div class="tb"><span>System Message</span><em><u class="x"></u></em></div><div class="bd"><i data-px="warn"></i><p class="em">Incorrect password. Please try again.</p><button type="button" class="ok2">OK</button></div></div>
  <div class="in-sub" aria-live="polite"></div>
- <div class="in-ttl"><h2>Happy Henry's Day</h2><p>10 · 18</p></div>
+ <div class="in-ttl"><span class="rule"></span><h2>Happy Henry's Day</h2><p>10 · 18</p></div>
  <div class="in-fx"></div>
- <div class="tbar"><button type="button" class="sb" tabindex="-1"><i data-px="star"></i>Start</button><span class="tk">Henry's Private Space</span><span class="clk">00:00</span></div>
- <div class="in-ctl"><button type="button" class="mute" aria-label="Sound on / off">♪ ON</button><button type="button" class="skip">SKIP ▸▸</button></div>
- <div class="in-crt"></div>
+ <button type="button" class="mute" aria-label="Sound on / off"><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.4a8 8 0 0 1 0 11.2"/></svg><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
+ <button type="button" class="skip">Skip</button>
 </div></div>
 
 <script>/* ===== Happy Henry's Day · 开场动画（Intro） =====
    和网站首页完全解耦：只在预加载页淡出的那一刻被叫起来（INTRO.start），结束时把自己从页面里拿掉，首页（3D 房间）一直在后面准备好了，不会再初始化第二次。
-   状态流程：wait →（boot）→ login →（输错：弹窗 + 抖动，留在 login）→ unlock → speech → title → exit → done
+   状态流程：wait → login →（输错：小圆点抖一下，留在 login）→ unlock → speech → title → exit → done
    文案、语音文件、每句的时间都在 intro-config.json 里（网页里也内嵌了一份默认值，文件读不到就用内嵌的）。 */
 (function(){
 'use strict';
@@ -389,65 +592,58 @@ var reduce=false,coarse=false;try{reduce=matchMedia('(prefers-reduced-motion: re
 var NOW=function(){return(W.performance&&performance.now)?performance.now():Date.now()};
 
 /* —— 配置：内嵌的默认值 + intro-config.json 里的修改 —— */
-var cfg={password:'1018',voice:'',window:{},lines:[],pauseBeforeTitle:1.4,titleHold:2.8,fallbackLineSeconds:3.6,
-  boot:['HENRY-OS BIOS v1.018','(c) 2009-2026 Notes of Henry','Memory test ........ 640K OK','Loading memories ... OK',"Starting Henry's Day ..."]};
+var cfg={password:'1018',voice:'',window:{},lines:[],pauseBeforeTitle:1.4,titleHold:2.8,fallbackLineSeconds:3.6};
 function merge(o){
   if(!o||typeof o!=='object')return;
   ['password','voice','title','date','pauseBeforeTitle','titleHold','fallbackLineSeconds','hint2'].forEach(function(k){if(o[k]!==undefined)cfg[k]=o[k]});
   if(o.window)for(var k in o.window)cfg.window[k]=o.window[k];
-  if(Array.isArray(o.boot))cfg.boot=o.boot;
-  if(Array.isArray(o.lines)){cfg.lines=o.lines}
+  if(Array.isArray(o.lines))cfg.lines=o.lines;
 }
 try{merge(JSON.parse(D.getElementById('intro-config').textContent))}catch(e){}
 var qs='';try{qs=location.search||''}catch(e){}
 var DISABLED=/[?&]intro=0\b/.test(qs);
 
 /* —— 页面元素 —— */
-var ui={win:$('.login'),form:$('.fm'),inp:$('#inPw'),err:$('.err'),ok2:$('.ok2'),dim:$('.in-dim'),sub:$('.in-sub'),ttl:$('.in-ttl'),fx:$('.in-fx'),mute:$('.mute'),skip:$('.skip'),boot:$('.in-boot pre'),clk:$('.clk'),
-  lt:$('.lt'),hint:$('.hint'),lb:$('.lb'),ok:$('.ok'),em:$('.em'),h2:$('.in-ttl h2'),date:$('.in-ttl p')};
-var S={state:'wait',started:false,unlocked:false,err:false,tries:0,cur:-1,raf:0,clock:'pending',tt0:0,voiceEnded:false,muted:false};
-var TM={},voice=null,L=[],ln=[],clockIv=0;
+var ui={form:$('.fm'),inp:$('#inPw'),pin:$('.pin'),dots:[],go:$('.go'),em:$('.em'),sub:$('.in-sub'),ttl:$('.in-ttl'),fx:$('.in-fx'),mute:$('.mute'),skip:$('.skip'),
+  eye:$('.in-eye'),hint:$('.in-hint'),lb:$('.lb'),h2:$('.in-ttl h2'),date:$('.in-ttl p')};
+var S={state:'wait',started:false,unlocked:false,tries:0,cur:-1,raf:0,clock:'pending',tt0:0,voiceEnded:false,muted:false};
+var TM={},voice=null,L=[],ln=[];
+function snd(n){try{if(W.SFX&&W.SFX[n])W.SFX[n]()}catch(e){}}
+function amb(n){try{if(W.AMB&&W.AMB[n])W.AMB[n]()}catch(e){}}
+function sndOn(){return!(W.SND&&W.SND.on===false)}
 function after(n,ms,f){clearTimeout(TM[n]);TM[n]=setTimeout(function(){TM[n]=0;f()},ms)}
 function clearAll(){for(var k in TM)clearTimeout(TM[k]);TM={};if(S.raf&&W.cancelAnimationFrame)cancelAnimationFrame(S.raf);S.raf=0}
 function go(st){S.state=st;root.setAttribute('data-state',st)}
-
-/* —— 像素小图标（用字符画生成 SVG，不依赖任何图片） —— */
-var PX={
- heart:{g:['.##.##.','#######','#######','#######','.#####.','..###..','...#...'],c:{'#':'#ff8fb8'}},
- star:{g:['...#...','...#...','.#####.','#######','.#####.','.##.##.','.#...#.'],c:{'#':'#ffe27a'}},
- note:{g:['..######','..#....#','..#....#','..#....#','.##...##','###..###','.##...##'],c:{'#':'#4a86e8'}},
- folder:{g:['aaaaa.......','############','############','############','############','############','############'],c:{'#':'#ffd86b',a:'#e2a93c'}},
- lock:{g:['..SSSS..','.S....S.','.S....S.','XXXXXXXX','XXXKKXXX','XXXKKXXX','XXXXXXXX','XXXXXXXX'],c:{X:'#f2c14e',S:'#9aaeb5',K:'#12474f'}},
- warn:{g:['...XX...','..XXXX..','..XKKX..','.XXKKXX.','.XXKKXX.','XXXXXXXX','XXXKKXXX','XXXXXXXX'],c:{X:'#ffd34e',K:'#12474f'}}
-};
-function pix(name){
-  var d=PX[name];if(!d)return'';var h=d.g.length,w=d.g[0].length,r='';
-  for(var y=0;y<h;y++)for(var x=0;x<w;x++){var ch=d.g[y].charAt(x),c=d.c[ch];if(c)r+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+c+'"/>'}
-  return'<svg viewBox="0 0 '+w+' '+h+'" aria-hidden="true">'+r+'</svg>';
-}
-$$('[data-px]').forEach(function(el){el.innerHTML=pix(el.getAttribute('data-px'))});
 function rnd(a,b){return a+Math.random()*(b-a)}
-function box(name,cls,style){var d=D.createElement('i');d.className=cls;d.setAttribute('data-px',name);d.innerHTML=pix(name);d.style.cssText=style;return d}
+
+/* —— 小圆点：有几位密码就几个点，输一位亮一个 —— */
+function buildPins(){
+  var n=Math.max(1,Math.min(10,String(cfg.password).length)),h='';
+  for(var i=0;i<n;i++)h+='<i></i>';
+  ui.pin.innerHTML=h;ui.dots=$$('.pin i');
+}
+function paint(){
+  var len=String(ui.inp.value||'').length,n=ui.dots.length;
+  ui.dots.forEach(function(d,i){d.classList.toggle('on',i<len);d.classList.toggle('cur',i===len)});
+  ui.go.classList.toggle('rdy',len>0);ui.go.classList.toggle('full',len>=n&&len>0);
+}
+/* —— 缓缓上升的细小光点（字幕和标题阶段才显示） —— */
 function buildDecor(){
-  var names=['heart','star','note','heart','star','note','heart'];
   if(!ui.fx||ui.fx.__built)return;ui.fx.__built=1;
-  for(var i=0;i<14;i++){var s=Math.round(rnd(14,26)),d=rnd(9,16);
-    ui.fx.appendChild(box(names[i%names.length],'fl','--x:'+Math.round(rnd(4,94))+'%;--s:'+s+'px;--d:'+d.toFixed(1)+'s;--dl:-'+rnd(0,d).toFixed(1)+'s;--w:'+Math.round(rnd(-40,40))+'px'))}
-  for(var j=0;j<18;j++){var a=(j/18)*Math.PI*2+rnd(-.2,.2),r=rnd(120,300),sz=Math.round(rnd(10,20));
-    ui.fx.appendChild(box(names[j%names.length],'bu','--s:'+sz+'px;--dx:'+Math.round(Math.cos(a)*r)+'px;--dy:'+Math.round(Math.sin(a)*r*.62)+'px;--dl:'+(0.85+rnd(0,.7)).toFixed(2)+'s'))}
+  for(var i=0;i<16;i++){var d=D.createElement('i'),s=Math.round(rnd(2,5)),du=rnd(12,22);
+    d.className='fl';d.style.cssText='--x:'+Math.round(rnd(3,97))+'%;--s:'+s+'px;--d:'+du.toFixed(1)+'s;--dl:-'+rnd(0,du).toFixed(1)+'s;--w:'+Math.round(rnd(-30,30))+'px';ui.fx.appendChild(d)}
 }
 
 /* —— 把配置里的文字放到页面上 —— */
 function applyText(){
   var w=cfg.window||{};
-  if(w.title){ui.lt.textContent=w.title;var tk=$('.tk');if(tk)tk.textContent=w.title}
-  if(w.hint)ui.hint.textContent=w.hint;if(w.label)ui.lb.textContent=w.label;if(w.ok)ui.ok.textContent=w.ok;if(w.wrong)ui.em.textContent=w.wrong;
+  if(w.title)ui.eye.textContent=w.title;if(w.hint)ui.hint.textContent=w.hint;if(w.label)ui.lb.textContent=w.label;
   if(cfg.title)ui.h2.textContent=cfg.title;if(cfg.date)ui.date.textContent=cfg.date;
-  /* 字幕：每句一个元素，时间从小到大排好；缺 end 就用默认时长，缺 start 就接在上一句后面 */
+  buildPins();
   L=(cfg.lines||[]).map(function(l){return{zh:String(l.zh||''),en:String(l.en||''),start:Number(l.start),end:Number(l.end)}});
-  var t=0;L.forEach(function(l,i){if(!isFinite(l.start))l.start=i?L[i-1].end+.8:1;if(!isFinite(l.end))l.end=l.start+(cfg.fallbackLineSeconds||3.6)});
+  L.forEach(function(l,i){if(!isFinite(l.start))l.start=i?L[i-1].end+.8:1;if(!isFinite(l.end))l.end=l.start+(cfg.fallbackLineSeconds||3.6)});
   L.sort(function(a,b){return a.start-b.start});
-  ui.sub.innerHTML='';ln=L.map(function(l){var el=D.createElement('div');el.className='ln'+(l.en.length>44?' long':'');el.innerHTML='<div class="z"></div><div class="e"></div>';el.firstChild.textContent=l.en;el.lastChild.textContent=l.zh; /* 英文是大字幕，中文是小字幕 */ui.sub.appendChild(el);return el});
+  ui.sub.innerHTML='';ln=L.map(function(l){var el=D.createElement('div');el.className='ln'+(l.en.length>44?' long':'');el.innerHTML='<div class="z"></div><div class="e"></div>';el.firstChild.textContent=l.en;el.lastChild.textContent=l.zh;ui.sub.appendChild(el);return el}); /* 英文是大字幕，中文是小字幕 */
 }
 function loadFileConfig(){
   try{if(!W.fetch)return;fetch('intro-config.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&!S.unlocked){merge(j);applyText()}}).catch(function(){})}catch(e){}
@@ -480,37 +676,29 @@ function clockT(){
 }
 
 /* —— 各个阶段 —— */
-function updateClock(){var d=new Date(),h=d.getHours(),m=d.getMinutes();if(ui.clk)ui.clk.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m}
-function boot(){
-  go('boot');var i=0,lines=cfg.boot||[];ui.boot.textContent='';
-  (function nx(){
-    if(S.state!=='boot')return;
-    if(i>=lines.length){after('b2',380,showLogin);return}
-    ui.boot.textContent+=(i?'\n':'')+lines[i++];after('b1',230,nx);
-  })();
-  root.addEventListener('pointerdown',function skipBoot(){if(S.state==='boot'){clearAll();showLogin()}root.removeEventListener('pointerdown',skipBoot)});
-}
 function showLogin(){
-  if(S.state==='login')return;go('login');prepVoice();ui.inp.value='';updateClock();
-  if(!coarse)after('f',700,function(){try{ui.inp.focus()}catch(e){}}); /* 手机上不自动弹键盘，等用户自己点输入框 */
+  if(S.state==='login')return;go('login');prepVoice();ui.inp.value='';paint();
+  if(!coarse)after('f',900,function(){try{ui.inp.focus()}catch(e){}}); /* 手机上不自动弹键盘，等用户自己点小圆点 */
 }
-function closeErr(){S.err=false;ui.err.classList.remove('on');ui.dim.classList.remove('on');try{ui.inp.focus()}catch(e){}}
 function wrong(){
-  S.err=true;S.tries++;
-  ui.win.classList.remove('shake');void ui.win.offsetWidth;ui.win.classList.add('shake');
-  ui.inp.value='';ui.err.classList.add('on');ui.dim.classList.add('on');
-  if(S.tries>=3&&cfg.hint2)ui.hint.textContent=cfg.hint2; /* 输错 3 次以后，换一句更明显的提示 */
-  try{ui.ok2.focus()}catch(e){}
+  S.tries++;snd('err');
+  ui.pin.classList.remove('shake');void ui.pin.offsetWidth;ui.pin.classList.add('shake');
+  ui.inp.value='';paint();
+  ui.em.textContent=(S.tries>=3&&cfg.hint2)?cfg.hint2:(cfg.window.wrong||'Not quite. Try again.'); /* 输错 3 次以后，换一句更明显的提示 */
+  ui.em.classList.add('show');
 }
 function submit(){
-  if(S.state!=='login'||S.err)return;
+  if(S.state!=='login')return;
   var v=String(ui.inp.value||'').trim();
+  if(!v)return;
   if(v===String(cfg.password))unlock();else wrong();
 }
 function unlock(){
-  go('unlock');S.unlocked=true;S.tries=0;
+  go('unlock');S.unlocked=true;S.tries=0;S.muted=!sndOn();snd('unlock');amb('prime');
+  try{ui.inp.blur()}catch(e){}
+  ui.em.classList.remove('show');
   startVoice(); /* 要在用户这一次操作里直接调用 play()，否则手机浏览器会拦住 */
-  after('sp',850,beginSpeech);
+  after('sp',1050,beginSpeech);
 }
 function showLine(i){var e=ln[i];if(!e)return;e.classList.remove('off');e.classList.add('on')}
 function hideLine(i){var e=ln[i];if(!e)return;e.classList.remove('on');e.classList.add('off')}
@@ -519,7 +707,7 @@ function beginSpeech(){
   (function tick(){
     if(S.state!=='speech')return;
     var t=clockT(),idx=-1;
-    if(S.clock==='audio'){var n=NOW();if(t!==S.lastT){S.lastT=t;S.lastAt=n}else if(voice&&!voice.paused&&n-(S.lastAt||n)>6000){S.clock='timer';S.tt0=n-t*1000}}
+    if(S.clock==='audio'){var n=NOW();if(t!==S.lastT){S.lastT=t;S.lastAt=n}else if(voice&&!voice.paused&&n-(S.lastAt||n)>6000){S.clock='timer';S.tt0=n-t*1000}} /* 语音卡住（缓冲不动）超过 6 秒：改用计时器，从当前时间接着走 */
     for(var i=0;i<L.length;i++)if(t>=L[i].start&&t<L[i].end){idx=i;break}
     if(idx!==S.cur){if(S.cur>=0)hideLine(S.cur);if(idx>=0)showLine(idx);S.cur=idx}
     var endT=L.length?L[L.length-1].end:0;
@@ -529,45 +717,45 @@ function beginSpeech(){
 }
 function toTitle(){
   if(S.cur>=0)hideLine(S.cur);S.cur=-1;
-  go('title');
-  after('ex',Math.round((cfg.titleHold||2.8)*1000)+1900,startExit); /* 标题升起约 1.9 秒，再停留 titleHold 秒 */
+  go('title');snd('sparkle');amb('start');
+  after('ex',Math.round((cfg.titleHold||2.8)*1000)+1900,startExit); /* 标题升起约 2 秒，再停留 titleHold 秒 */
 }
 function startExit(){
   if(S.state==='exit'||S.state==='done')return;
-  clearAll();go('exit');after('done',reduce?30:1150,finish);
+  clearAll();go('exit');amb('start');
+  try{D.body.classList.add('intro-reveal');D.dispatchEvent(new CustomEvent('intro:exit'))}catch(e){}
+  after('done',reduce?30:1150,finish);
 }
 function finish(){
-  clearAll();stopVoice();if(clockIv)clearInterval(clockIv);
+  clearAll();stopVoice();
   if(S.state==='done')return;go('done');root.classList.remove('on');
   try{D.documentElement.classList.add('intro-done')}catch(e){}
   try{if(root.parentNode)root.parentNode.removeChild(root)}catch(e){}
   try{D.dispatchEvent(new CustomEvent('intro:done'))}catch(e){}
 }
 function skip(){ /* 只有在密码验证通过以后才能跳过，不会绕过密码 */
-  if(!S.unlocked)return;
+  if(!S.unlocked)return;snd('tick');
   if(S.state==='unlock'||S.state==='speech'||S.state==='title'){stopVoice();startExit()}
 }
 function start(){
   if(S.started)return;S.started=true;
-  if(DISABLED){finish();return}
-  try{
-    root.classList.add('on');updateClock();clockIv=setInterval(updateClock,20000);
-    if(reduce)showLogin();else boot();
-  }catch(e){finish()}
+  if(DISABLED){amb('start');finish();return}
+  try{root.classList.add('on');showLogin()}catch(e){finish()}
 }
 
 /* —— 事件 —— */
 ui.form.addEventListener('submit',function(e){e.preventDefault();submit()});
-ui.ok2.addEventListener('click',closeErr);
-ui.dim.addEventListener('click',function(){if(S.err)closeErr()});
+ui.inp.addEventListener('input',function(){snd('key');ui.em.classList.remove('show');paint()});
 ui.skip.addEventListener('click',skip);
-ui.mute.addEventListener('click',function(){S.muted=!S.muted;if(voice)voice.muted=S.muted;ui.mute.textContent=S.muted?'♪ OFF':'♪ ON';ui.mute.classList.toggle('off',S.muted)});
+function paintMute(){if(W.SND)S.muted=!sndOn();if(voice)voice.muted=S.muted;ui.mute.classList.toggle('off',S.muted)}
+ui.mute.addEventListener('click',function(){if(W.SND&&W.SND.toggle)W.SND.toggle();else{S.muted=!S.muted;if(voice)voice.muted=S.muted;ui.mute.classList.toggle('off',S.muted)}paintMute()});
+try{if(W.SND&&W.SND.subs)W.SND.subs.push(paintMute)}catch(e){}
+paintMute();
 D.addEventListener('keydown',function(e){
   if(S.state==='done'||S.state==='wait')return;
-  if(e.key==='Escape'){if(S.err)closeErr();else skip()}
-  else if(e.key==='Enter'&&S.err){e.preventDefault();closeErr()}
+  if(e.key==='Escape')skip();
 });
-try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){ /* 手机弹出键盘：窗口跟着「看得见的那一块」居中，背景始终铺满，不会露出后面的首页 */
+try{if(W.visualViewport){var vv=W.visualViewport,fit=function(){ /* 手机弹出键盘：内容跟着「看得见的那一块」居中，背景始终铺满，不会露出后面的首页 */
   root.style.setProperty('--vvh',Math.round(vv.height)+'px');root.style.setProperty('--vvt',Math.round(vv.offsetTop)+'px');
   root.classList.toggle('kb',vv.height<430);
   if(S.state!=='done'&&(W.scrollY||(D.documentElement&&D.documentElement.scrollTop)))W.scrollTo(0,0)};
@@ -2123,6 +2311,7 @@ function closeWard(){if(!WD.open)return;WD.open=false;gsap.killTweensOf([WD.l.ro
 const HOME={T:new THREE.Vector3(-.5,1.15,.3),th:-.35,ph:1.38,r:7};
 const cur={T:HOME.T.clone(),th:HOME.th,ph:HOME.ph,r:HOME.r},goal={T:HOME.T.clone(),th:HOME.th,ph:HOME.ph,r:HOME.r};
 let focused=null;
+ document.addEventListener('intro:exit',()=>{if(focused)return;const r=HOME.r;goal.r=r*1.2;goal.th=HOME.th+.18;goal.ph=HOME.ph-.07;cur.r=goal.r;cur.th=goal.th;cur.ph=goal.ph;gsap.to(goal,{r:r,th:HOME.th,ph:HOME.ph,duration:2.8,ease:'power2.out',delay:.15,overwrite:true});addEventListener('pointerdown',()=>gsap.killTweensOf(goal),{once:true,capture:true})});
 function fit(){const w=innerWidth,h=innerHeight,a=w/h,tf=Math.tan(cam.fov*Math.PI/360);
  HOME.r=Math.max((1.75)/tf,(3.3)/(tf*a))*1.08;cam.aspect=a;cam.updateProjectionMatrix();R.setSize(w,h,false);if(!focused)goal.r=HOME.r}
 addEventListener('resize',fit);fit();cur.r=goal.r;
@@ -2156,8 +2345,9 @@ pBack.onclick=goHome;addEventListener('keydown',e=>{if(e.key!=='Escape')return;i
 
 /* ========= 交互 ========= */
 const ray=new THREE.Raycaster(),mp=new THREE.Vector2(),tip=document.getElementById('tip');
-function pick(e){mp.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(mp,cam);
- const h=ray.intersectObjects(spots.map(s=>s.g),true)[0];if(!h)return null;let o=h.object;while(o&&!o.userData.id)o=o.parent;return spots.find(s=>s.g===o)}
+function pick(e,fat){const t=(x,y)=>{mp.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(mp,cam);const h=ray.intersectObjects(spots.map(s=>s.g),true)[0];if(!h)return null;let o=h.object;while(o&&!o.userData.id)o=o.parent;return spots.find(s=>s.g===o)||null};
+ let r=t(e.clientX,e.clientY);if(r||!fat)return r; /* 手指比鼠标粗：正中没点到，就在周围一圈（约 12px、22px）里找最近的物件 */
+ for(const rad of[12,22])for(let i=0;i<8;i++){const a=i*Math.PI/4+.39;r=t(e.clientX+Math.cos(a)*rad,e.clientY+Math.sin(a)*rad);if(r)return r}return null}
 let hover=null,drag=null,pinch=null;const ptrs=new Map();
 const clampT=()=>{const dx=goal.T.x-HOME.T.x,dz=goal.T.z-HOME.T.z,l=Math.hypot(dx,dz);if(l>3.2){goal.T.x=HOME.T.x+dx*3.2/l;goal.T.z=HOME.T.z+dz*3.2/l}};
 const panBy=px=>{const k=goal.r*.001;goal.T.x+=Math.cos(goal.th)*px*k;goal.T.z-=Math.sin(goal.th)*px*k;clampT()}; /* 水平平移：沿当前镜头的左右方向 */
@@ -2180,8 +2370,8 @@ cv.addEventListener('pointermove',e=>{
  PC.hov=DP.open&&!(drag&&drag.m>6)?perfAt(e):null;if(PC.hov){cv.style.cursor='pointer';tip.textContent=PERF[PC.hov.userData.perf].n;tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px';tip.style.opacity=1}});
 const up=e=>{ptrs.delete(e.pointerId);
  if(ptrs.size>0){const r=[...ptrs.values()][0];drag={x:r.x,y:r.y,m:99,btn:0};pinch=null;return}
- pinch=null;const moved=!drag||drag.m>6||drag.btn!==0||drag.pan;drag=null;if(moved||e.type==='pointercancel')return;
- if((CAL.open&&hitCal(e))||(SOFT()&&hitDoll(e))||(KB.open&&hitKB(e))||(DP.open&&hitPerf(e)))return;const s=pick(e);if(s){spots.forEach(x=>x.goal=0);s.goal=1;focus(s);s.goal=0} /* 点开后立刻取消高亮放大，不让物件一直保持悬停状态 */else if(focused)goHome()};
+ pinch=null;const moved=!drag||drag.m>=99||(e.pointerType==='mouse'?drag.m>6:(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>14||drag.m>70))||drag.btn!==0||drag.pan; /* 手指：抬起时离按下的位置不超过 14px 就算「点一下」，中间抖动不算 */drag=null;if(moved||e.type==='pointercancel')return;
+ if((CAL.open&&hitCal(e)&&(window.SFX&&SFX.paper(),true))||(SOFT()&&hitDoll(e))||(KB.open&&hitKB(e))||(DP.open&&hitPerf(e)&&(window.SFX&&SFX.bottle(),true)))return;const s=pick(e,e.pointerType!=='mouse');if(s){if(window.SFX)SFX.obj(s.id);spots.forEach(x=>x.goal=0);s.goal=1;focus(s);s.goal=0} /* 点开后立刻取消高亮放大，不让物件一直保持悬停状态 */else if(focused){if(window.SFX)SFX.back();goHome()}};
 cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 cv.addEventListener('wheel',e=>{e.preventDefault();
  if(CAL.open){wheelCal(e.deltaY);return}
@@ -2478,21 +2668,21 @@ cv.addEventListener('pointerdown',e=>{if(!ST.open||ST.t<.6)return;SB.pts.set(e.p
  if(SB.pts.size===2){clearTimeout(SB.hold);SB.grab=null;SB.pressed=false;SB.cur=null;const a=[...SB.pts.values()];SB.pinch={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1};return}
  const h=hitDollPt(e);if(!h){SB.cur=null;return}
  SB.cur={id:e.pointerId,x0:e.clientX,y0:e.clientY,hit:h,moved:0,vx:0,lx:e.clientX,lt:performance.now()};
- SB.hold=setTimeout(()=>{if(SB.cur&&SB.cur.moved<8)startPress()},200)});
+ SB.hold=setTimeout(()=>{if(SB.cur&&SB.cur.moved<14)startPress()},200)});
 cv.addEventListener('pointermove',e=>{if(!ST.open)return;const q=SB.pts.get(e.pointerId);if(!q)return;q.x=e.clientX;q.y=e.clientY;
  if(SB.pinch&&SB.pts.size>=2){const a=[...SB.pts.values()],pr=ST.sp.pinch,r=Math.max(pr[0],Math.min(pr[1],Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)/SB.pinch.d)); /* 双指捏：横向挤压、纵向鼓起 */
   gsap.killTweensOf(ST.inner.scale);ST.inner.scale.set(r,1/Math.sqrt(r),1/Math.sqrt(r));return}
  const c=SB.cur;if(!c||c.id!==e.pointerId)return;
  const now=performance.now(),dx=e.clientX-c.lx;c.moved+=Math.abs(dx)+Math.abs(e.movementY||0);
  c.vx=.7*c.vx+.3*(dx/Math.max(now-c.lt,1));c.lx=e.clientX;c.lt=now;
- if(c.moved>8&&!SB.pressed){clearTimeout(SB.hold);const D=dragLocal(c.hit,e.clientX-c.x0,e.clientY-c.y0); /* 拖拽：抓住一块拉扯 */
+ if(c.moved>14&&!SB.pressed){clearTimeout(SB.hold);const D=dragLocal(c.hit,e.clientX-c.x0,e.clientY-c.y0); /* 拖拽：抓住一块拉扯 */
   SB.grab={x:c.hit.p.x,y:c.hit.p.y,z:c.hit.p.z,dx:D.x,dy:D.y,dz:D.z};
   const tl=ST.sp.tilt;gsap.killTweensOf(ST.inner.rotation);ST.inner.rotation.z=Math.max(-tl,Math.min(tl,-D.x*6))}});
 const sbUp=e=>{if(!ST.open&&!SB.cur)return;SB.pts.delete(e.pointerId);
  if(SB.pinch){if(SB.pts.size<2){SB.pinch=null;springBack(1)}return}
  const c=SB.cur;if(!c||c.id!==e.pointerId)return;clearTimeout(SB.hold);SB.cur=null;
  if(SB.pressed){SB.pressed=false;SB.grab=null;springBack(.9);return}
- if(c.moved<8){const now=performance.now();if(now-SB.lastTap<320)hop();SB.lastTap=now;poke(c.hit,ST.sp.poke);return}
+ if(c.moved<14){const now=performance.now();if(now-SB.lastTap<320)hop();SB.lastTap=now;poke(c.hit,ST.sp.poke);return}
  const tl=ST.sp.tilt+.05;SB.grab=null;ST.inner.rotation.z=Math.max(-tl,Math.min(tl,ST.inner.rotation.z-c.vx*.35*tl/.4));springBack(1)}; /* 松手：回弹 + 甩一下的余晃 */
 cv.addEventListener('pointerup',sbUp);cv.addEventListener('pointercancel',sbUp);
 function openSoft(T){if(T.open)return;if(ST!==T&&ST.open)closeSoft(ST);ST=T;SB.ripples.length=0;T.open=true;hover=null;const sp=spots.find(q=>q.id===T.id);if(sp)sp.goal=0;
@@ -2542,9 +2732,9 @@ songs.addEventListener('pointerdown',e=>{if(!SG.open||SG.spread<.9||e.target.clo
  sd={x:e.clientX,c:SG.cur,m:0,vx:0,lx:e.clientX,lt:performance.now(),t:e.target}});
 songs.addEventListener('pointermove',e=>{if(!sd)return;const dx=e.clientX-sd.x;sd.m=Math.max(sd.m,Math.abs(dx));
  const now=performance.now();sd.vx=.7*sd.vx+.3*((e.clientX-sd.lx)/Math.max(now-sd.lt,1));sd.lx=e.clientX;sd.lt=now;
- if(sd.m>6){SG.cur=cl(sd.c-dx/SG.sp,-.3,NS-.7);songRender()}});
+ if(sd.m>12){SG.cur=cl(sd.c-dx/SG.sp,-.3,NS-.7);songRender()}});
 songs.addEventListener('pointerup',()=>{if(!sd)return;const d=sd;sd=null;
- if(d.m>6){songGo(Math.round(SG.cur-d.vx*220/SG.sp),true);return}
+ if(d.m>12){songGo(Math.round(SG.cur-d.vx*220/SG.sp),true);return}
  const card=d.t.closest('.scard');if(!card)return;const i=scards.findIndex(c=>c.el===card),btn=d.t.closest('.pbtn');
  if(i!==Math.round(SG.cur))songGo(i,true);if(btn)songToggle(i)});
 songs.addEventListener('pointercancel',()=>{sd=null;songGo(Math.round(SG.cur),true)});
@@ -2675,14 +2865,14 @@ function closeKB(){if(!KB.open)return;KB.open=false;stopSilent();for(const n of 
 
 /* ========= 香水：柜门打开后，点单瓶 → 瓶子往前探出 + 镜头推近 + 右侧卡片（你的产品图、名字、感受） ========= */
 const pc=document.getElementById('pcard');
-function perfAt(e){if(!DP.open)return null;mp.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);ray.setFromCamera(mp,cam);
- const h=ray.intersectObjects(PC.g,true)[0];if(!h)return null;let o=h.object;while(o&&o.userData.perf===undefined)o=o.parent;return o||null}
+function perfAt(e,fat){if(!DP.open)return null;const t=(x,y)=>{mp.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(mp,cam);const h=ray.intersectObjects(PC.g,true)[0];if(!h)return null;let o=h.object;while(o&&o.userData.perf===undefined)o=o.parent;return o||null};
+ let r=t(e.clientX,e.clientY);if(r||!fat)return r;for(const rad of[9,17])for(let i=0;i<8;i++){const a=i*Math.PI/4+.39;r=t(e.clientX+Math.cos(a)*rad,e.clientY+Math.sin(a)*rad);if(r)return r}return null}
 function showPerf(i){const b=PC.g.find(q=>q.userData.perf===i),d=PERF[i];PC.sel=b;
  pcImg.src=PERF_IMG[i];pcImg.alt=d.n;pcBrand.textContent=d.b;pcName.textContent=d.n;pcNotes.innerHTML=d.t.map(r=>'<div><span>'+r[0]+'</span><span>'+r[1]+'</span></div>').join('');pcNote.textContent=d.note||'';pcNote.hidden=!d.note;pc.classList.add('on');
  const p=b.parent.localToWorld(b.userData.p0.clone().add(new THREE.Vector3(0,.04,.12))),th=-1.5,off=innerWidth>640?.14:0;
  goal.T.set(p.x+Math.cos(th)*off,p.y+(innerWidth>640?0:-.05),p.z-Math.sin(th)*off);goal.th=near(th);goal.ph=1.45;goal.r=.72}
 function closePerf(){if(!PC.sel)return;PC.sel=null;pc.classList.remove('on')}
-function hitPerf(e){const b=perfAt(e);if(!b)return false;showPerf(b.userData.perf);return true}
+function hitPerf(e){const b=perfAt(e,e.pointerType!=='mouse');if(!b)return false;showPerf(b.userData.perf);return true}
 const ORDER=[1,8,9,6,7,12,14,0,2,3,4,5,10,11,13];
 const stepPerf=k=>{if(!PC.sel)return;const n=ORDER.indexOf(PC.sel.userData.perf);showPerf(ORDER[(n+k+ORDER.length)%ORDER.length])};
 pcPrev.onclick=()=>stepPerf(-1);pcNext.onclick=()=>stepPerf(1);
@@ -2783,9 +2973,9 @@ certw.addEventListener('pointerdown',e=>{if(!CW.open)return;
  cd={x:e.clientX,c:CW.cur,m:0,vx:0,lx:e.clientX,lt:performance.now(),t:e.target}});
 certw.addEventListener('pointermove',e=>{if(!cd)return;const dx=e.clientX-cd.x;cd.m=Math.max(cd.m,Math.abs(dx));
  const now=performance.now();cd.vx=.7*cd.vx+.3*((e.clientX-cd.lx)/Math.max(now-cd.lt,1));cd.lx=e.clientX;cd.lt=now;
- if(cd.m>6&&CW.spread>=.9){CW.cur=cl(cd.c-dx/CW.sp,-.3,NC-.7);certRender()}});
+ if(cd.m>12&&CW.spread>=.9){CW.cur=cl(cd.c-dx/CW.sp,-.3,NC-.7);certRender()}});
 certw.addEventListener('pointerup',()=>{if(!cd)return;const d=cd;cd=null;
- if(d.m>6){if(CW.spread>=.9)certGo(Math.round(CW.cur-d.vx*220/CW.sp),true);return}
+ if(d.m>12){if(CW.spread>=.9)certGo(Math.round(CW.cur-d.vx*220/CW.sp),true);return}
  const card=d.t.closest('.ccard');if(!card){goHome();return} /* 点空白处：返回 */
  const i=ccards.findIndex(c=>c.el===card);
  if(i!==Math.round(CW.cur))certGo(i,true);else{czoom.querySelector('img').src=CERT_IMG[ccards[i].k];czoom.classList.add('on')}}); /* 点正中的一张：放大 */
@@ -2898,7 +3088,7 @@ DOLM.home=DOLM.p0.clone();
   DD.id=e.pointerId;DD.lifted=false;DD.x0=DD.px=e.clientX;DD.y0=DD.py=e.clientY;clearTimeout(DD.tm);DD.tm=setTimeout(lift,200)},true); /* 这里不拦截：短按还是照常点击聚焦 */
  cv.addEventListener('contextmenu',e=>{if(DD.id!==null)e.preventDefault()}); /* 手机上长按会弹出系统菜单，这里挡掉 */
  addEventListener('pointermove',e=>{if(DD.id===null||e.pointerId!==DD.id)return;DD.px=e.clientX;DD.py=e.clientY;
-  if(!DD.lifted){if(Math.hypot(e.clientX-DD.x0,e.clientY-DD.y0)>8){clearTimeout(DD.tm);DD.id=null}return} /* 还没提起来就动了：当作转动镜头，放开咪菇 */
+  if(!DD.lifted){if(Math.hypot(e.clientX-DD.x0,e.clientY-DD.y0)>12){clearTimeout(DD.tm);DD.id=null}return} /* 还没提起来就动了：当作转动镜头，放开咪菇 */
   e.stopImmediatePropagation();aim(e.clientX,e.clientY);
   if(ray.ray.intersectPlane(DD.fp,hp)){const yv=hp.y+DD.off.y;
    /* 高度超出范围时，改成沿着最低 / 最高那一层水平面滑动（两个平面在交界处刚好重合，所以不会跳） */
