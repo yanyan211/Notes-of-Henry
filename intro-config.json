@@ -1,5 +1,5 @@
 {
-  "_说明": "这是开场动画的文案、语音和时间配置。想改字幕、换语音、调时间，只改这个文件就行，不用动网页代码。时间单位是「秒」，从语音开始播放的那一刻算起。英文是大字幕（en），中文是小字幕（zh）。语音 audio/intro-voice.mp3 是 5 句录音拼起来的：第 1 秒开始说话（带渐入），句与句之间留 0.65~1 秒，最后一句带渐出。",
+  "_说明": "这是开场动画的全部文案、章节、音频和时间配置。想改字幕、换章节、调时间，只改这个文件就行，不用动网页代码。chapters 是前面的 5 章故事：每章一幅插画（art 可选 city / trophy / practice / songs / plane）+ 一小段字，观众点一下把动画画完、再点一下翻到下一章；一直没人点，过 autoAdvanceSeconds 秒自动翻页（设成 0 就一直等）。lines 是后面的 5 句配音字幕，时间单位是「秒」，从 audio/intro-voice.mp3 开始播放的那一刻算起。audio/intro-bgm.mp3 是故事部分循环播放的背景音乐。",
   "password": "1018",
   "voice": "audio/intro-voice.mp3",
   "window": {
@@ -7,7 +7,8 @@
     "hint": "A little secret is waiting for you...",
     "label": "ENTER PASSWORD",
     "ok": "OK",
-    "wrong": "Not quite. Please try again."
+    "wrong": "Not quite. Please try again.",
+    "next": "Tap to continue"
   },
   "title": "Happy Henry's Day",
   "date": "10 · 18",
@@ -46,5 +47,40 @@
   "pauseBeforeTitle": 1.0,
   "titleHold": 2.8,
   "fallbackLineSeconds": 3.6,
-  "hint2": "Hint: it’s a date — month, then day."
+  "hint2": "Hint: it’s a date — month, then day.",
+  "bgm": "audio/intro-bgm.mp3",
+  "chapters": [
+    {
+      "art": "city",
+      "cap": "01 · Chongqing",
+      "en": "Chongqing, a city of hills and river mist. On the 18th of October, a boy was born.",
+      "zh": "重庆，一座有山、有雾、有江的城市。十月十八日，一个男孩出生了。"
+    },
+    {
+      "art": "trophy",
+      "cap": "02 · The first trophy",
+      "en": "He loved to sing. His first trophy is still the one he treasures most.",
+      "zh": "他从小爱唱歌。第一座奖杯，至今仍是他最珍惜的。"
+    },
+    {
+      "art": "practice",
+      "cap": "03 · The practice room",
+      "en": "In 2022 he walked into the practice room — and kept showing up, day after day.",
+      "zh": "2022 年，他走进练习室，然后日复一日，从未缺席。"
+    },
+    {
+      "art": "songs",
+      "cap": "04 · The songs",
+      "en": "On stage, and in the songs he makes, his voice found its way to people.",
+      "zh": "在舞台上，在他做的歌里，他的声音一点一点，走到了很多人的心里。"
+    },
+    {
+      "art": "plane",
+      "cap": "05 · Come with me",
+      "en": "Now he is seventeen. Come with me — I’ll take you to his space.",
+      "zh": "如今，他十七岁了。来，跟我走，我带你去他的空间。"
+    }
+  ],
+  "autoAdvanceSeconds": 14,
+  "chapterMs": 1700
 }
