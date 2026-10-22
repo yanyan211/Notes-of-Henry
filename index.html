@@ -325,14 +325,11 @@ html.pl-night #intro .art .pnl{box-shadow:0 22px 44px -22px rgba(0,0,0,.7)}
 #intro .in-ttl{position:absolute;left:0;right:0;top:48%;transform:translateY(-50%);padding:0 5vw;text-align:center;pointer-events:none;opacity:0}
 #intro .in-ttl h2{margin:0;font:italic 400 clamp(40px,11vw,96px)/1.08 var(--serif);color:var(--ink);letter-spacing:-.005em}
 #intro .in-ttl p{margin:22px 0 0;font-size:11px;letter-spacing:.42em;color:var(--mute);padding-left:.42em}
-#intro .in-ttl .rule{display:block;width:46px;height:1px;margin:0 auto 26px;background:var(--ink);opacity:.4;transform:scaleX(0)}
 #intro[data-state=title] .in-ttl{opacity:1}
 #intro[data-state=title] .in-ttl h2{animation:ttlIn 2s cubic-bezier(.2,.7,.2,1) both}
 #intro[data-state=title] .in-ttl p{animation:ttlP 1.4s ease .9s both}
-#intro[data-state=title] .in-ttl .rule{animation:rule 1.4s cubic-bezier(.3,.7,.2,1) .5s both}
 @keyframes ttlIn{0%{opacity:0;filter:blur(14px);transform:translateY(44px)}100%{opacity:1;filter:blur(0);transform:none}}
 @keyframes ttlP{from{opacity:0}to{opacity:1}}
-@keyframes rule{to{transform:scaleX(1)}}
 #intro[data-state=title] .in-ring{animation:ring2 3s cubic-bezier(.2,.6,.3,1) .9s both;top:48%}
 @keyframes ring2{0%{opacity:.3;transform:scale(.5)}100%{opacity:0;transform:scale(11)}}
 /* —— 缓缓上升的细小光点 —— */
@@ -359,8 +356,7 @@ html.pl-night #intro .mute,html.pl-night #intro .skip{border-color:rgba(255,255,
  #intro *{animation:none!important;transition-duration:.01s!important}
  #intro .fl,#intro .in-ring{display:none!important}
  #intro .art .dr{stroke-dashoffset:0!important;animation:none!important}
- #intro .ln{filter:none!important}#intro .in-ttl .rule{transform:none}
-}
+ #intro .ln{filter:none!important}}
 
 /* —— 故事章节的字：比配音字幕更快出现；点一下立刻到位 —— */
 #intro .ln.ch{transition:opacity .4s ease,transform .55s cubic-bezier(.2,.7,.2,1),filter .4s ease}
@@ -483,6 +479,14 @@ var SFX=W.SFX={
   sw:function(){go(function(t){click(t,.22,3800,3,.006);mode(2100,.025,.05,t);mode(140,.05,.1,t);click(t+.085,.17,3000,3,.006);mode(1700,.02,.035,t+.085)})},
   /* 故事翻页：纸张轻轻翻过去 */
   page:function(){go(function(t){swish(t,.16,.07,2600,5200,.8);click(t+.13,.05,3400,1,.006)})},
+  /* 耳机壳开合：金属的一下轻轻「咔哒」 */
+  snap:function(){go(function(t){click(t,.2,3600,3,.006);mode(2300,.05,.06,t);mode(1150,.08,.05,t);click(t+.09,.12,2000,2,.008)})},
+  /* 东西从包里「拿出来」：一声轻轻的、有一点弹性的「啵」 */
+  pop:function(){go(function(t){swish(t,.12,.05,900,2800,1);mode(430,.13,.1,t);mode(860,.07,.04,t+.01)})},
+  /* 鼠标移到包里的东西上：很轻的一粒声音 */
+  hov:function(){go(function(t){mode(1650,.04,.028,t);click(t,.03,4200,2,.004)})},
+  /* 拉链：一串很细的齿声，越拉越快 */
+  zip:function(){go(function(t){for(var i=0;i<26;i++){var tt=t+i*(.042-i*.0006);click(tt,.05+.03*((i%3)/2),4600+i*70+R()*300,3,.004)}swish(t,.95,.035,1400,3400,1.1);mode(520,.05,.04,t)})},
   /* 点空白处返回：一阵很轻的气流往回收 */
   back:function(){go(function(t){swish(t,.14,.05,2000,600,.8)})},
   /* 密码错了：两下很轻的敲击，像在说「不对哦」 */
@@ -612,7 +616,7 @@ paint();D.body.appendChild(btn);
  <div class="in-art" aria-hidden="true"></div>
  <div class="in-sub" aria-live="polite"></div>
  <div class="in-next" aria-hidden="true"><span>Tap to continue</span><i></i></div>
- <div class="in-ttl"><span class="rule"></span><h2>Happy Henry's Day</h2><p>10 · 18</p></div>
+ <div class="in-ttl"><h2>Happy Henry's Day</h2><p>10 · 18</p></div>
  <div class="in-fx"></div>
  <button type="button" class="mute" aria-label="Sound on / off"><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.4a8 8 0 0 1 0 11.2"/></svg><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor" stroke-width="1.2"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
  <button type="button" class="skip">Skip</button>
@@ -1341,7 +1345,7 @@ let R;
 try{R=new THREE.WebGLRenderer({canvas:cv,antialias:true})}
 catch(e1){try{R=new THREE.WebGLRenderer({canvas:cv,antialias:false})} /* 抗锯齿创建失败时，关掉抗锯齿再试一次 */
  catch(e2){document.body.insertAdjacentHTML('beforeend','<div style="position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;font-size:14px;line-height:1.9;color:#59544e">无法启动 3D 画面：浏览器没有可用的 WebGL。<br>请在浏览器或系统设置里开启「硬件加速」，关闭其他占用显卡的页面后刷新。</div>');throw e2}}
-R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.localClippingEnabled=true; /* 耳机壳的缝用裁剪平面做 */ R.setPixelRatio(Math.min(devicePixelRatio,2));
 R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
 R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.1;R.outputEncoding=THREE.sRGBEncoding;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0xf3f1ee);
@@ -2187,6 +2191,7 @@ function closeDP(){closePerf();PC.hov=null;if(!DP.open)return;DP.open=false;gsap
 /* ========= 大衣柜：靠在侧墙（x=2.35）上，在化妆柜的右边；点击后镜头推近、两扇柜门打开，展示里面的男款衣服。
    衣服是 3D 模型（按真实比例做的轮廓，有厚度），表面贴上和你参考图相似的花纹（波点、条纹、做旧印花、扎染渐变……）；上排挂上衣，下排挂裤子 ========= */
 const WD={open:false,l:null,r:null,light:null,garments:[]};
+const BAGX={on:false,st:'hang',t:0,z:0,open:false,h:null,bag:null,par:null,lp:null,lq:null,ls:null,c:null,bw:.5,bh:.5,zl:-1,hov:false,hv:false,lt:0,sel:null,hi:null,it:0,ip:null,lt2:0,itb:false,tr:0,ts:0,wob:0,ir:0,is:0,iw:0,ie:0,itp:0};
 {const W=1,D=.5,Hh=2.1,wd=new THREE.Group(),metal=M(0xb9b2a6,.4,.5),alu=M(0xcfc9c0,.4,.4);scene.add(wd);wd.position.set(2.35,0,2.9);wd.rotation.y=-Math.PI/2;
  const L=(w,h,d,m,x,y,z,p)=>box(w,h,d,m,x,y,z,p||wd);
  /* 柜体：背板、两侧、顶板、底座、中间隔板、内底 */
@@ -2461,6 +2466,164 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
     for(let i=1;i<14;i++){const t=i/14,p=c.getPoint(t);if(Math.abs(p.x)<.035&&p.y>-.03)continue;grom(g,p.x,p.y,p.z+.005)} /* 鸡眼扣沿着带子排，离钩子近的几个跳过，不压在钩子上 */
    }
    {const tz=zs+mz(.215,.2)+.004;ad(g,gB(.026,.2,.003),leather(0x070708,.5,.4),.215,-drop-.14,tz);for(let i=0;i<5;i++)grom(g,.215,-drop-.05-i*.035,tz+.003)} /* 带尾：贴在包身的表面上，不再嵌进去 */
+   /* —— 包顶的拉链口：平时是一条拉链；点开以后，拉链头从右往左拉，口子一路自然地敞开，你能一直看到包里面（深色的内衬 + 里面放着的东西）。
+        做法：口子是「一扇窗」——用模板（stencil）把包顶口子那一块挖出来，窗里面画一个有深度的空腔和里面的东西；口子张开多少，就露出多少，东西一直在里面，没有任何「弹出来」 —— */
+   {const N=72,X0=-.165,X1=.165,TY=x=>hh(2*x/W)+.0035,CD=.13,HZ=.054,XR=.19;
+    const HW=x=>{const u=Math.abs(2*x/W);return Math.max(.004,(D/2)*.6*(1-.55*Math.pow(u,3.2))*(1+.06*(1-u))-.006)}; /* 口子最宽能开到多宽（顶面半宽，留一点边） */
+    const ST={always:THREE.AlwaysStencilFunc||519,equal:THREE.EqualStencilFunc||514,rep:THREE.ReplaceStencilOp||7681,keep:THREE.KeepStencilOp||7680};
+    const mkStrip=mat=>{const geo=new THREE.BufferGeometry(),pos=new Float32Array(N*6),nor=new Float32Array(N*6),uv=new Float32Array(N*4),idx=[];
+     for(let i=0;i<N;i++){uv[i*4]=i/(N-1);uv[i*4+1]=0;uv[i*4+2]=i/(N-1);uv[i*4+3]=1;nor[i*6+1]=1;nor[i*6+4]=1;if(i<N-1){const a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2)}}
+     geo.setAttribute('position',new THREE.BufferAttribute(pos,3));geo.setAttribute('normal',new THREE.BufferAttribute(nor,3));geo.setAttribute('uv',new THREE.BufferAttribute(uv,2));geo.setIndex(idx);
+     const m=new THREE.Mesh(geo,mat);m.frustumCulled=false;B.add(m);return m};
+    const zt=zipTex.clone();zt.needsUpdate=true;zt.wrapS=THREE.RepeatWrapping;zt.repeat.set(9,1);
+    const zmat=new THREE.MeshStandardMaterial({map:zt,roughness:.32,metalness:.5,envMap:lenv,envMapIntensity:.9,side:THREE.DoubleSide});
+    /* ① 模板：口子这一块「窗」（不画颜色，只在模板里做标记） */
+    const lin=mkStrip(new THREE.MeshBasicMaterial({colorWrite:false,depthWrite:false,side:THREE.DoubleSide,stencilWrite:true,stencilFunc:ST.always,stencilRef:1,stencilZPass:ST.rep}));lin.renderOrder=10;
+    const lf=mkStrip(zmat),lb=mkStrip(zmat);lf.renderOrder=lb.renderOrder=20;
+    /* ② 窗里面的东西只画在「窗」里，并且不和包身比深度（它们在包身里面，本来是被挡住的） */
+    const inWin=(m,ro)=>{m.depthTest=false;m.depthWrite=false;m.stencilWrite=true;m.stencilFunc=ST.equal;m.stencilRef=1;m.stencilFail=m.stencilZFail=m.stencilZPass=ST.keep;return m};
+    const cg=new THREE.BoxGeometry(1,1,1,28,1,1),cp=cg.attributes.position;
+    for(let i=0;i<cp.count;i++){const x=cp.getX(i)*2*XR;cp.setXYZ(i,x,TY(x)+(cp.getY(i)-.5)*CD,cp.getZ(i)*2*HZ)} /* 空腔：一个顺着包顶弧线、往下 10cm 的长盒子，只画里面那一层（深色内衬） */
+    cg.computeVertexNormals();
+    const cav=new THREE.Mesh(cg,inWin(new THREE.MeshStandardMaterial({color:SC(0x16161a),roughness:.92,metalness:0,side:THREE.BackSide})));cav.renderOrder=11;cav.frustumCulled=false;B.add(cav);
+    /* 拉链头：一个小小的金属滑块 + 一片垂下来的拉片 */
+    const sl=new THREE.Group();ad(sl,gB(.02,.007,.014),steel,0,0,0);ad(sl,gB(.007,.003,.03),steel,0,.0012,.014);const tab=new THREE.Group();tab.position.set(0,.0016,.03);tab.rotation.x=-.9;ad(tab,gB(.007,.003,.016),steel,0,0,.008);const ring=new THREE.Mesh(new THREE.TorusGeometry(.0048,.0014,6,12),steel);ring.position.set(0,0,.019);tab.add(ring);sl.add(tab);B.add(sl);sl.traverse(o=>{o.renderOrder=20});
+    /* 包里放的东西：卡西欧相机 / 馥马尔「贵妇肖像」香水 / 新款 AirPods / 伊索护手霜（按真实尺寸做的小模型，站在包里，只在口子张开的地方看得到）。
+       每件东西做两份：一份「窗里面」的（受窗口限制，用来画包里面的部分），一份「普通」的（有深度，用来画探出包口的部分）——鼠标移上去它会微微探出来，点一下飞到画面中间 */
+    const it=new THREE.Group();B.add(it);let WIN=true;
+    const W2=p=>{const m=new THREE.MeshStandardMaterial(p);return WIN?inWin(m):m};
+    const rbox=(w,h,d,r)=>{const s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);
+     const g2=new THREE.ExtrudeGeometry(s,{depth:d-.002,bevelEnabled:true,bevelThickness:.001,bevelSize:.001,bevelSegments:2,curveSegments:8});g2.translate(0,0,-(d-.002)/2);return g2}; /* 圆角的盒子 */
+    let ro=0;const part=(grp,geo,mat,x,y,z)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x||0,y||0,z||0);m.renderOrder=ro++;m.castShadow=false;m.frustumCulled=false;grp.add(m);return m}; /* 同一件东西里，后加的画在先加的上面 */
+    const lab=(w,h,fn)=>{const t=tex(w,h,fn);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t};
+    const LP=lab(256,290,(c,w,h)=>{c.fillStyle='#f5f2ea';c.fillRect(0,0,w,h);c.fillStyle='#1b1b1d';c.textAlign='center';c.textBaseline='middle';c.font='500 17px Georgia,serif';c.fillText('FRÉDÉRIC MALLE',w/2,34);c.fillRect(w/2-60,52,120,1.5);c.font='italic 34px Georgia,serif';c.fillText('Portrait',w/2,104);c.fillText('of a Lady',w/2,146);c.fillRect(w/2-60,176,120,1.5);c.font='500 15px Georgia,serif';c.fillText('ÉDITIONS DE PARFUMS',w/2,206);c.fillText('EAU DE PARFUM · 50 ml',w/2,232)});
+    const LT=lab(256,512,(c,w,h)=>{c.fillStyle='#f4efe6';c.textAlign='center';c.textBaseline='middle';c.font='500 40px Georgia,serif';c.fillText('Aesop',w/2,70);c.font='500 22px Arial,sans-serif';c.fillText('RESURRECTION',w/2,150);c.fillText('AROMATIQUE',w/2,184);c.fillText('HAND BALM',w/2,218);c.fillRect(w/2-50,262,100,1.5);c.font='500 18px Arial,sans-serif';c.fillText('75 mL',w/2,300)});
+    /* ① 卡西欧相机：香槟银的金属机身。按「平常拿相机」的样子横着做（镜头在左、闪光灯在右上、快门键在顶上）；
+          放在包里的时候把它转 90° 竖着放（镜头朝上），拿出来的时候转回横着 */
+    const mkCam=()=>{const g2=new THREE.Group();ro=0;
+     const MT=(c,m,r,e)=>W2({color:c,metalness:m,roughness:r,envMap:lenv,envMapIntensity:e});
+     part(g2,rbox(.094,.057,.02,.005),MT(0xcfc8b8,.78,.3,.9));
+     part(g2,rbox(.086,.049,.0006,.004),MT(0xe2dccd,.7,.4,.7),0,0,.0103);
+     const lz=.0108,lx=-.0225,ly=0;
+     part(g2,new THREE.CylinderGeometry(.0148,.0148,.004,36),MT(0x1a1a1d,.6,.3,1),lx,ly,lz).rotation.x=Math.PI/2;
+     part(g2,new THREE.TorusGeometry(.0148,.0012,8,36),MT(0xd8d2c4,.85,.25,1),lx,ly,lz+.002);
+     part(g2,new THREE.CylinderGeometry(.0098,.0098,.004,32),MT(0x070d1c,.2,.06,1.2),lx,ly,lz+.0016).rotation.x=Math.PI/2;
+     part(g2,new THREE.CylinderGeometry(.0034,.0034,.002,16),MT(0x3b4a78,.1,.05,1.4),lx-.004,ly+.003,lz+.0038).rotation.x=Math.PI/2;
+     part(g2,rbox(.013,.007,.001,.0025),MT(0x0c0c10,.3,.1,1),.026,.0185,lz+.0004); /* 闪光灯窗 */
+     part(g2,new THREE.CylinderGeometry(.0042,.0042,.003,18),MT(0xe6e0d2,.85,.3,1),.022,.03,0); /* 顶上的快门键 */
+     part(g2,new THREE.CylinderGeometry(.003,.003,.0024,16),MT(0xd8d2c4,.85,.3,1),.034,.0297,0);
+     part(g2,rbox(.086,.011,.0008,.002),W2({color:0x18181b,metalness:.2,roughness:.5}),0,-.0215,lz+.0006); /* 下面的深色饰条 */
+     return g2};
+    /* ② 馥马尔「贵妇肖像」：厚玻璃的长方形瓶子、深玫瑰红的香水、黑色方盖、白色的标签 */
+    const mkPerf=()=>{const g2=new THREE.Group();ro=0;
+     part(g2,rbox(.036,.05,.022,.005),W2({color:0x7c1f2e,metalness:0,roughness:.25,transparent:true,opacity:.95,depthWrite:false}),0,-.016,0);
+     part(g2,rbox(.044,.066,.03,.007),W2({color:0xe6eef2,metalness:.05,roughness:.06,transparent:true,opacity:.28,envMap:lenv,envMapIntensity:1.1,side:THREE.DoubleSide,depthWrite:false}),0,-.012,0);
+     part(g2,rbox(.0446,.0112,.0306,.004),W2({color:0xe6eef2,metalness:.05,roughness:.08,transparent:true,opacity:.4,envMap:lenv,envMapIntensity:1.1,depthWrite:false}),0,-.0396,0);
+     part(g2,new THREE.PlaneGeometry(.029,.033),W2({map:LP,roughness:.6}),0,-.014,.0153);
+     part(g2,rbox(.03,.022,.022,.0035),W2({color:0x0d0d0f,metalness:.2,roughness:.38,envMap:lenv,envMapIntensity:.5}),0,.034,0);
+     return g2};
+    /* ③ 耳机壳（复刻你发的第二张图「Untitle 07」）：圆润的镀铬银色蛋形外壳，分成前盖和后壳两半，前盖上有爱心边框 + 像素屏 + 宝石 + 按键，右边是合页；
+          点一下可以把前盖打开，里面是白色的底座，躺着两只耳机；顶上一个小环，连着两条珠链，挂着银色的五角星扣 */
+    const heartS=(w,h)=>{const s=new THREE.Shape();s.moveTo(0,-h*.5);s.bezierCurveTo(w*.12,-h*.34,w*.5,-h*.12,w*.5,h*.14);s.bezierCurveTo(w*.5,h*.42,w*.2,h*.5,0,h*.28);s.bezierCurveTo(-w*.2,h*.5,-w*.5,h*.42,-w*.5,h*.14);s.bezierCurveTo(-w*.5,-h*.12,-w*.12,-h*.34,0,-h*.5);return s};
+    const starS=(R,r)=>{const s=new THREE.Shape();for(let i=0;i<10;i++){const a=Math.PI/2+i*Math.PI/5,q=i%2?r:R,x=Math.cos(a)*q,y=Math.sin(a)*q;i?s.lineTo(x,y):s.moveTo(x,y)}s.closePath();return s};
+    const sqPath=(w,h,r,ox,oy)=>{const p=new THREE.Path(),x=-w/2+(ox||0),y=-h/2+(oy||0);p.moveTo(x+r,y);p.lineTo(x+w-r,y);p.quadraticCurveTo(x+w,y,x+w,y+r);p.lineTo(x+w,y+h-r);p.quadraticCurveTo(x+w,y+h,x+w-r,y+h);p.lineTo(x+r,y+h);p.quadraticCurveTo(x,y+h,x,y+h-r);p.lineTo(x,y+r);p.quadraticCurveTo(x,y,x+r,y);return p};
+    const ext=(shape,d,bv)=>new THREE.ExtrudeGeometry(shape,{depth:d,bevelEnabled:true,bevelThickness:bv,bevelSize:bv,bevelSegments:3,curveSegments:14});
+    const eggS=(a,bh)=>{const s=new THREE.Shape();for(let i=0;i<=72;i++){const t=i/72*Math.PI*2,x=a*Math.sin(t)*(1-.12*Math.cos(t)),y=bh*Math.cos(t);i?s.lineTo(x,y):s.moveTo(x,y)}return s}; /* 蛋形：上窄下宽 */
+    const screenTex=(()=>{const t=tex(192,192,(c,w,h)=>{const P=['#ead8f6','#b8c6f6','#a2e2f0','#f2b8e2','#cdb0f2','#ffffff','#d8c8f8'];let sd=11;const rr=()=>{sd=(sd*1664525+1013904223)>>>0;return sd/4294967296};
+      for(let y=0;y<24;y++)for(let x=0;x<24;x++){c.fillStyle=P[Math.floor(rr()*P.length)];c.fillRect(x*8,y*8,8,8)}
+      const R=(col,x,y,ww,hh)=>{c.fillStyle=col;c.fillRect(x*8,y*8,ww*8,hh*8)};
+      R('#f8fbff',3,2,3,2);R('#f8fbff',4,4,3,2);R('#f8fbff',5,6,2,2);R('#5d86d8',4,3,1,1);R('#5d86d8',5,5,1,1);R('#5d86d8',6,7,1,1);R('#222a52',3,2,1,1);R('#222a52',4,4,1,1); /* 白蓝色的翅膀 */
+      const O='#f3c63c',D='#262014';R(D,6,6,2,2);R(D,11,6,2,2);R(O,7,6,1,2);R(O,12,6,1,2);R(D,7,8,6,5);R(O,8,8,4,4);R(D,11,10,8,5);R(O,12,10,6,4);R(D,5,13,3,5);R(O,6,13,1,4);R(D,17,14,4,4);R(O,18,14,2,3);R(D,13,14,3,4);R(O,14,14,1,3);R(D,19,6,3,8);R(O,20,7,1,6);R(D,21,5,2,3);R(O,21,6,1,1); /* 金黄色的像素小猫，黑色描边 */
+      R('#262014',8,10,1,1);R('#262014',10,10,1,1)});t.magFilter=THREE.NearestFilter;t.minFilter=THREE.LinearFilter;t.encoding=THREE.sRGBEncoding;return t})();
+    const mkEgg=()=>{const g2=new THREE.Group();ro=0;
+     const A=.0295,Bh=.0355,C=.0145,PW=2.5,EG=.12;
+     const surfZ=(x,y)=>{const ax=A*(1-EG*(y/Bh)),s=1-Math.pow(Math.abs(x/ax),PW)-Math.pow(Math.abs(y/Bh),PW);return C*Math.pow(Math.max(0,s),1/PW)}; /* 前盖表面在 (x,y) 处有多高：边框、屏幕、宝石都贴着这个曲面 */
+     const fixOut=g=>{const p=g.attributes.position,n=g.attributes.normal;let s=0;for(let i=0;i<p.count;i+=5)s+=p.getX(i)*n.getX(i)+p.getY(i)*n.getY(i)+p.getZ(i)*n.getZ(i);if(s<0){const ix=g.index.array;for(let i=0;i<ix.length;i+=3){const t=ix[i];ix[i]=ix[i+2];ix[i+2]=t}g.computeVertexNormals()}return g};
+     const shell=sg=>{const g=new THREE.SphereGeometry(1,64,32,0,Math.PI*2,0,Math.PI/2),p=g.attributes.position;
+      for(let i=0;i<p.count;i++){const dx=p.getX(i),dy=p.getZ(i),dz=p.getY(i),r=Math.pow(Math.pow(Math.abs(dx),PW)+Math.pow(Math.abs(dy),PW)+Math.pow(Math.abs(dz),PW),-1/PW),ny=dy*r;p.setXYZ(i,dx*r*A*(1-EG*ny),ny*Bh,sg*dz*r*C)}
+      g.computeVertexNormals();return fixOut(g)}; /* 半个「圆润的蛋」：把球压成「方一点的圆」（面更平、边更圆），再让上面窄、下面宽 */
+     const drape=(geo,dz,ox,oy)=>{geo.translate(ox||0,oy||0,0);const p=geo.attributes.position;for(let i=0;i<p.count;i++)p.setZ(i,p.getZ(i)+surfZ(p.getX(i),p.getY(i))+dz);geo.computeVertexNormals();return geo}; /* 把一块东西「贴」到曲面上 */
+     /* —— 开合的方式（照参考图）：整个蛋沿着一条斜缝分成「左边的主体（带屏幕）」和「右边的小门」，小门绕着顶上靠右的合页，在画面平面里转开一个角度，缝里露出里面的白色内壁和两只耳机。
+           缝用「裁剪平面」做（切得又直又干净），两半各自带着自己的那一半 —— */
+     const K=.12,SC=.0135,NL=Math.sqrt(1+K*K);
+     const pmL=new THREE.Plane(new THREE.Vector3(-1/NL,-K/NL,0),SC/NL),pdL=new THREE.Plane(new THREE.Vector3(1/NL,K/NL,0),-SC/NL); /* 主体保留 x+K·y ≤ SC，小门保留 x+K·y ≥ SC（平面法线指向保留的一侧） */
+     const pm=pmL.clone(),pd=pdL.clone();
+     const HX=.0095,HY=.0345,pivot=new THREE.Group();pivot.position.set(HX,HY,0);const door=new THREE.Group();door.position.set(-HX,-HY,0);pivot.add(door);g2.add(pivot);g2.userData.lid=pivot;
+     g2.userData.clips=[{w:pm,l:pmL,o:g2},{w:pd,l:pdL,o:door}]; /* 每一帧，主程序会把这两个平面跟着耳机壳的位置、小门的转动一起更新 */
+     const CP=pl=>({clippingPlanes:[pl]});
+     const chromeM=pl=>W2(Object.assign({color:0xe4e8ee,metalness:1,roughness:.1,envMap:lenv,envMapIntensity:1.5,side:THREE.DoubleSide},CP(pl)));
+     const gem=(c,e,pl)=>W2(Object.assign({color:c,emissive:c,emissiveIntensity:e||.25,metalness:.2,roughness:.1,envMap:lenv,envMapIntensity:1.2},CP(pl)));
+     const sF=shell(1),sB=shell(-1);
+     /* 两半都有：镀铬的外壳（前后两个半球）+ 白色的内衬（缝打开以后，从缝里看进去是白色的） */
+     [[g2,pm],[door,pd]].forEach(q=>{[sF,sB].forEach(sg=>{part(q[0],sg,chromeM(q[1]));const li=part(q[0],sg,W2(Object.assign({color:0xf6f6f4,metalness:.02,roughness:.45,side:THREE.DoubleSide},CP(q[1]))));li.scale.setScalar(.955)})});
+     /* 两只耳机：躺在缝的旁边，缝一打开就看得见 */
+     const bud=(x,y,rz)=>{const b2=new THREE.Group();
+      const head=part(b2,new THREE.SphereGeometry(.0082,24,18),W2({color:0xf7f7f5,metalness:.02,roughness:.18,envMap:lenv,envMapIntensity:.5}),0,.0035,0);head.scale.set(1,1.08,.95);
+      part(b2,new THREE.CylinderGeometry(.0034,.0028,.019,16),W2({color:0xf3f3f1,metalness:.02,roughness:.22,envMap:lenv,envMapIntensity:.4}),0,-.0105,.0006);
+      part(b2,new THREE.CircleGeometry(.0021,16),W2({color:0x1b1b1d,metalness:.3,roughness:.4}),0,.0045,.0078);
+      b2.position.set(x,y,-.0012);b2.rotation.z=rz;g2.add(b2)};
+     bud(SC-K*.011+.0012,.011,.3);bud(SC-K*(-.012)+.0012,-.012,.3);
+     /* 前面的装饰：每一件在「主体」和「小门」里各放一份，各自被缝裁掉另一半，这样跨过缝的东西（爱心边框、按键）也会被缝切开、跟着各自那一半走 */
+     const dec=(geo,mk,x,y,dz)=>[[g2,pm],[door,pd]].forEach(q=>part(q[0],geo,mk(q[1]),x||0,y||0,dz===undefined?0:surfZ(x,y)+dz));
+     {const hs=heartS(.048,.05);hs.holes.push(sqPath(.0242,.0242,.003,0,-.0003));dec(drape(ext(hs,.0034,.0007),-.0014,0,.0045),chromeM)}
+     const scrM=pl=>W2(Object.assign({map:screenTex,roughness:.35,metalness:0,emissive:0xffffff,emissiveMap:screenTex,emissiveIntensity:.5},CP(pl)));
+     const glsM=pl=>W2(Object.assign({color:0xffffff,transparent:true,opacity:.1,roughness:.04,metalness:.3,envMap:lenv,envMapIntensity:1.4,depthWrite:false},CP(pl)));
+     dec(drape(new THREE.PlaneGeometry(.0236,.0236,10,10),.0009,-.0008,.0042),scrM);
+     dec(drape(new THREE.PlaneGeometry(.0242,.0242,10,10),.0014,-.0008,.0042),glsM);
+     dec(ext(heartS(.0075,.0072),.0012,.0004),pl=>gem(0x4cc8ea,.35,pl),-.0182,-.0128,.0004);
+     dec(ext(starS(.0036,.0016),.0012,.0004),pl=>gem(0xf08aa8,.3,pl),.0188,.02,.0004);
+     dec(ext(starS(.0032,.0014),.0012,.0004),pl=>gem(0x8a56d8,.3,pl),-.0206,.0176,.0004);
+     [[-.0266,-.0044,.0026,0xf2a2c8],[.0205,-.0148,.0033,0x8a5ed6],[.0262,-.0098,.0022,0x3aa0e0]].forEach(q=>dec(new THREE.SphereGeometry(q[2],14,10),pl=>gem(q[3],.3,pl),q[0],q[1],.0006));
+     {const o=starS(.0058,.0026);o.holes.push(new THREE.Path(starS(.0042,.0017).getPoints()));dec(ext(o,.0012,.0004),chromeM,-.0228,-.0188,.0004)} /* 左下角：浮雕的镀铬星星轮廓 */
+     [[-.0138,.0072],[.0138,.0064]].forEach(q=>{dec(new THREE.TorusGeometry(q[1],.0014,10,28),chromeM,q[0],-.0262,.0008);dec(new THREE.CircleGeometry(q[1]-.0008,24),pl=>W2(Object.assign({color:0x1a1b20,metalness:.4,roughness:.35,envMap:lenv},CP(pl))),q[0],-.0262,-.0003)}); /* 底下两颗按键：一圈镀铬的环，里面凹下去 */
+     dec(ext(heartS(.0056,.0052),.0008,.0003),chromeM,.0138,-.0262,.0006);
+     const txt=(str,w,h,x,y,rot,size)=>{const t=lab(256,64,(c,cw,ch)=>{c.fillStyle='#34363c';c.font='700 '+size+'px "Courier New",monospace';c.textAlign='center';c.textBaseline='middle';c.fillText(str,cw/2,ch/2+3)});const pg=new THREE.PlaneGeometry(w,h,16,2);pg.rotateZ(rot);dec(drape(pg,.0005,x,y),pl=>W2(Object.assign({map:t,alphaTest:.35,roughness:.4,metalness:.4,envMap:lenv,envMapIntensity:.6},CP(pl))))};
+     txt('Untitle',.022,.0056,-.0062,.0292,.3,44);txt('07',.0085,.0056,.0178,.0215,-.6,44);
+     /* 右边的小翅膀（白色，跟着小门走） */
+     const ws=new THREE.Shape();ws.moveTo(0,0);ws.quadraticCurveTo(.003,.0085,.0105,.0105);ws.quadraticCurveTo(.0165,.0105,.0188,.0058);ws.lineTo(.0162,.0042);ws.lineTo(.0186,.0016);ws.lineTo(.0152,.0004);ws.lineTo(.0166,-.0018);ws.quadraticCurveTo(.0085,-.0016,0,0);
+     const wm=part(door,ext(ws,.0016,.0005),W2({color:0xf6f6f8,metalness:.05,roughness:.15,envMap:lenv,envMapIntensity:.8}),.0302,.0035,-.0008);wm.rotation.z=.35;
+     /* 顶上的小环 + 两条珠链 + 圆筒扣 + 五角星扣（照参考图）：都跟着主体，不动，也不会被「缝」裁掉 */
+     const chromeN=()=>W2({color:0xe4e8ee,metalness:1,roughness:.1,envMap:lenv,envMapIntensity:1.5});
+     part(g2,new THREE.TorusGeometry(.0042,.0013,10,24),chromeN(),0,.0369,0);
+     const bead=new THREE.SphereGeometry(.00105,10,8),bm=chromeN();
+     const bez=(p0,c,p1,u)=>[(1-u)*(1-u)*p0[0]+2*(1-u)*u*c[0]+u*u*p1[0],(1-u)*(1-u)*p0[1]+2*(1-u)*u*c[1]+u*u*p1[1]];
+     const L0=[0,.0412],BP=[.044,.0615],SCN=[-.0125,.0675],ST=[SCN[0]+.0148*Math.cos(.314),SCN[1]+.0148*Math.sin(.314)]; /* 小环顶 / 圆筒扣 / 星星中心 / 星星最右边的角 */
+     const strand=(p0,c,p1,n,zo)=>{for(let i=0;i<=n;i++){const q=bez(p0,c,p1,i/n);part(g2,bead,bm,q[0],q[1],zo+(i%2?.0006:-.0006))}};
+     strand(L0,[.014,.079],BP,30,-.0008);strand(L0,[.0205,.0705],BP,30,.0008); /* 两条平行的珠链，从小环弯到右上角的圆筒扣 */
+     const barrel=part(g2,new THREE.CylinderGeometry(.0017,.0017,.0062,14),chromeN(),BP[0],BP[1],0);barrel.rotation.z=-.75;
+     strand(BP,[.0245,.056],ST,18,0); /* 从圆筒扣再挂下来一小段，连到星星 */
+     const sp=[];for(let i=0;i<10;i++){const a=Math.PI/2+i*Math.PI/5,q=i%2?.0069:.0148;sp.push(new THREE.Vector3(Math.cos(a)*q,Math.sin(a)*q,0))}
+     const star=part(g2,new THREE.TubeGeometry(new THREE.CatmullRomCurve3(sp,true,'centripetal'),200,.00135,10,true),chromeN(),SCN[0],SCN[1],0);star.rotation.z=-.1; /* 圆管的五角星轮廓：细、圆润 */
+     return g2};
+    /* ④ 伊索护手霜：琥珀棕色的软管，哑光，白色小字，扁扁的尾部封口，深棕色的盖子 */
+    const mkTube=()=>{const g2=new THREE.Group();ro=0;const tb=0x6a4721;
+     const body=part(g2,new THREE.CylinderGeometry(.0185,.0185,.075,32),W2({color:tb,metalness:0,roughness:.5}),0,-.0095,0);body.scale.z=.62;
+     const sh=part(g2,new THREE.CylinderGeometry(.0108,.0185,.014,32),W2({color:tb,metalness:0,roughness:.5}),0,.035,0);sh.scale.z=.62;
+     part(g2,rbox(.037,.011,.0034,.0012),W2({color:tb,metalness:0,roughness:.55}),0,-.052,0);
+     [-.0545,-.0515,-.0485].forEach(y=>part(g2,new THREE.BoxGeometry(.034,.0003,.0036),W2({color:0x3d2813,roughness:.7}),0,y,0));
+     part(g2,new THREE.CylinderGeometry(.0106,.0106,.02,28),W2({color:0x241709,metalness:.1,roughness:.4}),0,.052,0).scale.z=.7;
+     part(g2,new THREE.PlaneGeometry(.026,.052),W2({map:LT,alphaTest:.5,roughness:.6}),0,-.006,.0118);
+     return g2};
+    const defs=[
+     {mk:mkCam,name:'卡西欧相机',x:-.115,z:-.012,rz:-Math.PI/2+.05,ry:.12,ht:.094,td:.015},
+     {mk:mkPerf,name:'馥马尔 · 贵妇肖像',x:-.045,z:-.01,rz:-.04,ry:-.1,ht:.09,td:.02},
+     {mk:mkEgg,name:'耳机壳',x:.025,z:-.012,rz:.05,ry:.12,ht:.07,td:.03,ex:0,openable:true},
+     {mk:mkTube,name:'伊索护手霜',x:.118,z:-.012,rz:-.1,ry:-.12,ht:.12,td:.014}];
+    const safe=f=>{try{return f()}catch(e){try{console.error('包里的东西造型出错：',e)}catch(e2){}return new THREE.Group()}}; /* 某一件东西出错，只让它空着，不影响别的 */
+    const slots=defs.map((d,k)=>{WIN=true;const mw=safe(d.mk);mw.renderOrder=12+k;mw.traverse(o=>{if(o.isGroup)o.renderOrder=12+k});WIN=false;const mr=safe(d.mk);mr.renderOrder=0;mr.traverse(o=>{if(o.isGroup)o.renderOrder=0});
+     const g3=new THREE.Group();g3.add(mw);g3.add(mr);g3.position.set(d.x,TY(d.x)-d.td-d.ht/2,d.z);g3.rotation.set(0,d.ry,d.rz);it.add(g3);
+     return{g:g3,m:mw,m2:mr,name:d.name,ht:d.ht,td:d.td,ex:d.ex||0,lift:0,openable:!!d.openable,open:0,openT:0,p0:g3.position.clone(),q0:g3.quaternion.clone(),sc0:g3.scale.clone()}});
+    const ss=THREE.MathUtils.smoothstep;
+    const upd=o=>{const sx=X1+(X0-X1)*o,L=.055;
+     for(let i=0;i<N;i++){const x=X0+(X1-X0)*i/(N-1),w=HW(x)*ss(x-sx,0,L),y=TY(x),
+       P=lin.geometry.attributes.position,F=lf.geometry.attributes.position,K=lb.geometry.attributes.position;
+      P.setXYZ(i*2,x,y-.0012,w);P.setXYZ(i*2+1,x,y-.0012,-w);
+      F.setXYZ(i*2,x,y+.0004,w);F.setXYZ(i*2+1,x,y+.0004,w+.0078);
+      K.setXYZ(i*2,x,y+.0004,-w-.0078);K.setXYZ(i*2+1,x,y+.0004,-w)}
+     lin.geometry.attributes.position.needsUpdate=lf.geometry.attributes.position.needsUpdate=lb.geometry.attributes.position.needsUpdate=true;
+     sl.position.set(sx,TY(sx)+.0075,0);
+     const vis=o>.002;lin.visible=cav.visible=vis;slots.forEach(s=>{s.g.visible=vis})}; /* 关着的时候，空腔和里面的东西不画，不占任何性能 */
+    upd(0);g.userData.zip=upd;g.userData.slots=slots;g.userData.lin=lin;}
    g.userData.h=drop+He;return g};
   /* ② RELABEL 风格：焦糖棕麂皮大托特——整个包（包身、滚边、肩带、提手）是同一个焦糖棕，软塌塌、有垂感，表面是麂皮的细绒；肩带的接口全部落在包的上沿，不会飘在外面 */
   const bagSuede=()=>{const g=new THREE.Group(),W=.5,H=.36,D=.22,drop=.12,zs=zshift(D*1.06),sd=1.7,CC=0x5b3920;
@@ -2508,7 +2671,7 @@ const WD={open:false,l:null,r:null,light:null,garments:[]};
   {const bags=[bagMoto(),bagSuede(),bagCrying(),bagTank()],GAP=.016,TOP=1.995,AV=TOP-.075;let tot=bags.reduce((a,b)=>a+b.userData.h,0)+GAP*(bags.length-1);const sc=Math.min(1,AV/tot);
    const ys=[];let y=TOP;bags.forEach(b=>{b.scale.setScalar(sc);ys.push(y);y-=b.userData.h*sc+GAP});
    const rb=rail(WD.l,.25,Math.max(.1,y+GAP-.03),2.02,ys,blk,LEN,HR);
-   bags.forEach((b,i)=>hangAt(rb,ys[i],b))}
+   const hk=bags.map((b,i)=>hangAt(rb,ys[i],b));BAGX.h=hk[0];BAGX.bag=bags[0]}  /* 最上面那个包：点击它会飞到画面中间，再点一下拉开拉链 */
  }
 }
 
@@ -2516,14 +2679,113 @@ function openWard(){if(WD.open)return;WD.open=true;hover=null;spots.find(q=>q.id
  gsap.to(WD.l.rotation,{y:-1.1,duration:1.1,delay:.6,ease:'power2.inOut'});gsap.to(WD.r.rotation,{y:1.8,duration:1.1,delay:.6,ease:'power2.inOut'}); /* 左门（挂包）只开到约 63°，开太大会让包扫进左边的化妆桌；右门（挂帽子）右边没有东西挡着，照原来完全打开（约 103°） */
  gsap.to(WD.light,{intensity:1.1,duration:1,delay:.8});
  WD.garments.forEach((g,i)=>gsap.fromTo(g.rotation,{z:(i%2?1:-1)*.035},{z:0,duration:1.8,delay:1.4+i*.05,ease:'elastic.out(1,.25)'}))} /* 门开后衣服轻轻晃一下 */
-function closeWard(){if(!WD.open)return;WD.open=false;gsap.killTweensOf([WD.l.rotation,WD.r.rotation,WD.light]);
+function closeWard(){if(!WD.open)return;WD.open=false;bagBack(true);gsap.killTweensOf([WD.l.rotation,WD.r.rotation,WD.light]);
  gsap.to(WD.l.rotation,{y:0,duration:.8,ease:'power2.inOut'});gsap.to(WD.r.rotation,{y:0,duration:.8,ease:'power2.inOut'});gsap.to(WD.light,{intensity:0,duration:.6})}
+
+/* ========= 衣柜门上最上面的包：飞到中间 → 拉开拉链 ========= */
+const _bp=new THREE.Vector3(),_bq=new THREE.Quaternion(),_bs=new THREE.Vector3(),_bf=new THREE.Vector3(),_bu=new THREE.Vector3(),_br=new THREE.Vector3(),_bt=new THREE.Quaternion(),_bm=new THREE.Matrix4(),_bz=new THREE.Vector3(),_bx=new THREE.Quaternion(),_by=new THREE.Vector3(),_bc=new THREE.Vector3(),_bd=new THREE.Vector3();
+function bagLocalBox(h){h.updateWorldMatrix(true,true);const inv=new THREE.Matrix4().copy(h.matrixWorld).invert(),b=new THREE.Box3(),v=new THREE.Vector3(),m4=new THREE.Matrix4();
+ h.traverse(o=>{if(!o.isMesh||!o.geometry||!o.visible)return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const bb=o.geometry.boundingBox;if(!bb||!isFinite(bb.min.x))return;m4.multiplyMatrices(inv,o.matrixWorld);
+  for(let i=0;i<8;i++){v.set(i&1?bb.max.x:bb.min.x,i&2?bb.max.y:bb.min.y,i&4?bb.max.z:bb.min.z).applyMatrix4(m4);b.expandByPoint(v)}});return b}
+function bagRest(out,oq,os){BAGX.par.updateWorldMatrix(true,false);_bm.compose(BAGX.lp,BAGX.lq,BAGX.ls).premultiply(BAGX.par.matrixWorld).decompose(out,oq,os)} /* 挂在门上的位置（跟着门走） */
+function hitBag(e){const h=BAGX.h;if(!h)return false;h.updateWorldMatrix(true,true);const t=(x,y)=>{mp.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(mp,cam);return ray.intersectObject(h,true).length>0};
+ if(t(e.clientX,e.clientY))return true;if(e.pointerType==='mouse')return false;for(const rad of[8,14])for(let i=0;i<8;i++){const a=i*Math.PI/4+.39;if(t(e.clientX+Math.cos(a)*rad,e.clientY+Math.sin(a)*rad))return true}return false}
+function bagFly(){const h=BAGX.h;if(!h||BAGX.st!=='hang')return;hover=null;gsap.killTweensOf(h.rotation);h.rotation.z=0;BAGX.hv=false;
+ const bb=bagLocalBox(h);BAGX.c=bb.getCenter(new THREE.Vector3());BAGX.bw=Math.max(.2,bb.max.x-bb.min.x);BAGX.bh=Math.max(.2,bb.max.y-bb.min.y);
+ BAGX.par=h.parent;BAGX.lp=h.position.clone();BAGX.lq=h.quaternion.clone();BAGX.ls=h.scale.clone();
+ const gi=WD.garments.indexOf(h);if(gi>=0)WD.garments.splice(gi,1);gsap.killTweensOf(h.rotation);
+ scene.attach(h);BAGX.st='fly';BAGX.on=true;BAGX.t=BAGX.tr=BAGX.ts=BAGX.wob=0;BAGX.z=0;BAGX.open=false;BAGX.zl=-1;
+ gsap.killTweensOf(BAGX);
+ gsap.to(BAGX,{t:1,duration:1.3,ease:'power3.inOut'});gsap.to(BAGX,{tr:1,duration:1.15,delay:.1,ease:'power2.out'});
+ gsap.to(BAGX,{ts:1,duration:1.1,delay:.06,ease:'power2.out'});if(window.SFX)window.SFX.cloth()}
+function bagZip(on){if(BAGX.st!=='fly')return;if(!on&&BAGX.hi){gsap.to(BAGX.hi,{lift:0,duration:.2,overwrite:'auto'});BAGX.hi=null}BAGX.open=on;gsap.killTweensOf(BAGX,'z');gsap.to(BAGX,{z:on?1:0,duration:on?1.5:1,ease:'power2.inOut'});if(window.SFX)window.SFX.zip();
+ hintEl.textContent=on?'再点一下包，把拉链拉上 · 点击空白处放回去':'点一下包，拉开拉链 · 点击空白处放回去'}
+function bagBack(now){const h=BAGX.h;if(!h||BAGX.st==='hang')return;itemReset();gsap.killTweensOf(BAGX);
+ const fin=()=>{BAGX.par.add(h);h.position.copy(BAGX.lp);h.quaternion.copy(BAGX.lq);h.scale.copy(BAGX.ls);if(WD.garments.indexOf(h)<0)WD.garments.push(h);
+  if(h.children[0]&&h.children[0].userData.zip)h.children[0].userData.zip(0);BAGX.st='hang';BAGX.on=false;BAGX.t=BAGX.tr=BAGX.ts=BAGX.wob=0;BAGX.z=0;BAGX.open=false;BAGX.zl=-1};
+ if(now){fin();return}
+ BAGX.st='back';BAGX.open=false;BAGX.wob=0;if(window.SFX)window.SFX.cloth();const dl=BAGX.z>.05?.3:0;
+ gsap.to(BAGX,{z:0,duration:.5,ease:'power2.inOut'});gsap.to(BAGX,{t:0,duration:1.05,delay:dl,ease:'power2.inOut',onComplete:fin});gsap.to(BAGX,{tr:0,duration:.95,delay:dl,ease:'power2.inOut'});gsap.to(BAGX,{ts:0,duration:.95,delay:dl+.05,ease:'power2.inOut'})}
+function bagTap(e){
+ if(BAGX.st==='hang'){if(!BAGX.h||!hitBag(e))return false;bagFly();return true} /* 衣柜关着也能直接点包：点包 = 打开包；点衣柜的其他地方 = 打开衣柜 */
+ if(BAGX.st==='back')return true;
+ if(BAGX.sel){if(BAGX.itb)return true;const s=BAGX.sel;if(s.openable&&hitSel(e)){itemToggle(s);return true}itemBack();return true}
+ if(BAGX.z>.9){const s=itemHit(e);if(s){itemFly(s);return true}}
+ if(hitBag(e)){if(BAGX.t>.85)bagZip(!BAGX.open);return true}
+ bagBack();return true}
+/* ========= 包里的东西：鼠标移上去微微探出来，点一下飞到画面中间 ========= */
+function itemHit(e){const b=BAGX.h&&BAGX.h.children[0],sl=b&&b.userData.slots,lin=b&&b.userData.lin;if(!sl||!lin||BAGX.st!=='fly'||BAGX.z<.9||BAGX.sel)return null;
+ const t=(x,y)=>{mp.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(mp,cam);let best=null,bd=1e9;
+  sl.forEach(s=>{const hs=ray.intersectObject(s.m2,true);if(hs.length&&hs[0].distance<bd){bd=hs[0].distance;best=s}});
+  if(!best)return null;if(best.lift>.5)return best; /* 已经探出来的，探出的那部分在口子外面也算 */
+  lin.geometry.computeBoundingSphere();lin.geometry.computeBoundingBox();lin.updateWorldMatrix(true,false);
+  return ray.intersectObject(lin,false).length?best:null}; /* 只有从张开的口子里能看见的那一部分才算点中 */
+ let r=t(e.clientX,e.clientY);if(r||e.pointerType==='mouse')return r;
+ for(const rad of[8,14])for(let i=0;i<8;i++){const a=i*Math.PI/4+.39;r=t(e.clientX+Math.cos(a)*rad,e.clientY+Math.sin(a)*rad);if(r)return r}return null}
+function hitSel(e){const s=BAGX.sel;if(!s)return false;const t=(x,y)=>{mp.set(x/innerWidth*2-1,-(y/innerHeight)*2+1);ray.setFromCamera(mp,cam);return ray.intersectObject(s.m2,true).length>0};
+ if(t(e.clientX,e.clientY))return true;if(e.pointerType==='mouse')return false;for(const rad of[10,18])for(let i=0;i<8;i++){const a=i*Math.PI/4+.39;if(t(e.clientX+Math.cos(a)*rad,e.clientY+Math.sin(a)*rad))return true}return false}
+function itemToggle(s){const on=!(s.openT>.5);s.openT=on?1:0;gsap.killTweensOf(s,'open');gsap.to(s,{open:on?1:0,duration:on?.8:.6,ease:'power2.inOut'});if(window.SFX)window.SFX.snap();
+ hintEl.textContent=on?'再点一下耳机壳，把它合上 · 点击空白处放回包里':'点一下耳机壳，把它打开 · 点击空白处放回包里'}
+function itemFly(s){if(BAGX.sel)return;const g=s.g;gsap.killTweensOf(s,'lift');BAGX.hi=null;s.open=0;s.openT=0; /* 不再把「悬停时探出来」的位置瞬间重置，而是从它当前的位置接着往上走（之前先落下去再弹起来，就是那个奇怪的「弹一下」） */
+ BAGX.ip=g.parent;BAGX.ip.updateWorldMatrix(true,true);const bb=bagLocalBox(g);s.cc=bb.getCenter(new THREE.Vector3());s.bw=Math.max(.02,bb.max.x-bb.min.x)*(s.openable?1.5:1);s.bh=Math.max(.02,bb.max.y-bb.min.y);
+ s.plan=null;scene.attach(g);BAGX.sel=s;BAGX.itp=0;BAGX.itb=false;gsap.killTweensOf(BAGX,'itp');
+ gsap.to(s,{lift:0,duration:.3,ease:'sine.inOut'});gsap.to(BAGX,{itp:1,duration:.8,ease:'sine.inOut'}); /* 整个过程只用一条进度、一种缓入缓出，没有回弹，也没有突然加速 */
+ if(window.SFX)window.SFX.pop();hintEl.textContent=s.openable?'点一下耳机壳，把它打开 · 点击空白处放回包里':'点击任意处，把它放回包里'}
+function itemBack(){const s=BAGX.sel;if(!s||BAGX.itb)return;BAGX.itb=true;gsap.killTweensOf(BAGX,'itp');
+ if(s.open>.02){s.openT=0;gsap.killTweensOf(s,'open');gsap.to(s,{open:0,duration:.35,ease:'power2.inOut'})}
+ gsap.to(BAGX,{itp:0,duration:.65,delay:s.open>.02?.2:0,ease:'sine.inOut',onComplete:itemReset});if(window.SFX)window.SFX.cloth()}
+function itemReset(){const s=BAGX.sel;if(!s)return;gsap.killTweensOf(BAGX,'itp');gsap.killTweensOf(s,'open,lift');const g=s.g;if(BAGX.ip)BAGX.ip.add(g);g.position.copy(s.p0);g.quaternion.copy(s.q0);g.scale.copy(s.sc0);s.m.visible=true;s.lift=0;s.open=0;s.openT=0;s.plan=null;
+ [s.m,s.m2].forEach(m=>{const l=m.userData&&m.userData.lid;if(l)l.rotation.z=0});BAGX.sel=null;BAGX.itb=false;BAGX.itp=0;
+ if(BAGX.st==='fly')hintEl.textContent=BAGX.open?'再点一下包，把拉链拉上 · 点击空白处放回去':'点一下包，拉开拉链 · 点击空白处放回去'}
+function itemStep(sl){if(!sl)return;
+ try{itemStep2(sl)}catch(e1){try{console.error(e1)}catch(e2){}}finally{try{sl.forEach(s=>{[s.m,s.m2].forEach(m=>{const l=m.userData&&m.userData.lid;if(l)l.rotation.z=s.open*.36;const cs=m.userData&&m.userData.clips;if(cs){m.updateWorldMatrix(true,true);cs.forEach(c=>{c.o.updateWorldMatrix(true,false);c.w.copy(c.l).applyMatrix4(c.o.matrixWorld)})}})})}catch(e3){}}} /* 耳机壳的小门绕合页转开；缝的裁剪平面跟着一起动 */
+function planExit(Ty,Tz,H1){const E=u=>.5-.5*Math.cos(Math.PI*u),zlim=.03;let best=null; /* 在「向上 / 向前」两个方向里，找一条三次曲线：①一开始垂直向上 ②底部升过包口的时候，向前移的量还没超出口子（<3cm，不会被包壁切）③整条路的速度只有一个高峰（不是「先升一下、再飞一下」的两个）④不冲过目标太多 */
+ for(const a of[.06,.09,.12,.15,.18,.22,.26,.3,.36,.42,.5])for(const sl of[0,.2])for(const b of[.1,.16,.22,.3,.38,.46]){
+  const ev=u=>{const m=1-u;return[3*m*m*u*a+3*m*u*u*Ty+u*u*u*Ty,3*m*m*u*a*sl+3*m*u*u*(Tz-b)+u*u*u*Tz]};
+  let uc=-1,ym=0;for(let i=1;i<=60;i++){const w=i/60,p=ev(w);if(p[0]>ym)ym=p[0];if(uc<0&&p[0]>=H1){uc=w;if(p[1]>zlim){uc=-2;break}}}
+  if(uc<0||ym>Math.max(Ty,H1)+.08)continue;
+  let ext=0,pv=null,pp=ev(0),dprev=0;for(let i=1;i<=60;i++){const q=ev(E(i/60)),v=Math.hypot(q[0]-pp[0],q[1]-pp[1]);if(pv!==null){const d=v-pv;if(Math.abs(d)>1e-5){if(dprev*d<0)ext++;dprev=d}}pv=v;pp=q}
+  const sc=ext*10+(ym-Math.max(Ty,H1))*10+a;if(!best||sc<best.sc)best={a:a,sl:sl,b:b,uc:uc,sc:sc}}
+ return best||{a:.3,sl:0,b:.3,uc:.4,sc:0}}
+function itemStep2(sl){
+ if(BAGX.z<.5&&BAGX.hi){const q=BAGX.hi;BAGX.hi=null;gsap.to(q,{lift:0,duration:.2,overwrite:'auto'})}
+ sl.forEach(s=>{if(s===BAGX.sel)return;s.g.position.y=s.p0.y+.028*s.lift;s.g.scale.setScalar(1+.05*s.lift);s.m2.visible=BAGX.z>.85||s.lift>.02}); /* 悬停：沿着包的「上」方向微微探出来一点。探出包口以上的那部分（普通那份）只在拉链完全拉开、或者东西被探出来的时候才画，这样拉链还没拉开 / 正在合上的时候，不会有东西从拉链上穿出来 */
+ const s=BAGX.sel;if(!s)return;const g=s.g,cl=v=>Math.min(1,Math.max(0,v)),P=cl(BAGX.itp),ss=(a,b)=>{const v=cl((P-a)/(b-a));return v*v*(3-2*v)};s.m2.visible=true;
+ const D2=.62,vh2=2*D2*Math.tan(cam.fov*Math.PI/360),vw2=vh2*cam.aspect,k2=Math.min(.5*vw2/s.bw,.5*vh2/s.bh);
+ _bf.set(0,0,-1).applyQuaternion(cam.quaternion);_bu.set(0,1,0).applyQuaternion(cam.quaternion);
+ _bt.setFromAxisAngle(_bu,.42*Math.sin(performance.now()/1500)+.18);_bq.copy(cam.quaternion).premultiply(_bt); /* 朝着镜头，慢慢左右摆一点，看得出立体感 */
+ _bz.copy(cam.position).addScaledVector(_bf,D2);_bz.sub(_by.copy(s.cc).multiplyScalar(k2).applyQuaternion(_bq));
+ _bc.copy(s.p0);_bc.y+=.028*s.lift;_by.copy(s.sc0).multiplyScalar(1+.05*s.lift); /* 起点就是它现在（探出来一点）的样子 */
+ BAGX.ip.updateWorldMatrix(true,false);_bm.compose(_bc,s.q0,_by).premultiply(BAGX.ip.matrixWorld).decompose(_bp,_bx,_bs);
+ _bd.set(0,1,0).transformDirection(BAGX.ip.matrixWorld);_br.set(0,0,1).transformDirection(BAGX.ip.matrixWorld);
+ _by.copy(_bz).sub(_bp);const Ty=_by.dot(_bd),Tz=_by.dot(_br);_bc.copy(_by).addScaledVector(_bd,-Ty).addScaledVector(_br,-Tz); /* 目标相对出发点：向上 Ty、向前 Tz、其余是侧向（_bc） */
+ if(!s.plan)s.plan=planExit(Ty,Tz,(s.ht+(s.td||.02)+.006)*_bs.x);
+ const pl=s.plan,m=1-P,Y=3*m*m*P*pl.a+3*m*P*P*Ty+P*P*P*Ty,Z=3*m*m*P*pl.a*pl.sl+3*m*P*P*(Tz-pl.b)+P*P*P*Tz,w=P*P*(3-2*P); /* 一条三次曲线（出发时垂直向上，到目标时水平），整个过程只有这一条路、一个速度高峰 */
+ g.position.copy(_bp).addScaledVector(_bd,Y).addScaledVector(_br,Z).addScaledVector(_bc,w);
+ const rs=ss(pl.uc,1); /* 底部升过包口以后，才开始转向、放大（升过之前它的下半截还在包里，放大会被包壁切） */
+ g.quaternion.copy(_bx).slerp(_bq,rs);g.scale.setScalar(_bs.x+(k2-_bs.x)*rs);
+ if(!isFinite(g.position.x+g.position.y+g.position.z+g.scale.x)){g.position.copy(_bp);g.scale.setScalar(_bs.x||1)} /* 万一算出了无效的数，就先待在原位，不要凭空消失 */
+ s.m.visible=P<pl.uc} /* 底部还没升过包口的时候，在口子里的部分用「窗」里的那份来画；升过以后只用普通的那份 */
+
+function bagStep(){const h=BAGX.h;if(!h||BAGX.st==='hang')return;
+ const D=1.05,vh=2*D*Math.tan(cam.fov*Math.PI/360),vw=vh*cam.aspect,k=Math.min(.74*vw/BAGX.bw,.74*vh/BAGX.bh),z=BAGX.z;
+ _bf.set(0,0,-1).applyQuaternion(cam.quaternion);_bu.set(0,1,0).applyQuaternion(cam.quaternion);_br.set(1,0,0).applyQuaternion(cam.quaternion);
+ _bt.setFromAxisAngle(_br,.16+.62*z);_bq.copy(cam.quaternion).premultiply(_bt); /* 朝着镜头，打开的时候往前倾，让人看得到口里 */
+ _bz.copy(cam.position).addScaledVector(_bf,D).addScaledVector(_bu,-.03*vh);_bz.sub(_by.copy(BAGX.c).multiplyScalar(k).applyQuaternion(_bq));
+ bagRest(_bp,_bx,_bs);const cl=v=>Math.min(1,Math.max(0,v)),t=cl(BAGX.t),tr=cl(BAGX.tr),ts=cl(BAGX.ts);
+ _bc.copy(_bp).lerp(_bz,.4).addScaledVector(_bu,.2).addScaledVector(_bf,-.15); /* 弧线的控制点：先往上、往镜头方向抬起来，再弯向画面中间 */
+ {const a=(1-t)*(1-t),b2=2*(1-t)*t,c2=t*t;h.position.set(a*_bp.x+b2*_bc.x+c2*_bz.x,a*_bp.y+b2*_bc.y+c2*_bz.y,a*_bp.z+b2*_bc.z+c2*_bz.z)}
+ h.quaternion.copy(_bx).slerp(_bq,tr);
+ h.scale.setScalar(_bs.x+(k-_bs.x)*ts);
+ if(BAGX.zl!==z){BAGX.zl=z;const b=h.children[0];if(b&&b.userData.zip)b.userData.zip(z)}
+ const bg=h.children[0],sl=bg&&bg.userData.slots;if(sl&&z>.02){sl.forEach(s=>{s.m.getWorldPosition(_by);s.dd=_by.distanceTo(cam.position)});sl.slice().sort((a,c)=>c.dd-a.dd).forEach((s,i)=>{s.m.renderOrder=12+i;s.m.traverse(o=>{if(o.isGroup)o.renderOrder=12+i})})}
+ itemStep(sl)} /* 包里的东西不比深度，靠先画远的、后画近的来互相遮挡 */
 
 /* ========= 相机控制 ========= */
 const HOME={T:new THREE.Vector3(-.5,1.15,.3),th:-.35,ph:1.38,r:7};
 const cur={T:HOME.T.clone(),th:HOME.th,ph:HOME.ph,r:HOME.r},goal={T:HOME.T.clone(),th:HOME.th,ph:HOME.ph,r:HOME.r};
 let focused=null;
- document.addEventListener('intro:exit',()=>{if(focused)return;const r=HOME.r;goal.r=r*1.2;goal.th=HOME.th+.18;goal.ph=HOME.ph-.07;cur.r=goal.r;cur.th=goal.th;cur.ph=goal.ph;gsap.to(goal,{r:r,th:HOME.th,ph:HOME.ph,duration:2.8,ease:'power2.out',delay:.15,overwrite:true});addEventListener('pointerdown',()=>gsap.killTweensOf(goal),{once:true,capture:true})});
+ document.addEventListener('intro:exit',()=>{if(focused)return;const r=HOME.r;goal.r=r*1.2;goal.th=HOME.th+.18;goal.ph=HOME.ph-.07;cur.r=goal.r;cur.th=goal.th;cur.ph=goal.ph;gsap.to(goal,{r:r,th:HOME.th,ph:HOME.ph,duration:2.8,ease:'power2.out',delay:.15,overwrite:true});['pointerdown','wheel','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>gsap.killTweensOf(goal),{once:true,capture:true,passive:true}))});
 function fit(){const w=innerWidth,h=innerHeight,a=w/h,tf=Math.tan(cam.fov*Math.PI/360);
  HOME.r=Math.max((1.75)/tf,(3.3)/(tf*a))*1.08;cam.aspect=a;cam.updateProjectionMatrix();R.setSize(w,h,false);if(!focused)goal.r=HOME.r}
 addEventListener('resize',fit);fit();cur.r=goal.r;
@@ -2576,14 +2838,20 @@ cv.addEventListener('pointermove',e=>{
   if(drag){const dx=e.clientX-ox,dy=e.clientY-oy;drag.m+=Math.abs(dx)+Math.abs(dy);
    if(CAL.open){swipe(drag,dx,dy)}else if(SOFT()||KB.open||LOCK()){}else if(drag.pan){panBy(-dx);panY(dy)}else{goal.th-=dx*.005;goal.ph=Math.max(.5,Math.min(1.6,goal.ph-dy*.004))}}}
  if(e.pointerType!=='mouse')return;
- hover=(drag&&drag.m>6)||CAL.open||SOFT()||KB.open||WD.open||DP.open?null:pick(e);if(hover&&hover===focused)hover=null; /* 已经推近的物件，不再有悬停放大 / 高亮 / 提示 */
+ {const nt=performance.now();if(nt-BAGX.lt>60||!(BAGX.h&&BAGX.st==='hang')){BAGX.lt=nt;BAGX.hov=!!(BAGX.h&&BAGX.st==='hang'&&!((drag&&drag.m>6)||CAL.open||SOFT()||KB.open||DP.open)&&hitBag(e))}} /* 射线检测比较费力，最多每 60 毫秒做一次 */
+ if(BAGX.hov!==BAGX.hv){BAGX.hv=BAGX.hov;if(BAGX.st==='hang')gsap.to(BAGX.h.rotation,{z:BAGX.hov?.05:0,duration:.4,ease:'power2.out',overwrite:'auto'})} /* 鼠标移上去：包轻轻晃一下，提示它可以点 */
+ hover=BAGX.hov||BAGX.on||(drag&&drag.m>6)||CAL.open||SOFT()||KB.open||WD.open||DP.open?null:pick(e); /* 包飞到中间以后，背后房间里的东西不再有悬停高亮和提示 */if(hover&&hover===focused)hover=null; /* 已经推近的物件，不再有悬停放大 / 高亮 / 提示 */
  cv.style.cursor=hover?'pointer':(drag&&drag.pan?'move':'grab');tip.style.opacity=hover?1:0;
  if(hover){tip.textContent=INFO[hover.id][0];tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px'}
+ if(BAGX.hov){cv.style.cursor='pointer';tip.textContent='机车包';tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px';tip.style.opacity=1}
+ if(BAGX.on&&BAGX.st==='fly'&&BAGX.t>.85){cv.style.cursor=hitBag(e)?'pointer':'default';tip.style.opacity=0} /* 包在中间时：只有鼠标在包上才是手型，其余地方没有任何提示 */
+ if(BAGX.on&&BAGX.st==='fly'&&BAGX.z>.9&&!BAGX.sel){const n2=performance.now();if(n2-BAGX.lt2>50){BAGX.lt2=n2;const hs=itemHit(e);if(hs!==BAGX.hi){if(BAGX.hi)gsap.to(BAGX.hi,{lift:0,duration:.25,ease:'power2.out',overwrite:'auto'});BAGX.hi=hs;if(hs){gsap.to(hs,{lift:1,duration:.35,ease:'power2.out',overwrite:'auto'});if(window.SFX)window.SFX.hov()}}}}
+ if(BAGX.hi&&!BAGX.sel){cv.style.cursor='pointer';tip.textContent=BAGX.hi.name;tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px';tip.style.opacity=1}else if(BAGX.sel){cv.style.cursor='pointer';tip.style.opacity=0}
  PC.hov=DP.open&&!(drag&&drag.m>6)?perfAt(e):null;if(PC.hov){cv.style.cursor='pointer';tip.textContent=PERF[PC.hov.userData.perf].n;tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px';tip.style.opacity=1}});
 const up=e=>{ptrs.delete(e.pointerId);
  if(ptrs.size>0){const r=[...ptrs.values()][0];drag={x:r.x,y:r.y,m:99,btn:0};pinch=null;return}
  pinch=null;const moved=!drag||drag.m>=99||(e.pointerType==='mouse'?drag.m>6:(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>14||drag.m>70))||drag.btn!==0||drag.pan; /* 手指：抬起时离按下的位置不超过 14px 就算「点一下」，中间抖动不算 */drag=null;if(moved||e.type==='pointercancel')return;
- if((CAL.open&&hitCal(e)&&(window.SFX&&SFX.paper(),true))||(SOFT()&&hitDoll(e))||(KB.open&&hitKB(e))||(DP.open&&hitPerf(e)&&(window.SFX&&SFX.bottle(),true)))return;const s=pick(e,e.pointerType!=='mouse');if(s){if(window.SFX)SFX.obj(s.id);spots.forEach(x=>x.goal=0);s.goal=1;focus(s);s.goal=0} /* 点开后立刻取消高亮放大，不让物件一直保持悬停状态 */else if(focused){if(window.SFX)SFX.back();goHome()}};
+ if(bagTap(e)||(CAL.open&&hitCal(e)&&(window.SFX&&SFX.paper(),true))||(SOFT()&&hitDoll(e))||(KB.open&&hitKB(e))||(DP.open&&hitPerf(e)&&(window.SFX&&SFX.bottle(),true)))return;const s=pick(e,e.pointerType!=='mouse');if(s){if(window.SFX)SFX.obj(s.id);spots.forEach(x=>x.goal=0);s.goal=1;focus(s);s.goal=0} /* 点开后立刻取消高亮放大，不让物件一直保持悬停状态 */else if(focused){if(window.SFX)SFX.back();goHome()}};
 cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 cv.addEventListener('wheel',e=>{e.preventDefault();
  if(CAL.open){wheelCal(e.deltaY);return}
@@ -3145,9 +3413,9 @@ function laptopStep(){if(!LTP.open||!LTP.s)return;const g=LTP.s.g;
  const t=g.localToWorld(_lv.set(0,.24,-.19)).project(cam);lpType.style.transform='translate(-50%,-100%) translate('+((t.x+1)/2*innerWidth)+'px,'+Math.max(lpType.offsetHeight+14,(1-t.y)/2*innerHeight-14)+'px)'}
 
 /* ========= 固定镜头：聚焦饮料、笔记本、麦克风、iPad、拍立得相纸、荣誉证书、奖杯、相框的时候（香水柜不锁：手机上要能转动镜头才看得到所有香水），不能再拖动旋转 / 缩放 / 平移，只能点空白处返回 ========= */
-const LOCK=()=>!!(DRK.open||LTP.open||MIC.on||ipOn||FL.open||CW.open||TRP.open||FR.open||(focused&&focused.id.startsWith('trophy'))||(focused&&(focused.id.startsWith('noteP')||focused.id.startsWith('cert'))));
+const LOCK=()=>!!(BAGX.on||DRK.open||LTP.open||MIC.on||ipOn||FL.open||CW.open||TRP.open||FR.open||(focused&&focused.id.startsWith('trophy'))||(focused&&(focused.id.startsWith('noteP')||focused.id.startsWith('cert'))));
 let _lk=false;
-function lockStep(){const k=LOCK();if(k===_lk)return;_lk=k;if(SOFT())return;hintEl.textContent=k?'点击空白处返回':hintTxt}
+function lockStep(){const k=LOCK();if(k===_lk)return;_lk=k;if(SOFT())return;hintEl.textContent=k?(BAGX.on?'点一下包，拉开拉链 · 点击空白处放回去':'点击空白处返回'):hintTxt}
 
 /* ========= 荣誉证书圆轮：点击杂物柜第二层那叠红色证书 → 镜头推近 → 背景虚化变白 → 证书从四周飞到中间，展开成一个圆轮（和耳机的歌曲圆轮一样的手感）；
    左右拖动 / 滚轮 / 方向键转动，点侧边的一张把它转到正中，点正中的一张放大看清；点空白处或按 Esc 返回 ========= */
@@ -3418,7 +3686,7 @@ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;const k=1-Mat
    const tp=cam.position.clone().addScaledVector(fwd,D).addScaledVector(up,Math.sin(now/700)*.006*e);
    g.position.copy(PAD.p0).lerp(tp,e);g.quaternion.copy(PAD.q0).slerp(cam.quaternion.clone().multiply(Q90),e);g.scale.setScalar(PAD.k0+(k-PAD.k0)*e)}
   else{g.position.copy(PAD.p0);g.quaternion.copy(PAD.q0)}}
- perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();dollStep(now);R.render(scene,cam);if(!loop.ok){loop.ok=1;if(typeof PL!=='undefined')PL.sceneReady();else{const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}}requestAnimationFrame(loop)}
+ perfStep(dt,now);micStep();noteStep(now);makerStep(now);drinkStep();laptopStep();lockStep();frameStep();bagStep();dollStep(now);R.render(scene,cam);if(!loop.ok){loop.ok=1;if(typeof PL!=='undefined')PL.sceneReady();else{const b=document.getElementById('boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),600)}}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 </script>
 </body>
